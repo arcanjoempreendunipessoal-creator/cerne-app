@@ -168,16 +168,25 @@
   .looks-legend .olive-dot{color:var(--olive);}
   .looks-legend .accent-dot{color:var(--accent-text);}
   .look-cta{display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--accent-text); cursor:pointer;}
-  .photo-look-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;}
+  .photo-look-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:26px;}
   .photo-look-square{aspect-ratio:1; border-radius:var(--radius-lg); overflow:hidden; display:flex; cursor:pointer; border:1px solid var(--line); position:relative;}
   .photo-look-square img{width:50%; height:100%; object-fit:cover; display:block;}
   .photo-look-label{position:absolute; left:0; right:0; bottom:0; padding:8px 10px; background:linear-gradient(transparent, rgba(0,0,0,0.75)); color:#fff; font-size:11.5px; font-weight:500;}
   .look-modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; align-items:flex-end; justify-content:center; z-index:50;}
   .look-modal-backdrop.open{display:flex;}
   .look-modal{background:var(--bg); width:100%; max-width:400px; max-height:88vh; overflow-y:auto; border-radius:20px 20px 0 0; padding:18px;}
+  .look-modal-header{display:flex; justify-content:flex-end; margin-bottom:16px;}
   .look-modal-imgs{display:flex; gap:8px; margin-bottom:14px;}
-  .look-modal-imgs img{width:50%; border-radius:var(--radius);object-fit:cover;}
-  .look-modal-close{width:32px; height:32px; border-radius:50%; background:var(--card); border:1px solid var(--line); color:var(--text-soft); display:flex; align-items:center; justify-content:center; float:right; cursor:pointer;}
+  .look-modal-imgs img{width:50%; border-radius:var(--radius); object-fit:cover; cursor:pointer;}
+  .look-modal-close{width:34px; height:34px; border-radius:50%; background:var(--card); border:1px solid var(--line); color:var(--text-soft); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;}
+  .look-modal-close i{font-size:16px;}
+  .look-modal-hint{font-size:11.5px; color:var(--text-mute); margin-bottom:10px; display:flex; align-items:center; gap:5px;}
+  .look-modal-hint i{font-size:13px; color:var(--accent-text);}
+  .image-lightbox{position:fixed; inset:0; background:rgba(0,0,0,0.94); display:none; align-items:center; justify-content:center; z-index:60; padding:24px;}
+  .image-lightbox.open{display:flex;}
+  .image-lightbox img{max-width:100%; max-height:88vh; border-radius:8px; object-fit:contain;}
+  .image-lightbox-close{position:fixed; top:20px; right:20px; width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer; z-index:61;}
+  .image-lightbox-close i{font-size:18px;}
 
   /* ---- Library ---- */
   .module-card{
@@ -380,6 +389,7 @@
         <div class="occ-tab" data-v="formalnoite">Formal para noite</div>
         <div class="occ-tab" data-v="treino">Treino</div>
       </div>
+      <div id="home-photo-grid"></div>
       <div id="looks-list"></div>
       <div class="looks-legend">
         <span class="accent-dot"><i class="ti ti-shopping-bag"></i> Toque numa peça pra adicionar à lista</span>
@@ -551,14 +561,21 @@
 
   <div class="look-modal-backdrop" id="look-modal-backdrop">
     <div class="look-modal">
-      <div class="look-modal-close" id="look-modal-close"><i class="ti ti-x"></i></div>
-      <div style="clear:both;"></div>
+      <div class="look-modal-header">
+        <div class="look-modal-close" id="look-modal-close"><i class="ti ti-x"></i></div>
+      </div>
       <div class="look-modal-imgs" id="look-modal-imgs"></div>
       <div class="look-occasion" id="look-modal-occasion" style="margin-bottom:8px; display:inline-block;"></div>
       <p class="look-title" id="look-modal-title" style="font-size:19px; margin-bottom:8px;"></p>
-      <p style="font-size:13px; color:var(--text-soft); line-height:1.6; margin-bottom:14px;" id="look-modal-desc"></p>
+      <p style="font-size:13px; color:var(--text-soft); line-height:1.6; margin-bottom:10px;" id="look-modal-desc"></p>
+      <p class="look-modal-hint"><i class="ti ti-hand-click"></i>Toque nas peças que você quer — elas vão direto pra sua lista de compras</p>
       <div class="look-pieces" id="look-modal-pieces"></div>
     </div>
+  </div>
+
+  <div class="image-lightbox" id="image-lightbox">
+    <div class="image-lightbox-close" id="image-lightbox-close"><i class="ti ti-x"></i></div>
+    <img id="image-lightbox-img" src="" alt="Foto ampliada do look">
   </div>
 </div>
 
@@ -1133,9 +1150,28 @@ document.getElementById('edit-profile-btn').addEventListener('click', () => {
 });
 
 // ---------- home: looks ----------
+function renderPhotoLookGrid(containerId, photoLooks){
+  const grid = document.getElementById(containerId);
+  if (!grid) return;
+  grid.innerHTML = '';
+  photoLooks.forEach(look => {
+    const sq = document.createElement('div');
+    sq.className = 'photo-look-square';
+    sq.innerHTML = `
+      <img src="${look.composicaoImg}" alt="Peças do look ${escapeHtml(look.title)}">
+      <img src="${look.pessoaImg}" alt="Look ${escapeHtml(look.title)} montado">
+      <div class="photo-look-label">${escapeHtml(look.title)}</div>
+    `;
+    sq.addEventListener('click', () => openLookModal(look));
+    grid.appendChild(sq);
+  });
+}
+
 function renderLooks(occ){
   const list = document.getElementById('looks-list');
   list.innerHTML = '';
+  const photoLooks = (PHOTO_LOOKS[chosenStyle] && PHOTO_LOOKS[chosenStyle][occ]) || [];
+  renderPhotoLookGrid('home-photo-grid', photoLooks);
   LOOKS[occ].forEach((look, i) => {
     const div = document.createElement('div');
     div.className = 'look-card';
@@ -1255,7 +1291,6 @@ document.getElementById('ai-submit').addEventListener('click', async () => {
 function renderVitrine(occFilter){
   occFilter = occFilter || 'todas';
   const list = document.getElementById('vitrine-list');
-  const photoGrid = document.getElementById('vitrine-photo-grid');
   const tagEl = document.getElementById('vitrine-style-tag');
   if (!list) return;
   tagEl.textContent = chosenStyle || 'seu estilo';
@@ -1266,18 +1301,7 @@ function renderVitrine(occFilter){
     const byOcc = PHOTO_LOOKS[chosenStyle] || {};
     photoLooks = Object.values(byOcc).flat();
   }
-  photoGrid.innerHTML = '';
-  photoLooks.forEach((look, i) => {
-    const sq = document.createElement('div');
-    sq.className = 'photo-look-square';
-    sq.innerHTML = `
-      <img src="${look.composicaoImg}" alt="Peças do look ${escapeHtml(look.title)}">
-      <img src="${look.pessoaImg}" alt="Look ${escapeHtml(look.title)} montado">
-      <div class="photo-look-label">${escapeHtml(look.title)}</div>
-    `;
-    sq.addEventListener('click', () => openLookModal(look));
-    photoGrid.appendChild(sq);
-  });
+  renderPhotoLookGrid('vitrine-photo-grid', photoLooks);
 
   let looks = LOOKS_BY_STYLE[chosenStyle] || [];
   if (occFilter !== 'todas') looks = looks.filter(l => l.ocasiao === occFilter);
@@ -1312,9 +1336,12 @@ document.querySelectorAll('#vitrine-occ-tabs .occ-tab').forEach(tab => {
 // ---------- modal de detalhes do look com foto ----------
 function openLookModal(look){
   document.getElementById('look-modal-imgs').innerHTML = `
-    <img src="${look.composicaoImg}" alt="Peças do look ${escapeHtml(look.title)}">
-    <img src="${look.pessoaImg}" alt="Look ${escapeHtml(look.title)} montado">
+    <img src="${look.composicaoImg}" alt="Peças do look ${escapeHtml(look.title)}" data-full="${look.composicaoImg}">
+    <img src="${look.pessoaImg}" alt="Look ${escapeHtml(look.title)} montado" data-full="${look.pessoaImg}">
   `;
+  document.getElementById('look-modal-imgs').querySelectorAll('img').forEach(img => {
+    img.addEventListener('click', () => openLightbox(img.dataset.full, img.alt));
+  });
   document.getElementById('look-modal-occasion').textContent = OCCASIONS[look.ocasiao] || '';
   document.getElementById('look-modal-title').textContent = look.title;
   document.getElementById('look-modal-desc').textContent = look.description || '';
@@ -1327,6 +1354,21 @@ function closeLookModal(){
 document.getElementById('look-modal-close').addEventListener('click', closeLookModal);
 document.getElementById('look-modal-backdrop').addEventListener('click', (e) => {
   if (e.target.id === 'look-modal-backdrop') closeLookModal();
+});
+
+// ---------- lightbox (imagem em tela cheia) ----------
+function openLightbox(src, alt){
+  const img = document.getElementById('image-lightbox-img');
+  img.src = src;
+  img.alt = alt || '';
+  document.getElementById('image-lightbox').classList.add('open');
+}
+function closeLightbox(){
+  document.getElementById('image-lightbox').classList.remove('open');
+}
+document.getElementById('image-lightbox-close').addEventListener('click', closeLightbox);
+document.getElementById('image-lightbox').addEventListener('click', (e) => {
+  if (e.target.id === 'image-lightbox') closeLightbox();
 });
 
 // ---------- comunidade ----------
