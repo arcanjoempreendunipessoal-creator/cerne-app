@@ -168,6 +168,16 @@
   .looks-legend .olive-dot{color:var(--olive);}
   .looks-legend .accent-dot{color:var(--accent-text);}
   .look-cta{display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--accent-text); cursor:pointer;}
+  .photo-look-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;}
+  .photo-look-square{aspect-ratio:1; border-radius:var(--radius-lg); overflow:hidden; display:flex; cursor:pointer; border:1px solid var(--line); position:relative;}
+  .photo-look-square img{width:50%; height:100%; object-fit:cover; display:block;}
+  .photo-look-label{position:absolute; left:0; right:0; bottom:0; padding:8px 10px; background:linear-gradient(transparent, rgba(0,0,0,0.75)); color:#fff; font-size:11.5px; font-weight:500;}
+  .look-modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; align-items:flex-end; justify-content:center; z-index:50;}
+  .look-modal-backdrop.open{display:flex;}
+  .look-modal{background:var(--bg); width:100%; max-width:400px; max-height:88vh; overflow-y:auto; border-radius:20px 20px 0 0; padding:18px;}
+  .look-modal-imgs{display:flex; gap:8px; margin-bottom:14px;}
+  .look-modal-imgs img{width:50%; border-radius:var(--radius);object-fit:cover;}
+  .look-modal-close{width:32px; height:32px; border-radius:50%; background:var(--card); border:1px solid var(--line); color:var(--text-soft); display:flex; align-items:center; justify-content:center; float:right; cursor:pointer;}
 
   /* ---- Library ---- */
   .module-card{
@@ -399,6 +409,7 @@
         <div class="occ-tab" data-v="formalnoite">Formal para noite</div>
         <div class="occ-tab" data-v="treino">Treino</div>
       </div>
+      <div id="vitrine-photo-grid"></div>
       <div id="vitrine-list"></div>
       <div class="looks-legend">
         <span class="accent-dot"><i class="ti ti-shopping-bag"></i> Toque numa peça pra adicionar à lista</span>
@@ -537,6 +548,18 @@
     <div class="nav-item" data-screen="lista"><span class="nav-icon"><i class="ti ti-list-check"></i></span><span class="nav-label">Lista</span></div>
     <div class="nav-item" data-screen="profile"><span class="nav-icon"><i class="ti ti-user-circle"></i></span><span class="nav-label">Perfil</span></div>
   </div>
+
+  <div class="look-modal-backdrop" id="look-modal-backdrop">
+    <div class="look-modal">
+      <div class="look-modal-close" id="look-modal-close"><i class="ti ti-x"></i></div>
+      <div style="clear:both;"></div>
+      <div class="look-modal-imgs" id="look-modal-imgs"></div>
+      <div class="look-occasion" id="look-modal-occasion" style="margin-bottom:8px; display:inline-block;"></div>
+      <p class="look-title" id="look-modal-title" style="font-size:19px; margin-bottom:8px;"></p>
+      <p style="font-size:13px; color:var(--text-soft); line-height:1.6; margin-bottom:14px;" id="look-modal-desc"></p>
+      <div class="look-pieces" id="look-modal-pieces"></div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -592,6 +615,22 @@ const LOOKS = {
   treino: [
     { title: 'Treino na academia', pieces: ['Camiseta', 'Bermuda ou jeans', 'Tênis'] }
   ]
+};
+
+// ---------- looks com fotos reais (organizados por estilo > ocasião) ----------
+const PHOTO_LOOKS = {
+  'Autêntico': {
+    diaadia: [
+      {
+        title: 'Traço Bordô',
+        ocasiao: 'diaadia',
+        composicaoImg: 'images/autentico-diaadia-001-composicao.jpg',
+        pessoaImg: 'images/autentico-diaadia-001-pessoa.jpg',
+        description: 'Camiseta listrada fina em uma das cores da paleta bordô, bege e marrom; jeans reto de lavagem média coordenada; jaqueta jeans clara; sneaker bege retrô; relógio metálico, óculos tartaruga e anel discreto. Ponto criativo: contraste inesperado de cor.',
+        pieces: ['Camiseta listrada bordô', 'Jeans reto', 'Jaqueta jeans clara', 'Sneaker bege retrô', 'Relógio metálico']
+      }
+    ]
+  }
 };
 
 const LOOKS_BY_STYLE = {
@@ -1216,13 +1255,34 @@ document.getElementById('ai-submit').addEventListener('click', async () => {
 function renderVitrine(occFilter){
   occFilter = occFilter || 'todas';
   const list = document.getElementById('vitrine-list');
+  const photoGrid = document.getElementById('vitrine-photo-grid');
   const tagEl = document.getElementById('vitrine-style-tag');
   if (!list) return;
   tagEl.textContent = chosenStyle || 'seu estilo';
+
+  // looks com fotos reais
+  let photoLooks = (PHOTO_LOOKS[chosenStyle] && PHOTO_LOOKS[chosenStyle][occFilter]) || [];
+  if (occFilter === 'todas'){
+    const byOcc = PHOTO_LOOKS[chosenStyle] || {};
+    photoLooks = Object.values(byOcc).flat();
+  }
+  photoGrid.innerHTML = '';
+  photoLooks.forEach((look, i) => {
+    const sq = document.createElement('div');
+    sq.className = 'photo-look-square';
+    sq.innerHTML = `
+      <img src="${look.composicaoImg}" alt="Peças do look ${escapeHtml(look.title)}">
+      <img src="${look.pessoaImg}" alt="Look ${escapeHtml(look.title)} montado">
+      <div class="photo-look-label">${escapeHtml(look.title)}</div>
+    `;
+    sq.addEventListener('click', () => openLookModal(look));
+    photoGrid.appendChild(sq);
+  });
+
   let looks = LOOKS_BY_STYLE[chosenStyle] || [];
   if (occFilter !== 'todas') looks = looks.filter(l => l.ocasiao === occFilter);
   list.innerHTML = '';
-  if (!looks.length){
+  if (!looks.length && !photoLooks.length){
     list.innerHTML = `<p style="font-size:13px; color:var(--text-mute); padding:18px 0;">Ainda não temos uma ideia específica pra "${escapeHtml(OCCASIONS[occFilter] || occFilter)}" nesse estilo. Tenta outra ocasião ou dá uma olhada em "Todas".</p>`;
     return;
   }
@@ -1247,6 +1307,26 @@ document.querySelectorAll('#vitrine-occ-tabs .occ-tab').forEach(tab => {
     tab.classList.add('active');
     renderVitrine(tab.dataset.v);
   });
+});
+
+// ---------- modal de detalhes do look com foto ----------
+function openLookModal(look){
+  document.getElementById('look-modal-imgs').innerHTML = `
+    <img src="${look.composicaoImg}" alt="Peças do look ${escapeHtml(look.title)}">
+    <img src="${look.pessoaImg}" alt="Look ${escapeHtml(look.title)} montado">
+  `;
+  document.getElementById('look-modal-occasion').textContent = OCCASIONS[look.ocasiao] || '';
+  document.getElementById('look-modal-title').textContent = look.title;
+  document.getElementById('look-modal-desc').textContent = look.description || '';
+  document.getElementById('look-modal-pieces').innerHTML = (look.pieces || []).map(p => pieceTagHtml(p)).join('');
+  document.getElementById('look-modal-backdrop').classList.add('open');
+}
+function closeLookModal(){
+  document.getElementById('look-modal-backdrop').classList.remove('open');
+}
+document.getElementById('look-modal-close').addEventListener('click', closeLookModal);
+document.getElementById('look-modal-backdrop').addEventListener('click', (e) => {
+  if (e.target.id === 'look-modal-backdrop') closeLookModal();
 });
 
 // ---------- comunidade ----------
