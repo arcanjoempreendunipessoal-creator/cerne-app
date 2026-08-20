@@ -131,7 +131,8 @@
   .avatar-mini{width:100%; height:100%;}
 
   /* ---- Etapas com botão fixo embaixo (evita vazio quando o conteúdo é curto) ---- */
-  .screen-sticky-btn{display:flex; flex-direction:column; min-height:100vh;}
+  .screen.screen-sticky-btn{display:none; flex-direction:column; min-height:100vh;}
+  .screen.screen-sticky-btn.active{display:flex;}
   .ob-wrap-scroll{flex:1; padding-bottom:24px;}
   .screen-sticky-btn-wrap{position:sticky; bottom:0; background:linear-gradient(transparent, var(--bg) 30%); padding:18px 24px 22px; margin-top:auto;}
   .screen-sticky-btn-wrap .primary-btn{margin-top:0;}
@@ -191,6 +192,20 @@
   .occasion-tabs{display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:16px;}
   .occ-tab{flex-shrink:0; padding:8px 14px; border-radius:20px; border:1px solid var(--line); background:var(--card); font-size:12.5px; color:var(--text-soft); cursor:pointer; white-space:nowrap;}
   .occ-tab.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .looks-subtabs{display:flex; gap:8px; margin-bottom:20px; border-bottom:1px solid var(--line);}
+  .looks-subtab{padding:10px 4px; font-size:13px; color:var(--text-mute); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px;}
+  .looks-subtab.active{color:var(--accent-text); border-bottom-color:var(--accent); font-weight:600;}
+
+  .profile-name-row{display:flex; align-items:center; gap:12px; margin-bottom:18px;}
+  .profile-name-edit-wrap{display:flex; align-items:center; gap:8px; flex:1; position:relative;}
+  .profile-name-display{font-family:var(--serif); font-size:19px; font-weight:500;}
+  .profile-name-edit-icon{font-size:15px; color:var(--text-mute); cursor:pointer;}
+  .profile-name-edit-form{display:flex; gap:6px; position:absolute; left:0; top:0; background:var(--bg); align-items:center;}
+  .profile-name-edit-form input{background:var(--card); border:1px solid var(--accent); border-radius:var(--radius); color:var(--text); font-family:var(--sans); font-size:14px; padding:7px 10px; width:140px;}
+  .profile-name-edit-form button{background:var(--accent); color:#fff; border:none; border-radius:var(--radius); padding:7px 12px; font-size:12px; font-weight:600; cursor:pointer;}
+  .text-input-field{width:100%; background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); color:var(--text); font-family:var(--sans); font-size:16px; padding:15px 16px; outline:none;}
+  .text-input-field:focus{border-color:var(--accent);}
 
   .look-card{
     border:1px dashed var(--line); border-radius:var(--radius-lg); padding:16px; margin-bottom:12px;
@@ -288,10 +303,25 @@
 <div class="phone" id="app">
 
   <!-- ONBOARDING: STYLE -->
-  <div class="screen active" id="ob-style">
+  <!-- ONBOARDING: NOME (só na primeira visita) -->
+  <div class="screen active screen-sticky-btn" id="ob-name">
+    <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
+    <div class="ob-wrap ob-wrap-scroll">
+      <p class="ob-eyebrow">Bem-vindo à Cerne</p>
+      <h1 class="ob-title">Como podemos te chamar?</h1>
+      <p class="ob-sub">Só isso por enquanto — o resto a gente descobre juntos nos próximos passos.</p>
+      <input type="text" id="input-name" placeholder="Seu nome" class="text-input-field">
+      <p class="err-text" id="name-err" style="display:none;">Digite seu nome antes de continuar</p>
+    </div>
+    <div class="screen-sticky-btn-wrap">
+      <button class="primary-btn" id="to-style">Continuar</button>
+    </div>
+  </div>
+
+  <div class="screen screen-sticky-btn" id="ob-style">
     <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
     <div class="progress-dots"><div class="dot done"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-    <div class="ob-wrap">
+    <div class="ob-wrap ob-wrap-scroll">
       <p class="ob-eyebrow">Etapa 1 de 4</p>
       <h1 class="ob-title">Qual estilo te representa hoje?</h1>
       <p class="ob-sub">Isso molda todos os looks que vamos te mostrar daqui pra frente.</p>
@@ -346,6 +376,10 @@
           </div>
         </div>
       </div>
+      <p class="err-text" id="style-err" style="display:none;">Escolhe um estilo antes de continuar</p>
+    </div>
+    <div class="screen-sticky-btn-wrap">
+      <button class="primary-btn" id="to-body">Continuar</button>
     </div>
   </div>
 
@@ -413,8 +447,14 @@
       <h1 class="ob-title">Monte seu avatar</h1>
       <p class="ob-sub">Sua silhueta, pele, cabelo e rosto — do seu jeito.</p>
 
-      <div class="avatar-preview-wrap"><svg id="avatar-preview" viewBox="0 0 100 200"></svg></div>
+      <div class="avatar-preview-wrap" id="avatar-preview-wrap"><svg id="avatar-preview" viewBox="0 0 100 200"></svg></div>
       <div class="sim-note"><i class="ti ti-info-circle"></i><p>Sua silhueta é uma aproximação visual, baseada no que você informou — não uma medida exata.</p></div>
+
+      <input type="file" id="user-photo-input" accept="image/*" style="display:none;">
+      <button type="button" class="upload-btn" id="user-photo-trigger"><i class="ti ti-camera-plus"></i> Usar uma foto sua em vez do desenho</button>
+      <p id="user-photo-remove-wrap" style="display:none; font-size:11px; color:var(--text-mute); margin-top:6px;">
+        <a href="#" id="user-photo-remove" style="color:var(--accent-text);">Remover foto e voltar ao desenho</a>
+      </p>
 
       <p style="font-size:13px; color:var(--text-soft); margin:18px 0 8px;">Tom de pele</p>
       <div class="swatch-row" id="skin-row"></div>
@@ -565,41 +605,78 @@
       <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
     </div>
     <div class="content">
-      <p class="section-label">Vitrine — <span id="vitrine-style-tag">seu estilo</span></p>
-      <p style="font-size:13px; color:var(--text-soft); margin:-6px 0 16px;">As melhores ideias de look pro seu estilo.</p>
-
-      <div class="vitrine-tip">
-        <div class="vitrine-tip-avatar">C</div>
-        <div class="vitrine-tip-bubble"><p><b>Psiu:</b> não precisa seguir o look à risca. A gente te dá a base, você tempera com a sua cara — troca uma peça, ajusta uma cor, faz do seu jeito.</p></div>
-      </div>
-      <div class="vitrine-tip" style="margin-bottom:18px;">
-        <div class="vitrine-tip-avatar">C</div>
-        <div class="vitrine-tip-bubble"><p><b>Outra coisa:</b> seu estilo não é definitivo. Muda quando quiser lá no seu perfil, e essa vitrine se refaz na hora com ideias mais parecidas com você.</p></div>
+      <div class="looks-subtabs" id="looks-subtabs">
+        <div class="looks-subtab active" data-panel="looks">Looks</div>
+        <div class="looks-subtab" data-panel="biblioteca">Biblioteca</div>
+        <div class="looks-subtab" data-panel="comunidade">Comunidade</div>
       </div>
 
-      <div class="occasion-tabs" id="vitrine-occ-tabs">
-        <div class="occ-tab active" data-v="todas">Todas</div>
-        <div class="occ-tab" data-v="trabalho">Trabalho</div>
-        <div class="occ-tab" data-v="encontro">Encontro</div>
-        <div class="occ-tab" data-v="evento">Evento</div>
-        <div class="occ-tab" data-v="diaadia">Dia a dia</div>
-        <div class="occ-tab" data-v="verao">Verão</div>
-        <div class="occ-tab" data-v="networking">Networking</div>
-        <div class="occ-tab" data-v="noite">Noite</div>
-        <div class="occ-tab" data-v="inverno">Inverno</div>
-        <div class="occ-tab" data-v="formaldia">Formal para dia</div>
-        <div class="occ-tab" data-v="formalnoite">Formal para noite</div>
-        <div class="occ-tab" data-v="treino">Treino</div>
+      <div id="looks-panel-looks">
+        <p class="section-label">Vitrine — <span id="vitrine-style-tag">seu estilo</span></p>
+        <p style="font-size:13px; color:var(--text-soft); margin:-6px 0 16px;">As melhores ideias de look pro seu estilo.</p>
+
+        <div class="vitrine-tip">
+          <div class="vitrine-tip-avatar">C</div>
+          <div class="vitrine-tip-bubble"><p><b>Psiu:</b> não precisa seguir o look à risca. A gente te dá a base, você tempera com a sua cara — troca uma peça, ajusta uma cor, faz do seu jeito.</p></div>
+        </div>
+        <div class="vitrine-tip" style="margin-bottom:18px;">
+          <div class="vitrine-tip-avatar">C</div>
+          <div class="vitrine-tip-bubble"><p><b>Outra coisa:</b> seu estilo não é definitivo. Muda quando quiser lá no seu perfil, e essa vitrine se refaz na hora com ideias mais parecidas com você.</p></div>
+        </div>
+
+        <div class="occasion-tabs" id="vitrine-occ-tabs">
+          <div class="occ-tab active" data-v="todas">Todas</div>
+          <div class="occ-tab" data-v="trabalho">Trabalho</div>
+          <div class="occ-tab" data-v="encontro">Encontro</div>
+          <div class="occ-tab" data-v="evento">Evento</div>
+          <div class="occ-tab" data-v="diaadia">Dia a dia</div>
+          <div class="occ-tab" data-v="verao">Verão</div>
+          <div class="occ-tab" data-v="networking">Networking</div>
+          <div class="occ-tab" data-v="noite">Noite</div>
+          <div class="occ-tab" data-v="inverno">Inverno</div>
+          <div class="occ-tab" data-v="formaldia">Formal para dia</div>
+          <div class="occ-tab" data-v="formalnoite">Formal para noite</div>
+          <div class="occ-tab" data-v="treino">Treino</div>
+        </div>
+        <div id="vitrine-photo-grid"></div>
+        <div id="vitrine-list"></div>
+        <div class="looks-legend">
+          <span class="accent-dot"><i class="ti ti-shopping-bag"></i> Toque numa peça pra adicionar à lista</span>
+        </div>
       </div>
-      <div id="vitrine-photo-grid"></div>
-      <div id="vitrine-list"></div>
-      <div class="looks-legend">
-        <span class="accent-dot"><i class="ti ti-shopping-bag"></i> Toque numa peça pra adicionar à lista</span>
+
+      <div id="looks-panel-biblioteca" style="display:none;">
+        <p class="section-label">Guia Cerne</p>
+        <div id="modules-list"></div>
+      </div>
+
+      <div id="looks-panel-comunidade" style="display:none;">
+        <p class="section-label">Comunidade</p>
+        <p style="font-size:13px; color:var(--text-soft); margin:-6px 0 16px;">Veja o que a comunidade está montando e envie o seu look pra aparecer aqui.</p>
+
+        <div class="compose-card">
+          <input type="file" id="post-photo-input" accept="image/*" style="display:none;">
+          <button type="button" class="upload-btn" id="post-photo-trigger"><i class="ti ti-camera-plus"></i> Escolher foto do look</button>
+          <div class="upload-preview" id="post-photo-preview" style="display:none;"><img id="post-photo-img" alt="Prévia da foto enviada"></div>
+
+          <textarea class="ai-textarea" id="post-caption" placeholder="Conte sobre esse look..." style="min-height:60px; margin-top:12px;"></textarea>
+          <div class="compose-controls">
+            <select class="post-occasion-select" id="post-occasion"></select>
+            <button class="primary-btn" id="post-submit" style="margin-top:0; flex:1;">Enviar pra análise</button>
+          </div>
+          <p class="err-text" id="post-err" style="display:none;">Escolha uma foto e escreva algo antes de enviar</p>
+          <div class="ai-loading" id="post-sent-msg" style="display:none;"><i class="ti ti-clock-hour-4"></i>Enviado! Nossa equipe revisa antes de aparecer na comunidade.</div>
+        </div>
+
+        <div id="my-submissions"></div>
+
+        <p class="section-label">Comunidade</p>
+        <div id="community-feed"></div>
       </div>
     </div>
   </div>
 
-  <!-- CONSULTOR (AI) -->
+  <!-- CERNE IA (antigo Consultor) -->
   <div class="screen" id="consultor">
     <div class="topbar">
       <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
@@ -612,7 +689,7 @@
         <button class="primary-btn" id="consultor-locked-back" style="background:var(--card); border:1px solid var(--line); color:var(--text-soft);">Voltar</button>
       </div>
       <div id="consultor-content">
-        <p class="section-label">Consultor de estilo</p>
+        <p class="section-label">Cerne IA</p>
         <p style="font-size:13px; color:var(--text-soft); margin:-6px 0 6px;">Descreva o que você quer expressar. A IA recomenda o estilo e os looks certos pra isso.</p>
         <p style="font-size:11.5px; color:var(--text-mute); margin-bottom:16px; font-family:var(--mono);" id="ai-usage-counter"></p>
         <textarea class="ai-textarea" id="ai-input" placeholder="Ex: quero parecer mais confiante numa entrevista de emprego"></textarea>
@@ -624,56 +701,17 @@
     </div>
   </div>
 
-  <!-- COMUNIDADE -->
-  <div class="screen" id="comunidade">
+  <!-- CALENDÁRIO (em branco por hora) -->
+  <div class="screen" id="calendario">
     <div class="topbar">
       <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
     </div>
     <div class="content">
-      <p class="section-label">Comunidade</p>
-      <p style="font-size:13px; color:var(--text-soft); margin:-6px 0 16px;">Veja o que a comunidade está montando e envie o seu look pra aparecer aqui.</p>
-
-      <div class="compose-card">
-        <input type="file" id="post-photo-input" accept="image/*" style="display:none;">
-        <button type="button" class="upload-btn" id="post-photo-trigger"><i class="ti ti-camera-plus"></i> Escolher foto do look</button>
-        <div class="upload-preview" id="post-photo-preview" style="display:none;"><img id="post-photo-img" alt="Prévia da foto enviada"></div>
-
-        <textarea class="ai-textarea" id="post-caption" placeholder="Conte sobre esse look..." style="min-height:60px; margin-top:12px;"></textarea>
-        <div class="compose-controls">
-          <select class="post-occasion-select" id="post-occasion"></select>
-          <button class="primary-btn" id="post-submit" style="margin-top:0; flex:1;">Enviar pra análise</button>
-        </div>
-        <p class="err-text" id="post-err" style="display:none;">Escolha uma foto e escreva algo antes de enviar</p>
-        <div class="ai-loading" id="post-sent-msg" style="display:none;"><i class="ti ti-clock-hour-4"></i>Enviado! Nossa equipe revisa antes de aparecer na comunidade.</div>
+      <p class="section-label">Calendário Cerne</p>
+      <div style="text-align:center; padding:60px 20px; color:var(--text-mute);">
+        <i class="ti ti-calendar-event" style="font-size:40px;"></i>
+        <p style="font-size:13px; margin-top:14px; line-height:1.6;">Looks pra datas e ocasiões especiais chegam em breve por aqui.</p>
       </div>
-
-      <div id="my-submissions"></div>
-
-      <p class="section-label">Comunidade</p>
-      <div id="community-feed"></div>
-    </div>
-  </div>
-
-  <!-- LIBRARY -->
-  <div class="screen" id="library">
-    <div class="topbar">
-      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
-    </div>
-    <div class="content">
-      <p class="section-label">Guia Cerne</p>
-      <div id="modules-list"></div>
-    </div>
-  </div>
-
-  <!-- LISTA DE COMPRAS -->
-  <div class="screen" id="lista">
-    <div class="topbar">
-      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
-    </div>
-    <div class="content">
-      <p class="section-label">Lista de compras</p>
-      <p style="font-size:13px; color:var(--text-soft); margin-bottom:18px; margin-top:-6px;">Peças que você marcou como "quero essa" na Vitrine, na Home ou no Consultor.</p>
-      <div id="shopping-list"></div>
     </div>
   </div>
 
@@ -683,6 +721,18 @@
       <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
     </div>
     <div class="content">
+      <div class="profile-name-row">
+        <div class="avatar-ring" id="avatar-mini-profile"></div>
+        <div class="profile-name-edit-wrap">
+          <span class="profile-name-display" id="profile-name-display">Olá!</span>
+          <i class="ti ti-pencil profile-name-edit-icon" id="profile-name-edit-icon"></i>
+          <div class="profile-name-edit-form" id="profile-name-edit-form" style="display:none;">
+            <input type="text" id="profile-name-input" placeholder="Seu nome">
+            <button id="profile-name-save">Salvar</button>
+          </div>
+        </div>
+      </div>
+
       <div class="style-photo-card">
         <img src="" id="profile-style-photo" alt="Foto do seu estilo" class="style-photo-card-img">
         <div class="style-photo-card-info">
@@ -696,7 +746,7 @@
       <div class="palette-card">
         <p class="palette-eyebrow">Seu acesso</p>
         <p class="palette-name">Acesso vitalício</p>
-        <p class="palette-desc">Pagamento único, sem mensalidade. O Consultor de IA tem um limite de consultas por mês — veja quanto resta na aba Consultor.</p>
+        <p class="palette-desc">Pagamento único, sem mensalidade. A Cerne IA tem um limite de consultas por mês — veja quanto resta na aba Cerne IA.</p>
       </div>
 
       <div class="palette-card">
@@ -705,6 +755,10 @@
         <p class="palette-desc" id="profile-palette-desc"></p>
         <div class="palette-swatches" id="profile-palette-swatches"></div>
       </div>
+
+      <p class="section-label">Sua lista de compras</p>
+      <p style="font-size:12.5px; color:var(--text-soft); margin:-6px 0 14px;">Peças que você marcou como "quero essa" nos looks.</p>
+      <div id="shopping-list"></div>
 
       <div class="level-card">
         <div class="level-num">2</div>
@@ -723,11 +777,9 @@
 
   <div class="navbar">
     <div class="nav-item active" data-screen="home"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5L12 4l8 7.5"/><path d="M6 10v9.5h5v-6h2v6h5V10"/></svg></span><span class="nav-label">Início</span></div>
-    <div class="nav-item" data-screen="vitrine"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span><span class="nav-label">Vitrine</span></div>
-    <div class="nav-item" data-screen="consultor"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="4"/><path d="M8 20l2.5-3"/><circle cx="8.5" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="15.5" cy="11" r="0.9" fill="currentColor" stroke="none"/></svg></span><span class="nav-label">Consultor</span></div>
-    <div class="nav-item" data-screen="comunidade"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="3"/><circle cx="16" cy="9.5" r="2.5"/><path d="M3 20c0-3.3 2.5-5.5 5.5-5.5S14 16.7 14 20"/><path d="M14.5 15c2.4.2 4 2 4 5"/></svg></span><span class="nav-label">Comunidade</span></div>
-    <div class="nav-item" data-screen="library"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5c-2-1.3-4.7-1.5-7.5-.8v12c2.8-.7 5.5-.5 7.5.8"/><path d="M12 6.5c2-1.3 4.7-1.5 7.5-.8v12c-2.8-.7-5.5-.5-7.5.8z"/></svg></span><span class="nav-label">Biblioteca</span></div>
-    <div class="nav-item" data-screen="lista"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="4" height="4" rx="1"/><path d="M4.8 7l0.8 0.8L7 6.2"/><line x1="11" y1="7" x2="20" y2="7"/><rect x="4" y="14" width="4" height="4" rx="1"/><line x1="11" y1="16" x2="20" y2="16"/></svg></span><span class="nav-label">Lista</span></div>
+    <div class="nav-item" data-screen="vitrine"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span><span class="nav-label">Looks</span></div>
+    <div class="nav-item" data-screen="consultor"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="4"/><path d="M8 20l2.5-3"/><circle cx="8.5" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="15.5" cy="11" r="0.9" fill="currentColor" stroke="none"/></svg></span><span class="nav-label">Cerne IA</span></div>
+    <div class="nav-item" data-screen="calendario"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><line x1="4" y1="9" x2="20" y2="9"/><line x1="8" y1="3" x2="8" y2="6"/><line x1="16" y1="3" x2="16" y2="6"/></svg></span><span class="nav-label">Calendário</span></div>
     <div class="nav-item" data-screen="profile"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4.1 3.4-7 7.5-7s7.5 2.9 7.5 7"/></svg></span><span class="nav-label">Perfil</span></div>
   </div>
 
@@ -997,11 +1049,28 @@ document.querySelectorAll('.nav-item').forEach(item => {
     if (item.dataset.screen === 'vitrine') {
       document.querySelectorAll('#vitrine-occ-tabs .occ-tab').forEach(t => t.classList.toggle('active', t.dataset.v === 'todas'));
       renderVitrine('todas');
+      renderCommunityFeed();
+      renderMySubmissions();
     }
-    if (item.dataset.screen === 'comunidade') { renderCommunityFeed(); renderMySubmissions(); }
-    if (item.dataset.screen === 'lista') renderShoppingList();
-    if (item.dataset.screen === 'profile') renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches');
+    if (item.dataset.screen === 'profile') {
+      renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches');
+      renderShoppingList();
+    }
     if (item.dataset.screen === 'consultor') { showConsultorContent(); updateAiUsageCounter(); }
+  });
+});
+
+// ---------- sub-abas dentro de "Looks" (Looks / Biblioteca / Comunidade) ----------
+document.querySelectorAll('#looks-subtabs .looks-subtab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('#looks-subtabs .looks-subtab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const panel = tab.dataset.panel;
+    ['looks', 'biblioteca', 'comunidade'].forEach(p => {
+      document.getElementById('looks-panel-' + p).style.display = (p === panel) ? 'block' : 'none';
+    });
+    if (panel === 'biblioteca') renderModules();
+    if (panel === 'comunidade') { renderCommunityFeed(); renderMySubmissions(); }
   });
 });
 
@@ -1011,8 +1080,15 @@ document.querySelectorAll('#style-grid .style-row').forEach(card => {
     document.querySelectorAll('#style-grid .style-row').forEach(c => c.classList.remove('selected'));
     card.classList.add('selected');
     chosenStyle = card.dataset.v;
-    setTimeout(() => showScreen('ob-body'), 220);
+    document.getElementById('style-err').style.display = 'none';
   });
+});
+document.getElementById('to-body').addEventListener('click', () => {
+  if (!chosenStyle){
+    document.getElementById('style-err').style.display = 'block';
+    return;
+  }
+  showScreen('ob-body');
 });
 
 // ---------- onboarding: body profile ----------
@@ -1374,7 +1450,10 @@ function renderAvatarPreview(){
 }
 
 function renderMiniAvatars(){
-  const markup = `<svg class="avatar-mini" viewBox="0 0 100 200">${avatarBodySVG()}</svg>`;
+  const hasPhoto = typeof userPhotoDataUrl !== 'undefined' && userPhotoDataUrl;
+  const markup = hasPhoto
+    ? `<img src="${userPhotoDataUrl}" alt="Sua foto" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`
+    : `<svg class="avatar-mini" viewBox="0 0 100 200">${avatarBodySVG()}</svg>`;
   ['avatar-mini-home', 'avatar-mini-profile'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.innerHTML = markup;
@@ -1507,6 +1586,41 @@ function firstName(){
   }catch(e){}
   return '';
 }
+function saveName(name){
+  try{ localStorage.setItem('cerne_user_name', name); }catch(e){}
+}
+function refreshProfileNameDisplay(){
+  const name = firstName();
+  document.getElementById('profile-name-display').textContent = name ? `Olá, ${name}!` : 'Olá!';
+}
+
+// ---------- onboarding: nome (primeira visita) ----------
+document.getElementById('to-style').addEventListener('click', () => {
+  const name = document.getElementById('input-name').value.trim();
+  if (!name){
+    document.getElementById('name-err').style.display = 'block';
+    return;
+  }
+  document.getElementById('name-err').style.display = 'none';
+  saveName(name);
+  refreshProfileNameDisplay();
+  showScreen('ob-style');
+});
+
+// ---------- perfil: editar nome ----------
+document.getElementById('profile-name-edit-icon').addEventListener('click', () => {
+  document.getElementById('profile-name-input').value = firstName();
+  document.getElementById('profile-name-edit-form').style.display = 'flex';
+});
+document.getElementById('profile-name-save').addEventListener('click', () => {
+  const name = document.getElementById('profile-name-input').value.trim();
+  if (name){
+    saveName(name);
+    refreshProfileNameDisplay();
+  }
+  document.getElementById('profile-name-edit-form').style.display = 'none';
+});
+
 function populateResultScreen(){
   const name = firstName();
   document.getElementById('result-title').textContent = name ? `Seu perfil está pronto, ${name}.` : 'Seu perfil está pronto!';
@@ -1933,6 +2047,49 @@ document.getElementById('post-photo-input').addEventListener('change', (e) => {
   reader.readAsDataURL(file);
 });
 
+// ---------- foto própria no lugar do avatar desenhado ----------
+let userPhotoDataUrl = '';
+function loadUserPhoto(){
+  try{
+    const raw = localStorage.getItem('cerne_user_photo');
+    if (raw){ userPhotoDataUrl = raw; applyUserPhotoToPreview(); }
+  }catch(e){}
+}
+function applyUserPhotoToPreview(){
+  const wrap = document.getElementById('avatar-preview-wrap');
+  const removeWrap = document.getElementById('user-photo-remove-wrap');
+  if (userPhotoDataUrl){
+    wrap.innerHTML = `<img src="${userPhotoDataUrl}" alt="Sua foto" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-lg);">`;
+    removeWrap.style.display = 'block';
+  } else {
+    wrap.innerHTML = `<svg id="avatar-preview" viewBox="0 0 100 200"></svg>`;
+    removeWrap.style.display = 'none';
+    renderAvatarPreview();
+  }
+}
+document.getElementById('user-photo-trigger').addEventListener('click', () => {
+  document.getElementById('user-photo-input').click();
+});
+document.getElementById('user-photo-input').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    userPhotoDataUrl = ev.target.result;
+    try{ localStorage.setItem('cerne_user_photo', userPhotoDataUrl); }catch(err){}
+    applyUserPhotoToPreview();
+  };
+  reader.readAsDataURL(file);
+});
+document.getElementById('user-photo-remove').addEventListener('click', (e) => {
+  e.preventDefault();
+  userPhotoDataUrl = '';
+  try{ localStorage.removeItem('cerne_user_photo'); }catch(err){}
+  document.getElementById('user-photo-input').value = '';
+  applyUserPhotoToPreview();
+});
+loadUserPhoto();
+
 document.getElementById('post-submit').addEventListener('click', () => {
   const captionEl = document.getElementById('post-caption');
   const caption = captionEl.value.trim();
@@ -2017,6 +2174,7 @@ function renderShoppingList(){
 
 // ---------- bootstrap: restore saved profile or start onboarding ----------
 loadAiUsage();
+refreshProfileNameDisplay();
 if (loadProfile()){
   syncOnboardingSelections();
   renderAvatarPreview();
@@ -2031,7 +2189,11 @@ if (loadProfile()){
   renderLooks('trabalho');
   renderVitrine();
   showScreen('home');
+} else if (firstName()){
+  // já disse o nome antes, mas não terminou o onboarding — não perguntar de novo
+  showScreen('ob-style');
 }
+// se não tem nome nem perfil salvo, fica na tela "ob-name" (já ativa por padrão no HTML)
 updateAiUsageCounter();
 </script>
 </body>
