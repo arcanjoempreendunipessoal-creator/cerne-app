@@ -119,8 +119,9 @@
   .style-row-desc{display:inline-flex; align-items:flex-start; gap:5px; background:var(--accent-soft); border-radius:7px; padding:5px 9px; font-size:11px; color:var(--accent-text); line-height:1.4; font-weight:500;}
   .avatar-preview-wrap svg{width:132px; height:264px;}
   .swatch-row{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:4px;}
-  .swatch{width:34px; height:34px; border-radius:50%; border:2px solid var(--line); cursor:pointer;}
-  .swatch.selected{border-color:var(--accent);}
+  .swatch{width:34px; height:34px; border-radius:50%; border:2px solid var(--line); cursor:pointer; position:relative;}
+  .swatch.selected{border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft);}
+  .swatch.selected::after{content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; text-shadow:0 1px 2px rgba(0,0,0,0.6);}
   .palette-card{background:var(--accent-soft); border:1px solid var(--accent); border-radius:var(--radius-lg); padding:16px; margin-top:22px; margin-bottom:20px;}
   .palette-eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:1px; text-transform:uppercase; color:var(--accent-text); margin-bottom:4px;}
   .palette-name{font-family:var(--serif); font-size:19px; font-weight:500; margin-bottom:6px;}
@@ -128,6 +129,43 @@
   .palette-swatches{display:flex; gap:8px;}
   .palette-swatches span{width:28px; height:28px; border-radius:50%; border:1px solid var(--line);}
   .avatar-mini{width:100%; height:100%;}
+
+  /* ---- Etapas com botão fixo embaixo (evita vazio quando o conteúdo é curto) ---- */
+  .screen-sticky-btn{display:flex; flex-direction:column; min-height:100vh;}
+  .ob-wrap-scroll{flex:1; padding-bottom:24px;}
+  .screen-sticky-btn-wrap{position:sticky; bottom:0; background:linear-gradient(transparent, var(--bg) 30%); padding:18px 24px 22px; margin-top:auto;}
+  .screen-sticky-btn-wrap .primary-btn{margin-top:0;}
+
+  .optional-tag{font-family:var(--mono); font-size:9px; text-transform:uppercase; letter-spacing:0.3px; color:var(--text-mute); font-weight:400;}
+  .skip-checkbox{display:flex; align-items:center; gap:7px; font-size:12.5px; color:var(--text-soft); margin-top:10px; cursor:pointer;}
+  .skip-checkbox input{accent-color:var(--accent); width:15px; height:15px;}
+  .privacy-note{display:flex; gap:9px; align-items:flex-start; background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:12px 14px; margin-top:24px;}
+  .privacy-note i{color:var(--olive); font-size:16px; margin-top:1px; flex-shrink:0;}
+  .privacy-note p{font-size:11.5px; color:var(--text-mute); line-height:1.5;}
+
+  .face-shape-grid{display:flex; gap:8px; overflow-x:auto; padding-bottom:2px;}
+  .face-shape-item{flex-shrink:0; width:58px; text-align:center; cursor:pointer;}
+  .face-shape-item svg{width:44px; height:44px; margin-bottom:5px;}
+  .face-shape-item span{font-size:10px; color:var(--text-mute); display:block; line-height:1.2;}
+  .face-shape-item.selected span{color:var(--accent-text); font-weight:600;}
+  .face-shape-item .shape-circle{width:44px; height:44px; border-radius:50%; border:2px solid var(--line); display:flex; align-items:center; justify-content:center; margin:0 auto 5px;}
+  .face-shape-item.selected .shape-circle{border-color:var(--accent); background:var(--accent-soft);}
+
+  /* ---- Resultado final ---- */
+  .result-hero{text-align:center; padding:8px 0 22px;}
+  .result-check{width:56px; height:56px; border-radius:50%; background:var(--olive-soft); color:var(--olive); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:26px;}
+  .result-identity-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:18px; margin-bottom:20px;}
+  .result-identity-eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:1px; text-transform:uppercase; color:var(--accent-text); margin-bottom:6px;}
+  .result-identity-name{font-family:var(--serif); font-size:20px; font-weight:500; margin-bottom:8px;}
+  .result-identity-desc{font-size:13px; color:var(--text-soft); line-height:1.55;}
+  .result-reco-list{list-style:none; margin-bottom:24px;}
+  .result-reco-list li{display:flex; gap:10px; align-items:flex-start; font-size:13px; color:var(--text-soft); line-height:1.5; margin-bottom:10px;}
+  .result-reco-list i{color:var(--olive); font-size:16px; margin-top:1px; flex-shrink:0;}
+  .result-looks-row{display:flex; gap:10px; overflow-x:auto; padding-bottom:4px; margin-bottom:8px;}
+  .result-look-card{flex-shrink:0; width:110px;}
+  .result-look-card .rl-photo{aspect-ratio:0.72; border-radius:var(--radius-lg); overflow:hidden; display:flex; border:1px solid var(--line); margin-bottom:6px;}
+  .result-look-card .rl-photo img{width:50%; height:100%; object-fit:cover;}
+  .result-look-card span{font-size:10.5px; color:var(--text-mute);}
 
   /* ---- Home ---- */
   .content{padding:0 20px;}
@@ -139,6 +177,13 @@
   .avatar-ring i{font-size:20px; color:var(--accent-text);}
   .profile-strip .pname{font-family:var(--serif); font-size:15px; font-weight:500;}
   .profile-strip .ptag{font-family:var(--mono); font-size:11px; color:var(--text-mute); margin-top:2px;}
+
+  .style-photo-card{display:flex; gap:14px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:14px; margin-bottom:22px;}
+  .style-photo-card-img{width:35%; aspect-ratio:0.7; object-fit:cover; object-position:top center; border-radius:8px; flex-shrink:0;}
+  .style-photo-card-info{display:flex; flex-direction:column; justify-content:center;}
+  .style-photo-card-info .pname{font-family:var(--serif); font-size:15px; font-weight:500;}
+  .style-photo-card-info .ptag{font-family:var(--mono); font-size:11px; color:var(--text-mute); margin-top:2px; margin-bottom:10px;}
+  .change-style-btn{align-self:flex-start; background:var(--accent-soft); color:var(--accent-text); border:1px solid var(--accent); border-radius:20px; padding:6px 14px; font-size:11.5px; font-weight:600; cursor:pointer; font-family:var(--sans);}
 
   .section-label{font-family:var(--mono); font-size:11px; letter-spacing:1.2px; text-transform:uppercase; color:var(--text-mute); margin:26px 0 12px;}
   .section-label:first-child{margin-top:0;}
@@ -249,55 +294,55 @@
     <div class="ob-wrap">
       <p class="ob-eyebrow">Etapa 1 de 4</p>
       <h1 class="ob-title">Qual estilo te representa hoje?</h1>
-      <p class="ob-sub">Isso molda tudo o que vamos te mostrar daqui pra frente.</p>
+      <p class="ob-sub">Isso molda todos os looks que vamos te mostrar daqui pra frente.</p>
       <div class="style-list" id="style-grid">
         <div class="style-row" data-v="Clássico">
           <img src="images/onboarding/estilo-classico.jpg" alt="Estilo Clássico" class="style-row-photo">
           <div>
             <div class="style-row-title">Clássico <span class="style-tag-badge">Mais usado</span></div>
-            <div class="style-row-desc">Para você que gosta de algo minimalista e pé no chão.</div>
+            <div class="style-row-desc">Não gosta de arriscar muito e prefere peças que nunca saem de moda. Usa camiseta básica, camisa social, calça jeans ou chino e sapatos tradicionais.</div>
           </div>
         </div>
         <div class="style-row" data-v="Esportivo">
           <img src="images/onboarding/estilo-esportivo.jpg" alt="Estilo Esportivo" class="style-row-photo">
           <div>
             <div class="style-row-title">Esportivo</div>
-            <div class="style-row-desc">Para você que busca conforto e praticidade sem abrir mão de uma presença bem-cuidada.</div>
+            <div class="style-row-desc">Prioriza conforto e praticidade. Usa bastante camiseta, polo, bermuda, tênis e roupas com influência esportiva.</div>
           </div>
         </div>
         <div class="style-row" data-v="Streetwear">
           <img src="images/onboarding/estilo-streetwear.jpg" alt="Estilo Streetwear" class="style-row-photo">
           <div>
             <div class="style-row-title">Streetwear</div>
-            <div class="style-row-desc">Para você que gosta de atitude, liberdade e um visual conectado às ruas.</div>
+            <div class="style-row-desc">Gosta de tendências e de um visual mais moderno. Mistura camisetas oversized, jaquetas, calças diferenciadas, tênis atuais e acessórios urbanos.</div>
           </div>
         </div>
         <div class="style-row" data-v="Sofisticado">
           <img src="images/onboarding/estilo-sofisticado.jpg" alt="Estilo Sofisticado" class="style-row-photo">
           <div>
             <div class="style-row-title">Sofisticado</div>
-            <div class="style-row-desc">Para você que valoriza uma imagem refinada, marcante e impecável em cada detalhe.</div>
+            <div class="style-row-desc">Gosta de estar sempre bem-arrumado. Prefere camisas, blazers, calças de alfaiataria, sapatos e peças de boa qualidade.</div>
           </div>
         </div>
         <div class="style-row" data-v="Sedutor">
           <img src="images/onboarding/estilo-sedutor.jpg" alt="Estilo Sedutor" class="style-row-photo">
           <div>
             <div class="style-row-title">Sedutor</div>
-            <div class="style-row-desc">Para você que gosta de transmitir confiança e atração.</div>
+            <div class="style-row-desc">Gosta de destacar o corpo e transmitir confiança. Prefere camisetas mais ajustadas, camisas abertas no peito, calças bem cortadas e cores marcantes.</div>
           </div>
         </div>
         <div class="style-row" data-v="Old Money">
           <img src="images/onboarding/estilo-old-money.jpg" alt="Estilo Old Money" class="style-row-photo">
           <div>
             <div class="style-row-title">Old Money</div>
-            <div class="style-row-desc">Para você que gosta de elegância discreta, leve e naturalmente sofisticada.</div>
+            <div class="style-row-desc">Prefere um visual leve e agradável. Gosta de cores claras, tons pastéis, camisas leves, tecidos suaves e peças com caimento confortável.</div>
           </div>
         </div>
         <div class="style-row" data-v="Autêntico">
           <img src="images/onboarding/estilo-autentico.jpg" alt="Estilo Autêntico" class="style-row-photo">
           <div>
             <div class="style-row-title">Autêntico</div>
-            <div class="style-row-desc">Para você que gosta de expressar personalidade extravagante e estilo em seu look.</div>
+            <div class="style-row-desc">Gosta de sair do comum e mostrar personalidade. Costuma usar cores diferentes, estampas, acessórios e combinações criativas.</div>
           </div>
         </div>
       </div>
@@ -305,13 +350,13 @@
   </div>
 
   <!-- ONBOARDING: BODY PROFILE -->
-  <div class="screen" id="ob-body">
+  <div class="screen screen-sticky-btn" id="ob-body">
     <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
     <div class="progress-dots"><div class="dot done"></div><div class="dot done"></div><div class="dot"></div><div class="dot"></div></div>
-    <div class="ob-wrap">
+    <div class="ob-wrap ob-wrap-scroll">
       <p class="ob-eyebrow">Etapa 2 de 4</p>
       <h1 class="ob-title">Monte seu perfil físico</h1>
-      <p class="ob-sub">Ajusta cortes e proporções nas recomendações.</p>
+      <p class="ob-sub">Não precisa ser exato — só um valor aproximado já ajuda bastante.</p>
 
       <div class="num-input-row">
         <div class="num-input-box">
@@ -325,61 +370,118 @@
           <span class="unit">cm</span>
         </div>
         <div class="num-input-box">
-          <label for="input-weight">Peso</label>
+          <label for="input-weight">Peso <span class="optional-tag">opcional</span></label>
           <input type="number" id="input-weight" inputmode="numeric" placeholder="75">
           <span class="unit">kg</span>
         </div>
       </div>
+      <label class="skip-checkbox"><input type="checkbox" id="skip-weight"> Prefiro não informar meu peso agora</label>
 
-      <p style="font-size:13px; color:var(--text-soft); margin:22px 0 8px;">Formato do rosto</p>
-      <div class="chip-wrap" id="face-grid">
-        <div class="chip" data-v="Oval">Oval</div>
-        <div class="chip" data-v="Redondo">Redondo</div>
-        <div class="chip" data-v="Quadrado">Quadrado</div>
-        <div class="chip" data-v="Triangular">Triangular</div>
+      <p style="font-size:13px; color:var(--text-soft); margin:22px 0 8px;">Preferência de caimento <span class="optional-tag">opcional</span></p>
+      <div class="chip-wrap" id="fit-grid">
+        <div class="chip" data-v="Ajustado">Ajustado</div>
+        <div class="chip" data-v="Regular">Regular</div>
+        <div class="chip" data-v="Solto">Solto</div>
       </div>
 
-      <button class="primary-btn" id="to-simulation">Ver minha simulação</button>
-      <p class="err-text" id="body-err" style="display:none;">Preencha idade, altura, peso e formato do rosto antes de continuar</p>
+      <p style="font-size:13px; color:var(--text-soft); margin:20px 0 8px;">Tamanho que você usa normalmente <span class="optional-tag">opcional</span></p>
+      <div class="chip-wrap" id="size-grid">
+        <div class="chip" data-v="P">P</div>
+        <div class="chip" data-v="M">M</div>
+        <div class="chip" data-v="G">G</div>
+        <div class="chip" data-v="GG">GG</div>
+      </div>
+
+      <div class="privacy-note">
+        <i class="ti ti-shield-check"></i>
+        <p>Usamos essas informações só pra recomendar proporções, cortes e caimentos mais adequados pra você. Seus dados não são exibidos publicamente.</p>
+      </div>
+
+      <p class="err-text" id="body-err" style="display:none;">Preencha pelo menos idade e altura antes de continuar</p>
+    </div>
+    <div class="screen-sticky-btn-wrap">
+      <button class="primary-btn" id="to-simulation">Criar minha silhueta</button>
     </div>
   </div>
 
-  <!-- ONBOARDING: BODY SIMULATION CONFIRM -->
-  <div class="screen" id="ob-simulation">
+  <!-- ONBOARDING: AVATAR BUILDER (silhueta + pele + cabelo + barba + rosto, tudo junto) -->
+  <div class="screen screen-sticky-btn" id="ob-avatar">
     <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
     <div class="progress-dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot"></div></div>
-    <div class="ob-wrap">
+    <div class="ob-wrap ob-wrap-scroll">
       <p class="ob-eyebrow">Etapa 3 de 4</p>
-      <h1 class="ob-title">É mais ou menos assim?</h1>
-      <p class="ob-sub">Simulação baseada na altura e peso que você informou.</p>
-      <div class="avatar-preview-wrap"><svg id="sim-preview" viewBox="0 0 100 200"></svg></div>
-      <div class="sim-note"><i class="ti ti-info-circle"></i><p>É uma aproximação visual, não uma medida exata. Você pode ajustar a qualquer momento em "Editar perfil".</p></div>
-      <div class="confirm-row">
-        <button class="primary-btn" id="sim-adjust" style="margin-top:0; background:var(--card); border:1px solid var(--line); color:var(--text);">Ajustar</button>
-        <button class="primary-btn" id="sim-confirm" style="margin-top:0;">É isso aí</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ONBOARDING: AVATAR BUILDER -->
-  <div class="screen" id="ob-avatar">
-    <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
-    <div class="progress-dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div></div>
-    <div class="ob-wrap">
-      <p class="ob-eyebrow">Etapa 4 de 4</p>
       <h1 class="ob-title">Monte seu avatar</h1>
-      <p class="ob-sub">Pele, cabelo e sua roupa do estilo escolhido — do seu jeito.</p>
+      <p class="ob-sub">Sua silhueta, pele, cabelo e rosto — do seu jeito.</p>
 
       <div class="avatar-preview-wrap"><svg id="avatar-preview" viewBox="0 0 100 200"></svg></div>
+      <div class="sim-note"><i class="ti ti-info-circle"></i><p>Sua silhueta é uma aproximação visual, baseada no que você informou — não uma medida exata.</p></div>
 
-      <p style="font-size:13px; color:var(--text-soft); margin-bottom:8px;">Tom de pele</p>
+      <p style="font-size:13px; color:var(--text-soft); margin:18px 0 8px;">Tom de pele</p>
       <div class="swatch-row" id="skin-row"></div>
 
-      <p style="font-size:13px; color:var(--text-soft); margin:20px 0 8px;">Estilo de cabelo</p>
-      <div class="chip-wrap" id="hair-style-grid"></div>
+      <p style="font-size:13px; color:var(--text-soft); margin:20px 0 8px;">Formato do rosto <span class="optional-tag">opcional</span></p>
+      <div class="face-shape-grid" id="face-grid"></div>
+      <p class="skip-checkbox" style="margin-top:6px;"><a href="#" id="face-unsure-link" style="color:var(--accent-text);">Como descubro meu formato?</a></p>
 
-      <p style="font-size:13px; color:var(--text-soft); margin:20px 0 8px;">Cor do cabelo</p>
+      <p style="font-size:13px; color:var(--text-soft); margin:20px 0 8px;">Textura do cabelo</p>
+      <div class="chip-wrap" id="hair-texture-grid">
+        <div class="chip" data-v="liso">Liso</div>
+        <div class="chip" data-v="ondulado">Ondulado</div>
+        <div class="chip" data-v="cacheado">Cacheado</div>
+        <div class="chip" data-v="crespo">Crespo</div>
+        <div class="chip" data-v="sem-cabelo">Sem cabelo</div>
+      </div>
+
+      <div id="hair-length-wrap">
+        <p style="font-size:13px; color:var(--text-soft); margin:20px 0 8px;">Comprimento</p>
+        <div class="chip-wrap" id="hair-length-grid">
+          <div class="chip" data-v="raspado">Raspado</div>
+          <div class="chip" data-v="curto">Curto</div>
+          <div class="chip" data-v="medio">Médio</div>
+          <div class="chip" data-v="longo">Longo</div>
+        </div>
+      </div>
+
+      <div id="hair-cut-wrap">
+        <p style="font-size:13px; color:var(--text-soft); margin:20px 0 8px;">Corte</p>
+        <div class="chip-wrap" id="hair-cut-grid"></div>
+      </div>
+
+      <p style="font-size:13px; color:var(--text-soft); margin:20px 0 8px;" id="hair-color-label">Cor do cabelo</p>
       <div class="swatch-row" id="hair-color-row"></div>
+
+      <p style="font-size:13px; color:var(--text-soft); margin:20px 0 8px;">Barba</p>
+      <div class="chip-wrap" id="beard-grid">
+        <div class="chip" data-v="sem-barba">Sem barba</div>
+        <div class="chip" data-v="curta">Barba curta</div>
+        <div class="chip" data-v="media">Barba média</div>
+        <div class="chip" data-v="bigode">Bigode</div>
+        <div class="chip" data-v="cavanhaque">Cavanhaque</div>
+        <div class="chip" data-v="cheia">Barba cheia</div>
+      </div>
+
+      <p style="font-size:12.5px; color:var(--text-mute); margin:22px 0 8px;">Mais alguns detalhes rápidos, pra deixar sua paleta de cores mais precisa:</p>
+      <p style="font-size:13px; color:var(--text-soft); margin:14px 0 8px;">Cor natural dos olhos</p>
+      <div class="chip-wrap" id="eyes-grid">
+        <div class="chip" data-v="castanho-escuro">Castanho-escuro</div>
+        <div class="chip" data-v="castanho-claro">Castanho-claro</div>
+        <div class="chip" data-v="verde">Verde</div>
+        <div class="chip" data-v="azul">Azul</div>
+      </div>
+
+      <p style="font-size:13px; color:var(--text-soft); margin:16px 0 8px;">No sol, sua pele costuma...</p>
+      <div class="chip-wrap" id="sun-grid">
+        <div class="chip" data-v="bronzear-facil">Bronzear fácil</div>
+        <div class="chip" data-v="misto">Um pouco dos dois</div>
+        <div class="chip" data-v="queimar-facil">Queimar fácil</div>
+      </div>
+
+      <p style="font-size:13px; color:var(--text-soft); margin:16px 0 8px;">Prata ou dourado combina mais com você?</p>
+      <div class="chip-wrap" id="metal-grid">
+        <div class="chip" data-v="prata">Prata</div>
+        <div class="chip" data-v="dourado">Dourado</div>
+        <div class="chip" data-v="ambos">Os dois</div>
+      </div>
 
       <div class="palette-card" id="palette-card">
         <p class="palette-eyebrow">Sua paleta de cores</p>
@@ -387,8 +489,36 @@
         <p class="palette-desc" id="palette-desc"></p>
         <div class="palette-swatches" id="palette-swatches"></div>
       </div>
-
+    </div>
+    <div class="screen-sticky-btn-wrap">
       <button class="primary-btn" id="finish-avatar">Concluir</button>
+    </div>
+  </div>
+
+  <!-- ONBOARDING: RESULTADO -->
+  <div class="screen screen-sticky-btn" id="ob-result">
+    <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
+    <div class="progress-dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div></div>
+    <div class="ob-wrap ob-wrap-scroll">
+      <div class="result-hero">
+        <div class="result-check"><i class="ti ti-check"></i></div>
+        <h1 class="ob-title" id="result-title" style="margin-bottom:0;">Seu perfil está pronto!</h1>
+      </div>
+
+      <div class="result-identity-card">
+        <p class="result-identity-eyebrow">Identidade</p>
+        <p class="result-identity-name" id="result-identity-name">—</p>
+        <p class="result-identity-desc" id="result-identity-desc"></p>
+      </div>
+
+      <p style="font-size:13px; color:var(--text-soft); margin-bottom:12px; font-weight:600;">Suas recomendações iniciais</p>
+      <ul class="result-reco-list" id="result-reco-list"></ul>
+
+      <p style="font-size:13px; color:var(--text-soft); margin-bottom:12px; font-weight:600;">Primeiros resultados</p>
+      <div class="result-looks-row" id="result-looks-row"></div>
+    </div>
+    <div class="screen-sticky-btn-wrap">
+      <button class="primary-btn" id="see-first-looks">Ver meus primeiros looks</button>
     </div>
   </div>
 
@@ -553,14 +683,15 @@
       <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
     </div>
     <div class="content">
-      <div class="profile-strip">
-        <div class="avatar-ring" id="avatar-mini-profile"></div>
-        <div>
+      <div class="style-photo-card">
+        <img src="" id="profile-style-photo" alt="Foto do seu estilo" class="style-photo-card-img">
+        <div class="style-photo-card-info">
           <div class="pname" id="profile-name-tag">Seu perfil de estilo</div>
           <div class="ptag" id="profile-profile-tag">—</div>
+          <button class="change-style-btn" id="change-style-btn">Trocar estilo</button>
         </div>
       </div>
-      <button class="primary-btn" id="edit-profile-btn" style="margin-top:0; margin-bottom:22px; background:var(--card); border:1px solid var(--line); color:var(--text);">Editar perfil</button>
+      <button class="primary-btn" id="edit-profile-btn" style="margin-top:0; margin-bottom:22px; background:var(--card); border:1px solid var(--line); color:var(--text);">Editar perfil completo</button>
 
       <div class="palette-card">
         <p class="palette-eyebrow">Seu acesso</p>
@@ -624,6 +755,9 @@
 <script>
 // ---------- state ----------
 let chosenStyle = '', chosenAge = null, chosenHeight = null, chosenWeight = null, chosenFace = '';
+let chosenFit = '', chosenSize = '', weightSkipped = false;
+let chosenHairTexture = '', chosenHairLength = '', chosenHairCut = '';
+let chosenBeard = 'sem-barba', chosenEyes = '', chosenSun = '', chosenMetal = '';
 const AI_MONTHLY_LIMIT = 15;
 let aiUsageMonth = '';
 let aiUsageCount = 0;
@@ -787,7 +921,9 @@ function saveProfile(){
   try{
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       chosenStyle, chosenAge, chosenHeight, chosenWeight, chosenFace,
-      chosenSkin, chosenHairStyle, chosenHairColor
+      chosenSkin, chosenHairColor, chosenFit, chosenSize, weightSkipped,
+      chosenHairTexture, chosenHairLength, chosenHairCut,
+      chosenBeard, chosenEyes, chosenSun, chosenMetal
     }));
   }catch(e){ /* localStorage indisponível neste ambiente — segue só em memória */ }
 }
@@ -802,8 +938,18 @@ function loadProfile(){
     chosenWeight = d.chosenWeight || null;
     chosenFace = d.chosenFace || '';
     chosenSkin = d.chosenSkin || SKIN_TONES[1];
-    chosenHairStyle = d.chosenHairStyle || 'curto';
     chosenHairColor = d.chosenHairColor || HAIR_COLORS[0];
+    chosenFit = d.chosenFit || '';
+    chosenSize = d.chosenSize || '';
+    weightSkipped = d.weightSkipped || false;
+    chosenHairTexture = d.chosenHairTexture || '';
+    chosenHairLength = d.chosenHairLength || '';
+    chosenHairCut = d.chosenHairCut || '';
+    chosenHairStyle = mapHairToStyleKey(chosenHairTexture, chosenHairLength, chosenHairCut) || d.chosenHairStyle || 'curto';
+    chosenBeard = d.chosenBeard || 'sem-barba';
+    chosenEyes = d.chosenEyes || '';
+    chosenSun = d.chosenSun || '';
+    chosenMetal = d.chosenMetal || '';
     return !!chosenStyle;
   }catch(e){ return false; }
 }
@@ -870,11 +1016,23 @@ document.querySelectorAll('#style-grid .style-row').forEach(card => {
 });
 
 // ---------- onboarding: body profile ----------
-document.querySelectorAll('#face-grid .chip').forEach(chip => {
+document.getElementById('skip-weight').addEventListener('change', (e) => {
+  weightSkipped = e.target.checked;
+  document.getElementById('input-weight').disabled = weightSkipped;
+  if (weightSkipped) document.getElementById('input-weight').value = '';
+});
+document.querySelectorAll('#fit-grid .chip').forEach(chip => {
   chip.addEventListener('click', () => {
-    document.querySelectorAll('#face-grid .chip').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('#fit-grid .chip').forEach(c => c.classList.remove('selected'));
     chip.classList.add('selected');
-    chosenFace = chip.dataset.v;
+    chosenFit = chip.dataset.v;
+  });
+});
+document.querySelectorAll('#size-grid .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#size-grid .chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+    chosenSize = chip.dataset.v;
   });
 });
 document.getElementById('to-simulation').addEventListener('click', () => {
@@ -882,47 +1040,21 @@ document.getElementById('to-simulation').addEventListener('click', () => {
   const a = parseInt(document.getElementById('input-age').value, 10);
   const h = parseInt(document.getElementById('input-height').value, 10);
   const w = parseInt(document.getElementById('input-weight').value, 10);
-  if (!a || a < 14 || a > 100 || !h || !w || h < 120 || h > 230 || w < 30 || w > 250 || !chosenFace) {
+  if (!a || a < 14 || a > 100 || !h || h < 120 || h > 230) {
     err.style.display = 'block';
     return;
   }
   err.style.display = 'none';
   chosenAge = a;
   chosenHeight = h;
-  chosenWeight = w;
-  renderSimPreview();
-  showScreen('ob-simulation');
+  chosenWeight = weightSkipped ? null : (w || null);
+  renderFaceShapeGrid();
+  renderAvatarPreview();
+  showScreen('ob-avatar');
 });
 
-// ---------- onboarding: body simulation ----------
-function bodyBuildSVG(skinColor){
-  // Approximate build factor from height/weight ratio, purely for silhouette width
-  let widthFactor = 1;
-  if (chosenHeight && chosenWeight){
-    const ratio = chosenWeight / ((chosenHeight/100) * (chosenHeight/100));
-    widthFactor = Math.max(0.85, Math.min(1.22, ratio / 23));
-  }
-  const shoulderHalf = 20 * widthFactor;
-  const hipHalf = 14 * widthFactor;
-  return `
-    <circle cx="50" cy="26" r="16" fill="${skinColor}"/>
-    <rect x="44" y="40" width="12" height="10" fill="${skinColor}"/>
-    <polygon points="${50-shoulderHalf},52 ${50+shoulderHalf},52 ${50+hipHalf},130 ${50-hipHalf},130" fill="var(--line)"/>
-    <rect x="${50-hipHalf+2}" y="132" width="${hipHalf-2}" height="56" fill="var(--card-hover)"/>
-    <rect x="${50+2}" y="132" width="${hipHalf-2}" height="56" fill="var(--card-hover)"/>
-    <ellipse cx="${50-hipHalf/2}" cy="192" rx="12" ry="6" fill="var(--text-mute)"/>
-    <ellipse cx="${50+hipHalf/2}" cy="192" rx="12" ry="6" fill="var(--text-mute)"/>
-  `;
-}
-function renderSimPreview(){
-  const el = document.getElementById('sim-preview');
-  if (el) el.innerHTML = bodyBuildSVG('var(--text-soft)');
-}
-document.getElementById('sim-adjust').addEventListener('click', () => showScreen('ob-body'));
-document.getElementById('sim-confirm').addEventListener('click', () => showScreen('ob-avatar'));
 
-
-function outfitSVG(style){
+function outfitSVG(style, widthFactor){
   const S = {
     'Autêntico': `
       <polygon points="20,50 80,50 74,110 26,110" fill="var(--card-hover)"/>
@@ -989,27 +1121,112 @@ function outfitSVG(style){
       <rect x="22" y="186" width="28" height="4" fill="var(--accent)"/>
       <rect x="50" y="186" width="28" height="4" fill="var(--accent)"/>`
   };
-  return S[style] || S['Clássico'];
+  const shape = S[style] || S['Clássico'];
+  if (widthFactor && widthFactor !== 1){
+    return `<g transform="translate(50,0) scale(${widthFactor},1) translate(-50,0)">${shape}</g>`;
+  }
+  return shape;
 }
 
-const SKIN_TONES = ['#F5D6C1', '#E8B48C', '#C68863', '#A56B47', '#7A4B2E', '#4A2E1D'];
-const HAIR_COLORS = ['#1C1712', '#3B2A1D', '#6B4A2E', '#8B3A1F', '#B89056', '#9B968D'];
-const HAIR_STYLES = [
-  { v: 'careca', label: 'Careca' },
-  { v: 'raspado', label: 'Raspado' },
-  { v: 'curto', label: 'Curto' },
-  { v: 'social', label: 'Social risca' },
-  { v: 'ondulado', label: 'Ondulado' },
-  { v: 'cacheado', label: 'Cacheado' },
-  { v: 'crespo', label: 'Crespo' },
-  { v: 'undercut', label: 'Undercut' },
-  { v: 'moicano', label: 'Moicano' },
-  { v: 'longo', label: 'Longo' },
-  { v: 'coque', label: 'Coque' }
-];
+const SKIN_TONES = ['#FBE3D0', '#F5D6C1', '#EAC29C', '#E8B48C', '#D49E71', '#C68863', '#A56B47', '#8A5636', '#7A4B2E', '#4A2E1D'];
+const HAIR_COLORS = ['#1C1712', '#3B2A1D', '#6B4A2E', '#8B3A1F', '#B89056', '#9B968D', '#F0F0EC'];
 let chosenSkin = SKIN_TONES[1];
 let chosenHairStyle = 'curto';
 let chosenHairColor = HAIR_COLORS[0];
+
+// ---------- formato do rosto ----------
+const FACE_SHAPES = [
+  { v: 'Oval', label: 'Oval', svg: `<ellipse cx="22" cy="22" rx="13" ry="17" fill="none" stroke="currentColor" stroke-width="2"/>` },
+  { v: 'Redondo', label: 'Redondo', svg: `<circle cx="22" cy="22" r="15" fill="none" stroke="currentColor" stroke-width="2"/>` },
+  { v: 'Quadrado', label: 'Quadrado', svg: `<rect x="8" y="8" width="28" height="28" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>` },
+  { v: 'Triangular', label: 'Triangular', svg: `<path d="M22 6 L38 36 L6 36 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>` },
+  { v: 'Não sei', label: 'Não sei identificar', svg: `<circle cx="22" cy="22" r="15" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3,3"/><text x="22" y="27" text-anchor="middle" font-size="16" fill="currentColor" font-family="serif">?</text>` }
+];
+function renderFaceShapeGrid(){
+  const grid = document.getElementById('face-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  FACE_SHAPES.forEach(f => {
+    const item = document.createElement('div');
+    item.className = 'face-shape-item' + (f.v === chosenFace ? ' selected' : '');
+    item.dataset.v = f.v;
+    item.innerHTML = `<div class="shape-circle"><svg viewBox="0 0 44 44">${f.svg}</svg></div><span>${f.label}</span>`;
+    item.addEventListener('click', () => {
+      grid.querySelectorAll('.face-shape-item').forEach(c => c.classList.remove('selected'));
+      item.classList.add('selected');
+      chosenFace = f.v;
+    });
+    grid.appendChild(item);
+  });
+}
+
+// ---------- cabelo: textura > comprimento > corte (dependente) ----------
+const HAIR_CUTS_BY_LENGTH = {
+  raspado: [{ v: 'social', label: 'Social' }],
+  curto: [
+    { v: 'social', label: 'Social' }, { v: 'degrade', label: 'Degradê' }, { v: 'side-part', label: 'Side part' },
+    { v: 'undercut', label: 'Undercut' }, { v: 'caesar', label: 'Caesar' }
+  ],
+  medio: [
+    { v: 'degrade', label: 'Degradê' }, { v: 'side-part', label: 'Side part' }, { v: 'mullet', label: 'Mullet' }
+  ],
+  longo: [
+    { v: 'solto', label: 'Solto' }, { v: 'coque', label: 'Coque' }, { v: 'mullet', label: 'Mullet' }
+  ]
+};
+// Mapeia textura + comprimento + corte pro conjunto de formas que já sabemos desenhar
+function mapHairToStyleKey(texture, length, cut){
+  if (texture === 'sem-cabelo') return 'careca';
+  if (length === 'raspado') return 'raspado';
+  if (texture === 'crespo') return 'crespo';
+  if (texture === 'cacheado') return 'cacheado';
+  if (texture === 'ondulado' && (length === 'medio' || length === 'longo')) return 'ondulado';
+  if (cut === 'undercut') return 'undercut';
+  if (cut === 'coque') return 'coque';
+  if (length === 'longo') return 'longo';
+  if (cut === 'social' || cut === 'side-part') return 'social';
+  return 'curto';
+}
+function renderHairCutGrid(){
+  const wrap = document.getElementById('hair-cut-wrap');
+  const grid = document.getElementById('hair-cut-grid');
+  if (!grid) return;
+  if (!chosenHairLength || chosenHairTexture === 'sem-cabelo'){ wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  const cuts = HAIR_CUTS_BY_LENGTH[chosenHairLength] || [];
+  grid.innerHTML = '';
+  cuts.forEach(c => {
+    const chip = document.createElement('div');
+    chip.className = 'chip' + (c.v === chosenHairCut ? ' selected' : '');
+    chip.dataset.v = c.v;
+    chip.textContent = c.label;
+    chip.addEventListener('click', () => {
+      grid.querySelectorAll('.chip').forEach(x => x.classList.remove('selected'));
+      chip.classList.add('selected');
+      chosenHairCut = c.v;
+      chosenHairStyle = mapHairToStyleKey(chosenHairTexture, chosenHairLength, chosenHairCut);
+      renderAvatarPreview();
+    });
+    grid.appendChild(chip);
+  });
+  if (!cuts.find(c => c.v === chosenHairCut) && cuts.length){
+    chosenHairCut = cuts[0].v;
+    grid.querySelector('.chip').classList.add('selected');
+  }
+}
+function updateHairLengthVisibility(){
+  const lengthWrap = document.getElementById('hair-length-wrap');
+  const colorLabel = document.getElementById('hair-color-label');
+  if (chosenHairTexture === 'sem-cabelo'){
+    lengthWrap.style.display = 'none';
+    document.getElementById('hair-cut-wrap').style.display = 'none';
+    colorLabel.textContent = 'Cor do cabelo';
+    chosenHairStyle = 'careca';
+    renderAvatarPreview();
+  } else {
+    lengthWrap.style.display = 'block';
+  }
+}
 
 function hairSVG(style, color){
   switch(style){
@@ -1029,8 +1246,6 @@ function hairSVG(style, color){
       return `<circle cx="50" cy="23" r="22" fill="${color}"/>`;
     case 'undercut':
       return `<ellipse cx="50" cy="25" rx="17.3" ry="16.6" fill="${color}"/><ellipse cx="50" cy="12" rx="13" ry="9" fill="${color}"/>`;
-    case 'moicano':
-      return `<ellipse cx="50" cy="25" rx="16.3" ry="15.7" fill="${color}"/><rect x="45" y="0" width="10" height="20" rx="3" fill="${color}"/>`;
     case 'longo':
       return `<ellipse cx="50" cy="13" rx="18" ry="15" fill="${color}"/>
         <path d="M32,20 Q27,45 34,58 L41,58 Q35,35 39,20 Z" fill="${color}"/>
@@ -1042,30 +1257,52 @@ function hairSVG(style, color){
   }
 }
 
+// ---------- barba ----------
+function beardSVG(beard, skinColor){
+  const beardColor = chosenHairColor || '#3B2A1D';
+  switch(beard){
+    case 'sem-barba': return '';
+    case 'bigode':
+      return `<rect x="43" y="32" width="14" height="3" rx="1.5" fill="${beardColor}"/>`;
+    case 'cavanhaque':
+      return `<rect x="43" y="32" width="14" height="3" rx="1.5" fill="${beardColor}"/><ellipse cx="50" cy="39" rx="4.5" ry="4" fill="${beardColor}"/>`;
+    case 'curta':
+      return `<path d="M35,28 Q35,40 50,41 Q65,40 65,28 L65,33 Q65,39 50,39.5 Q35,39 35,33 Z" fill="${beardColor}" opacity="0.9"/>`;
+    case 'media':
+      return `<path d="M34,26 Q33,42 50,44 Q67,42 66,26 L66,34 Q66,42 50,43.5 Q34,42 34,34 Z" fill="${beardColor}"/>`;
+    case 'cheia':
+      return `<path d="M33,24 Q31,44 50,47 Q69,44 67,24 L67,36 Q67,45 50,46.5 Q33,45 33,36 Z" fill="${beardColor}"/>`;
+    default: return '';
+  }
+}
+
 function avatarBodySVG(skin, hairStyle, hairColor, style){
   skin = skin || chosenSkin;
   hairStyle = hairStyle || chosenHairStyle;
   hairColor = hairColor || chosenHairColor;
   style = style || chosenStyle;
+  // Fator de largura aproximado a partir de altura/peso (silhueta)
+  let widthFactor = 1;
+  if (chosenHeight && chosenWeight && !weightSkipped){
+    const ratio = chosenWeight / ((chosenHeight/100) * (chosenHeight/100));
+    widthFactor = Math.max(0.88, Math.min(1.18, ratio / 23));
+  }
   return `
     ${hairSVG(hairStyle, hairColor)}
     <circle cx="50" cy="26" r="16" fill="${skin}"/>
+    ${beardSVG(chosenBeard, skin)}
     <circle cx="44" cy="26" r="1.6" fill="var(--bg)"/>
     <circle cx="56" cy="26" r="1.6" fill="var(--bg)"/>
     <rect x="44" y="40" width="12" height="10" fill="${skin}"/>
-    ${outfitSVG(style)}
+    ${outfitSVG(style, widthFactor)}
   `;
 }
 
 // ---------- paleta de cores pessoal ----------
-const SKIN_DEPTH = ['claro', 'claro', 'médio', 'médio', 'profundo', 'profundo']; // segue o índice de SKIN_TONES
+const SKIN_DEPTH = ['claro','claro','claro','médio','médio','médio','profundo','profundo','profundo','profundo'];
 const HAIR_WARMTH = {
-  '#1C1712': 'frio',   // preto
-  '#3B2A1D': 'quente', // castanho escuro
-  '#6B4A2E': 'quente', // castanho claro
-  '#8B3A1F': 'quente', // ruivo
-  '#B89056': 'quente', // loiro
-  '#9B968D': 'frio'    // grisalho
+  '#1C1712': 'frio', '#3B2A1D': 'quente', '#6B4A2E': 'quente', '#8B3A1F': 'quente',
+  '#B89056': 'quente', '#9B968D': 'frio', '#F0F0EC': 'frio'
 };
 const SEASON_PALETTES = {
   inverno: {
@@ -1090,11 +1327,20 @@ const SEASON_PALETTES = {
   }
 };
 function computePaletteKey(){
+  // Pontuação: negativo = tende a frio, positivo = tende a quente
+  let warmScore = 0;
   const idx = SKIN_TONES.indexOf(chosenSkin);
   const depth = SKIN_DEPTH[idx] || 'médio';
-  const warmth = HAIR_WARMTH[chosenHairColor] || 'quente';
-  if (warmth === 'frio') return depth === 'profundo' ? 'inverno' : 'verao';
-  return depth === 'profundo' ? 'outono' : 'primavera';
+  warmScore += HAIR_WARMTH[chosenHairColor] === 'frio' ? -1 : 1;
+  if (chosenEyes === 'azul' || chosenEyes === 'verde') warmScore -= 1;
+  if (chosenEyes === 'castanho-escuro') warmScore += 1;
+  if (chosenSun === 'queimar-facil') warmScore -= 1;
+  if (chosenSun === 'bronzear-facil') warmScore += 1;
+  if (chosenMetal === 'prata') warmScore -= 1;
+  if (chosenMetal === 'dourado') warmScore += 1;
+  const warm = warmScore >= 0;
+  if (warm) return depth === 'profundo' ? 'outono' : 'primavera';
+  return depth === 'profundo' ? 'inverno' : 'verao';
 }
 function renderPaletteCard(nameId, descId, swatchesId){
   const p = SEASON_PALETTES[computePaletteKey()];
@@ -1155,46 +1401,174 @@ function buildSwatchRow(containerId, colors, currentVal, onPick){
 buildSwatchRow('skin-row', SKIN_TONES, chosenSkin, v => chosenSkin = v);
 buildSwatchRow('hair-color-row', HAIR_COLORS, chosenHairColor, v => chosenHairColor = v);
 
-function renderHairStyleGrid(){
-  const grid = document.getElementById('hair-style-grid');
-  grid.innerHTML = '';
-  HAIR_STYLES.forEach(h => {
-    const chip = document.createElement('div');
-    chip.className = 'chip' + (h.v === chosenHairStyle ? ' selected' : '');
-    chip.dataset.v = h.v;
-    chip.textContent = h.label;
+// ---------- cabelo: textura > comprimento > corte ----------
+document.querySelectorAll('#hair-texture-grid .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#hair-texture-grid .chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+    chosenHairTexture = chip.dataset.v;
+    updateHairLengthVisibility();
+    if (chosenHairTexture !== 'sem-cabelo') renderHairCutGrid();
+    renderPaletteCard('palette-name', 'palette-desc', 'palette-swatches');
+    renderAvatarPreview();
+  });
+});
+document.querySelectorAll('#hair-length-grid .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#hair-length-grid .chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+    chosenHairLength = chip.dataset.v;
+    chosenHairCut = '';
+    renderHairCutGrid();
+    renderAvatarPreview();
+  });
+});
+
+// ---------- barba ----------
+document.querySelectorAll('#beard-grid .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#beard-grid .chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+    chosenBeard = chip.dataset.v;
+    renderAvatarPreview();
+  });
+});
+
+// ---------- olhos / sol / metal (afinam a paleta) ----------
+function wireChipGroup(gridId, onPick){
+  document.querySelectorAll('#' + gridId + ' .chip').forEach(chip => {
     chip.addEventListener('click', () => {
-      grid.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+      document.querySelectorAll('#' + gridId + ' .chip').forEach(c => c.classList.remove('selected'));
       chip.classList.add('selected');
-      chosenHairStyle = h.v;
-      renderAvatarPreview();
+      onPick(chip.dataset.v);
+      renderPaletteCard('palette-name', 'palette-desc', 'palette-swatches');
     });
-    grid.appendChild(chip);
   });
 }
-renderHairStyleGrid();
+wireChipGroup('eyes-grid', v => chosenEyes = v);
+wireChipGroup('sun-grid', v => chosenSun = v);
+wireChipGroup('metal-grid', v => chosenMetal = v);
+
+// ---------- formato do rosto: link "como descubro?" ----------
+document.getElementById('face-unsure-link').addEventListener('click', (e) => {
+  e.preventDefault();
+  alert('Um jeito rápido: puxa o cabelo pra trás na frente do espelho e olha o contorno do seu rosto.\n\n• Testa maior que a mandíbula e queixo mais fino → Oval\n• Largura e altura parecidas, linhas suaves → Redondo\n• Mandíbula marcada, testa e queixo com largura parecida → Quadrado\n• Testa mais estreita que a mandíbula → Triangular\n\nSe ainda ficar em dúvida, sem problema — escolhe "Não sei identificar" e a gente ajusta depois.');
+});
+renderFaceShapeGrid();
 
 renderAvatarPreview();
+
+const STYLE_IDENTITY_COPY = {
+  'Clássico': 'Você tende a funcionar melhor com peças versáteis, linhas limpas e detalhes discretamente elegantes.',
+  'Esportivo': 'Você tende a se sair melhor com peças confortáveis, cortes práticos e uma presença despojada mas cuidada.',
+  'Streetwear': 'Você tende a funcionar melhor com camadas, tênis de destaque e um visual urbano com atitude.',
+  'Sofisticado': 'Você tende a se sair melhor com alfaiataria, tecidos de qualidade e uma imagem impecável em cada detalhe.',
+  'Sedutor': 'Você tende a funcionar melhor com peças que valorizam o corpo, cores marcantes e confiança no caimento.',
+  'Old Money': 'Você tende a se sair melhor com tons neutros, tecidos naturais e uma elegância discreta, sem exagero.',
+  'Autêntico': 'Você tende a funcionar melhor expressando personalidade — cores, estampas e combinações que ninguém mais usaria assim.'
+};
+const STYLE_RECOS = {
+  'Clássico': ['Modelagens retas e regulares', 'Camisetas de comprimento equilibrado', 'Calças sem excesso de tecido'],
+  'Esportivo': ['Tecidos com estrutura leve e caimento solto', 'Tênis como peça central do look', 'Camadas práticas pro dia a dia'],
+  'Streetwear': ['Peças oversized com proporção equilibrada', 'Tênis de destaque e acessórios urbanos', 'Camadas com jaquetas e moletons'],
+  'Sofisticado': ['Alfaiataria com corte preciso', 'Tecidos de qualidade e caimento estruturado', 'Paleta de cores discreta e coerente'],
+  'Sedutor': ['Peças ajustadas que valorizam o corpo', 'Aberturas e decotes com intenção', 'Cores marcantes em pontos estratégicos'],
+  'Old Money': ['Tecidos naturais como linho e algodão', 'Tons neutros e elegância sem exagero', 'Peças atemporais, sem tendência passageira'],
+  'Autêntico': ['Combinações criativas e cores inesperadas', 'Estampas e texturas com personalidade', 'Acessórios que contam uma história']
+};
+const SEASON_COLOR_HINT = {
+  inverno: 'Tons grafite, branco puro e azul-marinho profundo',
+  verao: 'Tons cinza-azulado, rosa empoeirado e off-white',
+  outono: 'Tons terrosos, verde-oliva e camel',
+  primavera: 'Tons coral, verde-claro e creme'
+};
+const STYLE_PHOTO_MAP = {
+  'Clássico': 'images/onboarding/estilo-classico.jpg',
+  'Esportivo': 'images/onboarding/estilo-esportivo.jpg',
+  'Streetwear': 'images/onboarding/estilo-streetwear.jpg',
+  'Sofisticado': 'images/onboarding/estilo-sofisticado.jpg',
+  'Sedutor': 'images/onboarding/estilo-sedutor.jpg',
+  'Old Money': 'images/onboarding/estilo-old-money.jpg',
+  'Autêntico': 'images/onboarding/estilo-autentico.jpg'
+};
+function updateProfileStylePhoto(){
+  const img = document.getElementById('profile-style-photo');
+  if (img && STYLE_PHOTO_MAP[chosenStyle]) img.src = STYLE_PHOTO_MAP[chosenStyle];
+}
+document.getElementById('change-style-btn').addEventListener('click', () => {
+  syncOnboardingSelections();
+  showScreen('ob-style');
+});
+
+function firstName(){
+  try{
+    const raw = localStorage.getItem('cerne_user_name');
+    if (raw) return raw;
+  }catch(e){}
+  return '';
+}
+function populateResultScreen(){
+  const name = firstName();
+  document.getElementById('result-title').textContent = name ? `Seu perfil está pronto, ${name}.` : 'Seu perfil está pronto!';
+  document.getElementById('result-identity-name').textContent = chosenStyle || '—';
+  document.getElementById('result-identity-desc').textContent = STYLE_IDENTITY_COPY[chosenStyle] || '';
+
+  const recoList = document.getElementById('result-reco-list');
+  const recos = (STYLE_RECOS[chosenStyle] || []).slice();
+  recos.push(SEASON_COLOR_HINT[computePaletteKey()]);
+  if (chosenFit) recos.push(`Caimento ${chosenFit.toLowerCase()}, do jeito que você prefere`);
+  recoList.innerHTML = recos.map(r => `<li><i class="ti ti-circle-check"></i>${escapeHtml(r)}</li>`).join('');
+
+  const looksRow = document.getElementById('result-looks-row');
+  const occasionsToShow = ['diaadia', 'trabalho', 'encontro'];
+  const byOcc = (typeof PHOTO_LOOKS_REAL !== 'undefined' && PHOTO_LOOKS_REAL[chosenStyle]) || {};
+  let cards = '';
+  occasionsToShow.forEach(occ => {
+    const look = (byOcc[occ] || [])[0];
+    if (!look) return;
+    cards += `
+      <div class="result-look-card">
+        <div class="rl-photo"><img src="${look.composicaoImg}" alt=""><img src="${look.pessoaImg}" alt=""></div>
+        <span>${OCCASIONS[occ] || occ}</span>
+      </div>`;
+  });
+  looksRow.innerHTML = cards || '<p style="font-size:12px; color:var(--text-mute);">Seus looks completos já estão na Vitrine.</p>';
+}
+document.getElementById('see-first-looks').addEventListener('click', () => {
+  renderLooks('trabalho');
+  renderVitrine();
+  showScreen('home');
+});
 
 document.getElementById('finish-avatar').addEventListener('click', () => {
   const tag = chosenStyle + ' · ' + chosenHeight + 'cm';
   document.getElementById('home-profile-tag').textContent = tag;
   document.getElementById('profile-profile-tag').textContent = tag;
+  updateProfileStylePhoto();
   renderMiniAvatars();
   renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches');
-  renderLooks('trabalho');
-  renderVitrine();
   saveProfile();
-  showScreen('home');
+  populateResultScreen();
+  showScreen('ob-result');
 });
 
 // ---------- edit profile (reopen onboarding, keeping current choices visible) ----------
 function syncOnboardingSelections(){
   document.querySelectorAll('#style-grid .style-row').forEach(c => c.classList.toggle('selected', c.dataset.v === chosenStyle));
-  document.querySelectorAll('#face-grid .chip').forEach(c => c.classList.toggle('selected', c.dataset.v === chosenFace));
   if (chosenAge) document.getElementById('input-age').value = chosenAge;
   if (chosenHeight) document.getElementById('input-height').value = chosenHeight;
   if (chosenWeight) document.getElementById('input-weight').value = chosenWeight;
+  document.querySelectorAll('#fit-grid .chip').forEach(c => c.classList.toggle('selected', c.dataset.v === chosenFit));
+  document.querySelectorAll('#size-grid .chip').forEach(c => c.classList.toggle('selected', c.dataset.v === chosenSize));
+  renderFaceShapeGrid();
+  document.querySelectorAll('#hair-texture-grid .chip').forEach(c => c.classList.toggle('selected', c.dataset.v === chosenHairTexture));
+  document.querySelectorAll('#hair-length-grid .chip').forEach(c => c.classList.toggle('selected', c.dataset.v === chosenHairLength));
+  renderHairCutGrid();
+  updateHairLengthVisibility();
+  document.querySelectorAll('#beard-grid .chip').forEach(c => c.classList.toggle('selected', c.dataset.v === chosenBeard));
+  document.querySelectorAll('#eyes-grid .chip').forEach(c => c.classList.toggle('selected', c.dataset.v === chosenEyes));
+  document.querySelectorAll('#sun-grid .chip').forEach(c => c.classList.toggle('selected', c.dataset.v === chosenSun));
+  document.querySelectorAll('#metal-grid .chip').forEach(c => c.classList.toggle('selected', c.dataset.v === chosenMetal));
 }
 document.getElementById('edit-profile-btn').addEventListener('click', () => {
   syncOnboardingSelections();
@@ -1342,6 +1716,7 @@ function renderAIResult(parsed){
     const tag = chosenStyle + ' · ' + chosenHeight + 'cm';
     document.getElementById('home-profile-tag').textContent = tag;
     document.getElementById('profile-profile-tag').textContent = tag;
+  updateProfileStylePhoto();
     saveProfile();
     showScreen('home');
   });
@@ -1644,14 +2019,13 @@ function renderShoppingList(){
 loadAiUsage();
 if (loadProfile()){
   syncOnboardingSelections();
-  renderSimPreview();
   renderAvatarPreview();
-  renderHairStyleGrid();
   document.getElementById('skin-row').querySelectorAll('.swatch').forEach(s => s.classList.toggle('selected', s.dataset.v === chosenSkin));
   document.getElementById('hair-color-row').querySelectorAll('.swatch').forEach(s => s.classList.toggle('selected', s.dataset.v === chosenHairColor));
   const tag = chosenStyle + ' · ' + chosenHeight + 'cm';
   document.getElementById('home-profile-tag').textContent = tag;
   document.getElementById('profile-profile-tag').textContent = tag;
+  updateProfileStylePhoto();
   renderMiniAvatars();
   renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches');
   renderLooks('trabalho');
