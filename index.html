@@ -154,7 +154,9 @@
 
   /* ---- Resultado final ---- */
   .result-hero{text-align:center; padding:8px 0 22px;}
-  .result-check{width:56px; height:56px; border-radius:50%; background:var(--olive-soft); color:var(--olive); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:26px;}
+  .result-check{width:56px; height:56px; border-radius:50%; background:var(--olive-soft); color:var(--olive); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:26px; overflow:hidden;}
+  .result-check.has-photo{background:none;}
+  .result-check img{width:100%; height:100%; object-fit:cover; border-radius:50%;}
   .result-identity-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:18px; margin-bottom:20px;}
   .result-identity-eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:1px; text-transform:uppercase; color:var(--accent-text); margin-bottom:6px;}
   .result-identity-name{font-family:var(--serif); font-size:20px; font-weight:500; margin-bottom:8px;}
@@ -541,7 +543,7 @@
     <div class="progress-dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div></div>
     <div class="ob-wrap ob-wrap-scroll">
       <div class="result-hero">
-        <div class="result-check"><i class="ti ti-check"></i></div>
+        <div class="result-check" id="result-photo-circle"><i class="ti ti-check"></i></div>
         <h1 class="ob-title" id="result-title" style="margin-bottom:0;">Seu perfil está pronto!</h1>
       </div>
 
@@ -984,7 +986,8 @@ function loadProfile(){
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return false;
     const d = JSON.parse(raw);
-    chosenStyle = d.chosenStyle || '';
+    const STYLE_MIGRATION = { 'Dinâmico': 'Esportivo', 'Delicado': 'Old Money', 'Contemporâneo': 'Streetwear' };
+    chosenStyle = STYLE_MIGRATION[d.chosenStyle] || d.chosenStyle || '';
     chosenAge = d.chosenAge || null;
     chosenHeight = d.chosenHeight || null;
     chosenWeight = d.chosenWeight || null;
@@ -1626,6 +1629,22 @@ function populateResultScreen(){
   document.getElementById('result-title').textContent = name ? `Seu perfil está pronto, ${name}.` : 'Seu perfil está pronto!';
   document.getElementById('result-identity-name').textContent = chosenStyle || '—';
   document.getElementById('result-identity-desc').textContent = STYLE_IDENTITY_COPY[chosenStyle] || '';
+
+  const circle = document.getElementById('result-photo-circle');
+  let circlePhoto = (typeof userPhotoDataUrl !== 'undefined' && userPhotoDataUrl) ? userPhotoDataUrl : '';
+  if (!circlePhoto){
+    const byOccForPhoto = (typeof PHOTO_LOOKS_REAL !== 'undefined' && PHOTO_LOOKS_REAL[chosenStyle]) || {};
+    const anyOccasion = Object.keys(byOccForPhoto)[0];
+    const anyLook = anyOccasion ? byOccForPhoto[anyOccasion][0] : null;
+    if (anyLook) circlePhoto = anyLook.pessoaImg;
+  }
+  if (circlePhoto){
+    circle.classList.add('has-photo');
+    circle.innerHTML = `<img src="${circlePhoto}" alt="">`;
+  } else {
+    circle.classList.remove('has-photo');
+    circle.innerHTML = `<i class="ti ti-check"></i>`;
+  }
 
   const recoList = document.getElementById('result-reco-list');
   const recos = (STYLE_RECOS[chosenStyle] || []).slice();
