@@ -30,6 +30,7 @@
   /* ---- Top brand bar ---- */
   .topbar{display:flex; align-items:center; justify-content:space-between; padding:20px 20px 14px;}
   .brand{display:flex; align-items:center; gap:10px;}
+  .brand-logo-img{height:22px; width:auto; display:block;}
   .brand-mark{width:32px; height:32px; border-radius:50%; border:1px solid var(--accent); display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:15px; color:var(--accent-text);}
   .brand-name{font-family:var(--serif); font-size:19px; letter-spacing:0.5px; font-weight:500;}
   .icon-btn{width:34px; height:34px; border-radius:50%; background:var(--card); display:flex; align-items:center; justify-content:center; color:var(--text-soft); font-size:16px; border:1px solid var(--line);}
@@ -168,7 +169,11 @@
   .looks-legend .olive-dot{color:var(--olive);}
   .looks-legend .accent-dot{color:var(--accent-text);}
   .look-cta{display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--accent-text); cursor:pointer;}
-  .photo-look-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:26px;}
+  .photo-look-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;}
+  .ver-mais-photo-btn{display:block; width:100%; padding:12px; background:var(--card-hover); border:1px solid var(--line); border-radius:var(--radius); color:var(--text-soft); font-family:var(--sans); font-size:12.5px; font-weight:600; cursor:pointer; margin-bottom:26px;}
+  .vitrine-note{display:flex; gap:10px; align-items:flex-start; background:var(--accent-soft); border:1px solid var(--accent); border-radius:var(--radius-lg); padding:12px 14px; margin-bottom:10px;}
+  .vitrine-note i{color:var(--accent-text); font-size:17px; margin-top:1px; flex-shrink:0;}
+  .vitrine-note p{font-size:12px; color:var(--text-soft); line-height:1.5;}
   .photo-look-square{aspect-ratio:1; border-radius:var(--radius-lg); overflow:hidden; display:flex; cursor:pointer; border:1px solid var(--line); position:relative;}
   .photo-look-square img{width:50%; height:100%; object-fit:cover; display:block;}
   .photo-look-label{position:absolute; left:0; right:0; bottom:0; padding:8px 10px; background:linear-gradient(transparent, rgba(0,0,0,0.75)); color:#fff; font-size:11.5px; font-weight:500;}
@@ -233,7 +238,7 @@
 
   <!-- ONBOARDING: STYLE -->
   <div class="screen active" id="ob-style">
-    <div class="topbar"><div class="brand"><div class="brand-mark">C</div><div class="brand-name">cerne</div></div></div>
+    <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
     <div class="progress-dots"><div class="dot done"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
     <div class="ob-wrap">
       <p class="ob-eyebrow">Etapa 1 de 3</p>
@@ -274,7 +279,7 @@
 
   <!-- ONBOARDING: BODY PROFILE -->
   <div class="screen" id="ob-body">
-    <div class="topbar"><div class="brand"><div class="brand-mark">C</div><div class="brand-name">cerne</div></div></div>
+    <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
     <div class="progress-dots"><div class="dot done"></div><div class="dot done"></div><div class="dot"></div><div class="dot"></div></div>
     <div class="ob-wrap">
       <p class="ob-eyebrow">Etapa 2 de 4</p>
@@ -314,7 +319,7 @@
 
   <!-- ONBOARDING: BODY SIMULATION CONFIRM -->
   <div class="screen" id="ob-simulation">
-    <div class="topbar"><div class="brand"><div class="brand-mark">C</div><div class="brand-name">cerne</div></div></div>
+    <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
     <div class="progress-dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot"></div></div>
     <div class="ob-wrap">
       <p class="ob-eyebrow">Etapa 3 de 4</p>
@@ -331,7 +336,7 @@
 
   <!-- ONBOARDING: AVATAR BUILDER -->
   <div class="screen" id="ob-avatar">
-    <div class="topbar"><div class="brand"><div class="brand-mark">C</div><div class="brand-name">cerne</div></div></div>
+    <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
     <div class="progress-dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div></div>
     <div class="ob-wrap">
       <p class="ob-eyebrow">Etapa 4 de 4</p>
@@ -363,7 +368,7 @@
   <!-- HOME -->
   <div class="screen" id="home">
     <div class="topbar">
-      <div class="brand"><div class="brand-mark">C</div><div class="brand-name">cerne</div></div>
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
       <div class="icon-btn"><i class="ti ti-bell"></i></div>
     </div>
     <div class="content">
@@ -400,11 +405,21 @@
   <!-- VITRINE -->
   <div class="screen" id="vitrine">
     <div class="topbar">
-      <div class="brand"><div class="brand-mark">C</div><div class="brand-name">cerne</div></div>
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
     </div>
     <div class="content">
       <p class="section-label">Vitrine — <span id="vitrine-style-tag">seu estilo</span></p>
       <p style="font-size:13px; color:var(--text-soft); margin:-6px 0 16px;">As melhores ideias de look pro seu estilo.</p>
+
+      <div class="vitrine-note">
+        <i class="ti ti-bulb"></i>
+        <p>Não gostou de algum detalhe? Sinta-se à vontade pra adaptar à sua realidade — a base do look é o que a gente te dá, o toque final é seu.</p>
+      </div>
+      <div class="vitrine-note" style="margin-bottom:18px;">
+        <i class="ti ti-refresh"></i>
+        <p>Não é bem a sua cara? Você pode trocar de estilo a qualquer momento no seu perfil, e essa vitrine se atualiza com ideias mais parecidas com você.</p>
+      </div>
+
       <div class="occasion-tabs" id="vitrine-occ-tabs">
         <div class="occ-tab active" data-v="todas">Todas</div>
         <div class="occ-tab" data-v="trabalho">Trabalho</div>
@@ -430,19 +445,19 @@
   <!-- CONSULTOR (AI) -->
   <div class="screen" id="consultor">
     <div class="topbar">
-      <div class="brand"><div class="brand-mark">C</div><div class="brand-name">cerne</div></div>
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
     </div>
     <div class="content">
       <div id="consultor-locked" style="display:none; text-align:center; padding:36px 12px;">
-        <i class="ti ti-lock" style="font-size:36px; color:var(--accent-text);"></i>
-        <h2 style="font-family:var(--serif); font-size:19px; font-weight:500; margin:16px 0 8px;">Consultor de IA é exclusivo do Premium</h2>
-        <p style="font-size:13px; color:var(--text-soft); line-height:1.6; margin-bottom:24px;">Descreva o que você quer expressar e receba estilo e looks recomendados por IA, calibrados com seu perfil e sua paleta de cores. Disponível no plano Premium.</p>
-        <a href="#" class="primary-btn" id="upgrade-btn" style="display:block; text-decoration:none; text-align:center; margin-bottom:10px;">Assinar Premium — R$179</a>
+        <i class="ti ti-hourglass-low" style="font-size:36px; color:var(--accent-text);"></i>
+        <h2 style="font-family:var(--serif); font-size:19px; font-weight:500; margin:16px 0 8px;">Você usou suas consultas deste mês</h2>
+        <p style="font-size:13px; color:var(--text-soft); line-height:1.6; margin-bottom:24px;" id="consultor-limit-desc"></p>
         <button class="primary-btn" id="consultor-locked-back" style="background:var(--card); border:1px solid var(--line); color:var(--text-soft);">Voltar</button>
       </div>
       <div id="consultor-content">
         <p class="section-label">Consultor de estilo</p>
-        <p style="font-size:13px; color:var(--text-soft); margin:-6px 0 16px;">Descreva o que você quer expressar. A IA recomenda o estilo e os looks certos pra isso.</p>
+        <p style="font-size:13px; color:var(--text-soft); margin:-6px 0 6px;">Descreva o que você quer expressar. A IA recomenda o estilo e os looks certos pra isso.</p>
+        <p style="font-size:11.5px; color:var(--text-mute); margin-bottom:16px; font-family:var(--mono);" id="ai-usage-counter"></p>
         <textarea class="ai-textarea" id="ai-input" placeholder="Ex: quero parecer mais confiante numa entrevista de emprego"></textarea>
         <button class="primary-btn" id="ai-submit">Perguntar à IA</button>
         <p class="err-text" id="ai-err" style="display:none;">Escreva algo antes de perguntar</p>
@@ -455,7 +470,7 @@
   <!-- COMUNIDADE -->
   <div class="screen" id="comunidade">
     <div class="topbar">
-      <div class="brand"><div class="brand-mark">C</div><div class="brand-name">cerne</div></div>
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
     </div>
     <div class="content">
       <p class="section-label">Comunidade</p>
@@ -485,10 +500,10 @@
   <!-- LIBRARY -->
   <div class="screen" id="library">
     <div class="topbar">
-      <div class="brand"><div class="brand-mark">C</div><div class="brand-name">cerne</div></div>
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
     </div>
     <div class="content">
-      <p class="section-label">Módulos</p>
+      <p class="section-label">Guia Cerne</p>
       <div id="modules-list"></div>
     </div>
   </div>
@@ -496,7 +511,7 @@
   <!-- LISTA DE COMPRAS -->
   <div class="screen" id="lista">
     <div class="topbar">
-      <div class="brand"><div class="brand-mark">C</div><div class="brand-name">cerne</div></div>
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
     </div>
     <div class="content">
       <p class="section-label">Lista de compras</p>
@@ -508,7 +523,7 @@
   <!-- PROFILE -->
   <div class="screen" id="profile">
     <div class="topbar">
-      <div class="brand"><div class="brand-mark">C</div><div class="brand-name">cerne</div></div>
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
     </div>
     <div class="content">
       <div class="profile-strip">
@@ -520,11 +535,10 @@
       </div>
       <button class="primary-btn" id="edit-profile-btn" style="margin-top:0; margin-bottom:22px; background:var(--card); border:1px solid var(--line); color:var(--text);">Editar perfil</button>
 
-      <div class="palette-card" id="plan-card">
-        <p class="palette-eyebrow">Seu plano</p>
-        <p class="palette-name" id="plan-name">Básico</p>
-        <p class="palette-desc">O Consultor de IA está disponível apenas no plano Premium (R$179).</p>
-        <button class="primary-btn" id="toggle-plan-btn" style="margin-top:6px; background:var(--card); border:1px solid var(--line); color:var(--text);">Simular Premium (modo teste)</button>
+      <div class="palette-card">
+        <p class="palette-eyebrow">Seu acesso</p>
+        <p class="palette-name">Acesso vitalício</p>
+        <p class="palette-desc">Pagamento único, sem mensalidade. O Consultor de IA tem um limite de consultas por mês — veja quanto resta na aba Consultor.</p>
       </div>
 
       <div class="palette-card">
@@ -538,7 +552,7 @@
         <div class="level-num">2</div>
         <div class="level-label">Nível de estilo</div>
         <div class="bar-track"><div class="bar-fill"></div></div>
-        <p style="font-size:11px; color:var(--text-mute); margin-top:8px; font-family:var(--mono);">3 de 8 módulos concluídos</p>
+        <p style="font-size:11px; color:var(--text-mute); margin-top:8px; font-family:var(--mono);">3 de 8 guias explorados</p>
       </div>
       <p class="section-label">Selos</p>
       <div class="badge-row">
@@ -579,10 +593,13 @@
   </div>
 </div>
 
+<script src="looks-data.js"></script>
 <script>
 // ---------- state ----------
 let chosenStyle = '', chosenAge = null, chosenHeight = null, chosenWeight = null, chosenFace = '';
-let chosenPlan = 'basico'; // 'basico' ou 'premium' — hoje é só um toggle de teste; em produção isso vem da confirmação de compra (Hotmart + backend)
+const AI_MONTHLY_LIMIT = 15;
+let aiUsageMonth = '';
+let aiUsageCount = 0;
 
 // ---------- data ----------
 const OCCASIONS = {
@@ -635,20 +652,7 @@ const LOOKS = {
 };
 
 // ---------- looks com fotos reais (organizados por estilo > ocasião) ----------
-const PHOTO_LOOKS = {
-  'Autêntico': {
-    diaadia: [
-      {
-        title: 'Traço Bordô',
-        ocasiao: 'diaadia',
-        composicaoImg: 'images/autentico-diaadia-001-composicao.jpg',
-        pessoaImg: 'images/autentico-diaadia-001-pessoa.jpg',
-        description: 'Camiseta listrada fina em uma das cores da paleta bordô, bege e marrom; jeans reto de lavagem média coordenada; jaqueta jeans clara; sneaker bege retrô; relógio metálico, óculos tartaruga e anel discreto. Ponto criativo: contraste inesperado de cor.',
-        pieces: ['Camiseta listrada bordô', 'Jeans reto', 'Jaqueta jeans clara', 'Sneaker bege retrô', 'Relógio metálico']
-      }
-    ]
-  }
-};
+// PHOTO_LOOKS_REAL é carregado de looks-data.js (arquivo separado, ~1.000 looks reais)
 
 const LOOKS_BY_STYLE = {
   'Autêntico': [
@@ -756,7 +760,7 @@ function saveProfile(){
   try{
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       chosenStyle, chosenAge, chosenHeight, chosenWeight, chosenFace,
-      chosenSkin, chosenHairStyle, chosenHairColor, chosenPlan
+      chosenSkin, chosenHairStyle, chosenHairColor
     }));
   }catch(e){ /* localStorage indisponível neste ambiente — segue só em memória */ }
 }
@@ -773,9 +777,39 @@ function loadProfile(){
     chosenSkin = d.chosenSkin || SKIN_TONES[1];
     chosenHairStyle = d.chosenHairStyle || 'curto';
     chosenHairColor = d.chosenHairColor || HAIR_COLORS[0];
-    chosenPlan = d.chosenPlan || 'basico';
     return !!chosenStyle;
   }catch(e){ return false; }
+}
+
+// ---------- uso mensal do consultor de IA ----------
+function currentMonthKey(){
+  const now = new Date();
+  return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+}
+function loadAiUsage(){
+  try{
+    const raw = localStorage.getItem('cerne_ai_usage_v1');
+    const d = raw ? JSON.parse(raw) : null;
+    const nowKey = currentMonthKey();
+    if (!d || d.month !== nowKey){
+      aiUsageMonth = nowKey;
+      aiUsageCount = 0;
+      saveAiUsage();
+    } else {
+      aiUsageMonth = d.month;
+      aiUsageCount = d.count || 0;
+    }
+  }catch(e){
+    aiUsageMonth = currentMonthKey();
+    aiUsageCount = 0;
+  }
+}
+function saveAiUsage(){
+  try{ localStorage.setItem('cerne_ai_usage_v1', JSON.stringify({ month: aiUsageMonth, count: aiUsageCount })); }catch(e){}
+}
+function updateAiUsageCounter(){
+  const el = document.getElementById('ai-usage-counter');
+  if (el) el.textContent = `${Math.max(0, AI_MONTHLY_LIMIT - aiUsageCount)} de ${AI_MONTHLY_LIMIT} consultas restantes este mês`;
 }
 
 // ---------- nav ----------
@@ -793,8 +827,8 @@ document.querySelectorAll('.nav-item').forEach(item => {
     }
     if (item.dataset.screen === 'comunidade') { renderCommunityFeed(); renderMySubmissions(); }
     if (item.dataset.screen === 'lista') renderShoppingList();
-    if (item.dataset.screen === 'profile') { renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches'); updatePlanUI(); }
-    if (item.dataset.screen === 'consultor') showConsultorContent();
+    if (item.dataset.screen === 'profile') renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches');
+    if (item.dataset.screen === 'consultor') { showConsultorContent(); updateAiUsageCounter(); }
   });
 });
 
@@ -1045,15 +1079,12 @@ function renderPaletteCard(nameId, descId, swatchesId){
   if (swEl) swEl.innerHTML = p.colors.map(c => `<span style="background:${c};"></span>`).join('');
 }
 
-// ---------- plano (Básico / Premium) ----------
-function updatePlanUI(){
-  const isPremium = chosenPlan === 'premium';
-  const planNameEl = document.getElementById('plan-name');
-  const toggleBtn = document.getElementById('toggle-plan-btn');
-  if (planNameEl) planNameEl.textContent = isPremium ? 'Premium' : 'Básico';
-  if (toggleBtn) toggleBtn.textContent = isPremium ? 'Voltar pro Básico (modo teste)' : 'Simular Premium (modo teste)';
-}
 function showConsultorLocked(){
+  const el = document.getElementById('consultor-limit-desc');
+  const now = new Date();
+  const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+  const nextLabel = nextMonth.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' });
+  if (el) el.textContent = `Você usou suas ${AI_MONTHLY_LIMIT} consultas gratuitas deste mês. Elas renovam em ${nextLabel}.`;
   document.getElementById('consultor-locked').style.display = 'block';
   document.getElementById('consultor-content').style.display = 'none';
 }
@@ -1062,11 +1093,6 @@ function showConsultorContent(){
   document.getElementById('consultor-content').style.display = 'block';
 }
 document.getElementById('consultor-locked-back').addEventListener('click', showConsultorContent);
-document.getElementById('toggle-plan-btn').addEventListener('click', () => {
-  chosenPlan = chosenPlan === 'premium' ? 'basico' : 'premium';
-  saveProfile();
-  updatePlanUI();
-});
 
 function renderAvatarPreview(){
   const el = document.getElementById('avatar-preview');
@@ -1131,7 +1157,6 @@ document.getElementById('finish-avatar').addEventListener('click', () => {
   renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches');
   renderLooks('trabalho');
   renderVitrine();
-  updatePlanUI();
   saveProfile();
   showScreen('home');
 });
@@ -1150,27 +1175,55 @@ document.getElementById('edit-profile-btn').addEventListener('click', () => {
 });
 
 // ---------- home: looks ----------
-function renderPhotoLookGrid(containerId, photoLooks){
+function renderPhotoLookGrid(containerId, photoLooks, batchSize){
+  batchSize = batchSize || 9;
   const grid = document.getElementById(containerId);
   if (!grid) return;
   grid.innerHTML = '';
-  photoLooks.forEach(look => {
-    const sq = document.createElement('div');
-    sq.className = 'photo-look-square';
-    sq.innerHTML = `
-      <img src="${look.composicaoImg}" alt="Peças do look ${escapeHtml(look.title)}">
-      <img src="${look.pessoaImg}" alt="Look ${escapeHtml(look.title)} montado">
-      <div class="photo-look-label">${escapeHtml(look.title)}</div>
-    `;
-    sq.addEventListener('click', () => openLookModal(look));
-    grid.appendChild(sq);
-  });
+  const existingBtn = document.getElementById(containerId + '-vermais');
+  if (existingBtn) existingBtn.remove();
+
+  function renderBatch(list){
+    list.forEach(look => {
+      const sq = document.createElement('div');
+      sq.className = 'photo-look-square';
+      sq.innerHTML = `
+        <img src="${look.composicaoImg}" alt="Peças do look ${escapeHtml(look.title)}">
+        <img src="${look.pessoaImg}" alt="Look ${escapeHtml(look.title)} montado">
+        <div class="photo-look-label">${escapeHtml(look.title)}</div>
+      `;
+      sq.addEventListener('click', () => openLookModal(look));
+      grid.appendChild(sq);
+    });
+  }
+
+  if (photoLooks.length <= batchSize){
+    renderBatch(photoLooks);
+    return;
+  }
+  let shown = 0;
+  const btn = document.createElement('button');
+  btn.id = containerId + '-vermais';
+  btn.className = 'ver-mais-photo-btn';
+  function showNextBatch(){
+    const next = photoLooks.slice(shown, shown + batchSize);
+    renderBatch(next);
+    shown += next.length;
+    if (shown >= photoLooks.length){
+      btn.remove();
+    } else {
+      btn.textContent = `Ver mais looks (${photoLooks.length - shown} restantes)`;
+    }
+  }
+  btn.addEventListener('click', showNextBatch);
+  grid.insertAdjacentElement('afterend', btn);
+  showNextBatch();
 }
 
 function renderLooks(occ){
   const list = document.getElementById('looks-list');
   list.innerHTML = '';
-  const photoLooks = (PHOTO_LOOKS[chosenStyle] && PHOTO_LOOKS[chosenStyle][occ]) || [];
+  const photoLooks = (PHOTO_LOOKS_REAL[chosenStyle] && PHOTO_LOOKS_REAL[chosenStyle][occ]) || [];
   renderPhotoLookGrid('home-photo-grid', photoLooks);
   LOOKS[occ].forEach((look, i) => {
     const div = document.createElement('div');
@@ -1268,7 +1321,7 @@ function renderAIResult(parsed){
 }
 
 document.getElementById('ai-submit').addEventListener('click', async () => {
-  if (chosenPlan !== 'premium') { showConsultorLocked(); return; }
+  if (aiUsageCount >= AI_MONTHLY_LIMIT) { showConsultorLocked(); return; }
   const input = document.getElementById('ai-input').value.trim();
   const err = document.getElementById('ai-err');
   const loading = document.getElementById('ai-loading');
@@ -1277,6 +1330,9 @@ document.getElementById('ai-submit').addEventListener('click', async () => {
   err.style.display = 'none';
   result.innerHTML = '';
   loading.style.display = 'flex';
+  aiUsageCount++;
+  saveAiUsage();
+  updateAiUsageCounter();
   try {
     const parsed = await askStyleAI(input);
     renderAIResult(parsed);
@@ -1296,9 +1352,9 @@ function renderVitrine(occFilter){
   tagEl.textContent = chosenStyle || 'seu estilo';
 
   // looks com fotos reais
-  let photoLooks = (PHOTO_LOOKS[chosenStyle] && PHOTO_LOOKS[chosenStyle][occFilter]) || [];
+  let photoLooks = (PHOTO_LOOKS_REAL[chosenStyle] && PHOTO_LOOKS_REAL[chosenStyle][occFilter]) || [];
   if (occFilter === 'todas'){
-    const byOcc = PHOTO_LOOKS[chosenStyle] || {};
+    const byOcc = PHOTO_LOOKS_REAL[chosenStyle] || {};
     photoLooks = Object.values(byOcc).flat();
   }
   renderPhotoLookGrid('vitrine-photo-grid', photoLooks);
@@ -1558,6 +1614,7 @@ function renderShoppingList(){
 }
 
 // ---------- bootstrap: restore saved profile or start onboarding ----------
+loadAiUsage();
 if (loadProfile()){
   syncOnboardingSelections();
   renderSimPreview();
@@ -1572,10 +1629,9 @@ if (loadProfile()){
   renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches');
   renderLooks('trabalho');
   renderVitrine();
-  updatePlanUI();
   showScreen('home');
 }
-updatePlanUI();
+updateAiUsageCounter();
 </script>
 </body>
 </html>
