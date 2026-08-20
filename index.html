@@ -113,8 +113,10 @@
   }
   .style-row.selected{border-color:var(--accent); background:var(--accent-soft);}
   .style-row svg{width:44px; height:60px; flex-shrink:0;}
-  .style-row-title{font-size:14px; font-weight:600; margin-bottom:3px;}
-  .style-row-desc{font-size:12px; color:var(--text-mute); line-height:1.45;}
+  .style-row-photo{width:52px; height:68px; border-radius:8px; object-fit:cover; object-position:top center; flex-shrink:0;}
+  .style-row-title{font-size:14px; font-weight:600; margin-bottom:5px; display:flex; align-items:center; flex-wrap:wrap; gap:6px;}
+  .style-tag-badge{display:inline-block; background:var(--olive-soft); color:var(--olive); font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.3px; padding:2.5px 7px; border-radius:20px;}
+  .style-row-desc{display:inline-flex; align-items:flex-start; gap:5px; background:var(--accent-soft); border-radius:7px; padding:5px 9px; font-size:11px; color:var(--accent-text); line-height:1.4; font-weight:500;}
   .avatar-preview-wrap svg{width:132px; height:264px;}
   .swatch-row{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:4px;}
   .swatch{width:34px; height:34px; border-radius:50%; border:2px solid var(--line); cursor:pointer;}
@@ -245,37 +247,58 @@
     <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
     <div class="progress-dots"><div class="dot done"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
     <div class="ob-wrap">
-      <p class="ob-eyebrow">Etapa 1 de 3</p>
+      <p class="ob-eyebrow">Etapa 1 de 4</p>
       <h1 class="ob-title">Qual estilo te representa hoje?</h1>
       <p class="ob-sub">Isso molda tudo o que vamos te mostrar daqui pra frente.</p>
       <div class="style-list" id="style-grid">
-        <div class="style-row" data-v="Autêntico">
-          <svg viewBox="0 0 80 100"><polygon points="16,8 64,8 60,42 20,42" fill="var(--card-hover)"/><circle cx="28" cy="16" r="3" fill="var(--accent)"/><circle cx="42" cy="22" r="3" fill="var(--accent)"/><circle cx="52" cy="14" r="3" fill="var(--accent)"/><circle cx="34" cy="32" r="3" fill="var(--accent)"/><circle cx="50" cy="34" r="3" fill="var(--accent)"/><polygon points="20,46 38,46 35,78 24,78" fill="var(--olive-soft)"/><polygon points="42,46 60,46 56,78 45,78" fill="var(--olive-soft)"/><rect x="18" y="86" width="22" height="10" rx="5" fill="var(--text-mute)"/><rect x="40" y="86" width="22" height="10" rx="5" fill="var(--text-mute)"/><rect x="18" y="94" width="22" height="3" fill="var(--accent)"/><rect x="40" y="94" width="22" height="3" fill="var(--accent)"/><line x1="14" y1="18" x2="20" y2="46" stroke="var(--text-mute)" stroke-width="2"/><rect x="8" y="44" width="10" height="12" rx="2" fill="var(--accent)"/></svg>
-          <div><div class="style-row-title">Autêntico</div><div class="style-row-desc">Gosta de sair do comum e mostrar personalidade. Costuma usar cores diferentes, estampas, acessórios e combinações criativas.</div></div>
+        <div class="style-row" data-v="Clássico">
+          <img src="images/onboarding/estilo-classico.jpg" alt="Estilo Clássico" class="style-row-photo">
+          <div>
+            <div class="style-row-title">Clássico <span class="style-tag-badge">Mais usado</span></div>
+            <div class="style-row-desc">Para você que gosta de algo minimalista e pé no chão.</div>
+          </div>
+        </div>
+        <div class="style-row" data-v="Esportivo">
+          <img src="images/onboarding/estilo-esportivo.jpg" alt="Estilo Esportivo" class="style-row-photo">
+          <div>
+            <div class="style-row-title">Esportivo</div>
+            <div class="style-row-desc">Para você que busca conforto e praticidade sem abrir mão de uma presença bem-cuidada.</div>
+          </div>
+        </div>
+        <div class="style-row" data-v="Streetwear">
+          <img src="images/onboarding/estilo-streetwear.jpg" alt="Estilo Streetwear" class="style-row-photo">
+          <div>
+            <div class="style-row-title">Streetwear</div>
+            <div class="style-row-desc">Para você que gosta de atitude, liberdade e um visual conectado às ruas.</div>
+          </div>
         </div>
         <div class="style-row" data-v="Sofisticado">
-          <svg viewBox="0 0 80 100"><polygon points="14,8 66,8 62,42 18,42" fill="var(--line)"/><polygon points="34,8 40,22 28,14" fill="var(--card)"/><polygon points="46,8 40,22 52,14" fill="var(--card)"/><rect x="37" y="14" width="6" height="24" rx="1" fill="var(--accent)"/><rect x="20" y="46" width="16" height="32" fill="var(--card-hover)"/><rect x="44" y="46" width="16" height="32" fill="var(--card-hover)"/><ellipse cx="28" cy="90" rx="12" ry="6" fill="var(--text-mute)"/><ellipse cx="52" cy="90" rx="12" ry="6" fill="var(--text-mute)"/></svg>
-          <div><div class="style-row-title">Sofisticado</div><div class="style-row-desc">Gosta de estar sempre bem-arrumado. Prefere camisas, blazers, calças de alfaiataria, sapatos e peças de boa qualidade.</div></div>
-        </div>
-        <div class="style-row" data-v="Dinâmico">
-          <svg viewBox="0 0 80 100"><polygon points="12,8 36,8 32,42 14,40" fill="var(--olive-soft)"/><polygon points="68,8 44,8 48,42 66,40" fill="var(--olive-soft)"/><rect x="34" y="10" width="12" height="30" rx="3" fill="var(--text-soft)"/><polygon points="22,46 36,46 33,78 24,78" fill="var(--line)"/><polygon points="44,46 58,46 56,78 47,78" fill="var(--line)"/><rect x="18" y="86" width="20" height="9" rx="4" fill="var(--text-mute)"/><rect x="42" y="86" width="20" height="9" rx="4" fill="var(--text-mute)"/><rect x="18" y="93" width="20" height="2" fill="var(--accent)"/><rect x="42" y="93" width="20" height="2" fill="var(--accent)"/></svg>
-          <div><div class="style-row-title">Dinâmico</div><div class="style-row-desc">Prioriza conforto e praticidade. Usa bastante camiseta, polo, bermuda, tênis e roupas com influência esportiva.</div></div>
-        </div>
-        <div class="style-row" data-v="Delicado">
-          <svg viewBox="0 0 80 100"><rect x="36" y="4" width="8" height="6" fill="var(--text-soft)"/><polygon points="24,10 56,10 52,42 28,42" fill="var(--text-soft)"/><rect x="28" y="46" width="10" height="32" fill="var(--line-soft)"/><rect x="42" y="46" width="10" height="32" fill="var(--line-soft)"/><ellipse cx="33" cy="88" rx="9" ry="4" fill="var(--text-mute)"/><ellipse cx="47" cy="88" rx="9" ry="4" fill="var(--text-mute)"/></svg>
-          <div><div class="style-row-title">Delicado</div><div class="style-row-desc">Prefere um visual leve e agradável. Gosta de cores claras, tons pastéis, camisas leves, tecidos suaves e peças com caimento confortável.</div></div>
+          <img src="images/onboarding/estilo-sofisticado.jpg" alt="Estilo Sofisticado" class="style-row-photo">
+          <div>
+            <div class="style-row-title">Sofisticado</div>
+            <div class="style-row-desc">Para você que valoriza uma imagem refinada, marcante e impecável em cada detalhe.</div>
+          </div>
         </div>
         <div class="style-row" data-v="Sedutor">
-          <svg viewBox="0 0 80 100"><rect x="32" y="10" width="16" height="34" rx="4" fill="var(--text-soft)"/><polygon points="14,8 34,10 30,44 18,42" fill="var(--accent)"/><polygon points="66,8 46,10 50,44 62,42" fill="var(--accent)"/><polygon points="26,46 40,46 37,78 29,78" fill="var(--card-hover)"/><polygon points="42,46 56,46 51,78 43,78" fill="var(--card-hover)"/><ellipse cx="32" cy="90" rx="10" ry="5" fill="var(--text-mute)"/><ellipse cx="50" cy="90" rx="10" ry="5" fill="var(--text-mute)"/></svg>
-          <div><div class="style-row-title">Sedutor</div><div class="style-row-desc">Gosta de destacar o corpo e transmitir confiança. Prefere camisetas mais ajustadas, camisas abertas no peito, calças bem cortadas e cores marcantes.</div></div>
+          <img src="images/onboarding/estilo-sedutor.jpg" alt="Estilo Sedutor" class="style-row-photo">
+          <div>
+            <div class="style-row-title">Sedutor</div>
+            <div class="style-row-desc">Para você que gosta de transmitir confiança e atração.</div>
+          </div>
         </div>
-        <div class="style-row" data-v="Clássico">
-          <svg viewBox="0 0 80 100"><polygon points="20,8 60,8 57,42 23,42" fill="var(--text-soft)"/><rect x="35" y="8" width="10" height="8" fill="var(--card)"/><rect x="22" y="46" width="16" height="32" fill="var(--line)"/><rect x="42" y="46" width="16" height="32" fill="var(--line)"/><ellipse cx="30" cy="90" rx="12" ry="6" fill="var(--text-mute)"/><ellipse cx="50" cy="90" rx="12" ry="6" fill="var(--text-mute)"/></svg>
-          <div><div class="style-row-title">Clássico</div><div class="style-row-desc">Não gosta de arriscar muito e prefere peças que nunca saem de moda. Usa camiseta básica, camisa social, calça jeans ou chino e sapatos tradicionais.</div></div>
+        <div class="style-row" data-v="Old Money">
+          <img src="images/onboarding/estilo-old-money.jpg" alt="Estilo Old Money" class="style-row-photo">
+          <div>
+            <div class="style-row-title">Old Money</div>
+            <div class="style-row-desc">Para você que gosta de elegância discreta, leve e naturalmente sofisticada.</div>
+          </div>
         </div>
-        <div class="style-row" data-v="Contemporâneo">
-          <svg viewBox="0 0 80 100"><ellipse cx="16" cy="6" rx="9" ry="5" fill="var(--accent)"/><polygon points="6,12 74,12 68,44 12,44" fill="var(--card-hover)"/><rect x="28" y="26" width="24" height="12" rx="3" fill="var(--line)"/><line x1="36" y1="14" x2="34" y2="24" stroke="var(--text-mute)" stroke-width="1.5"/><line x1="44" y1="14" x2="46" y2="24" stroke="var(--text-mute)" stroke-width="1.5"/><polygon points="14,46 40,46 36,78 18,78" fill="var(--olive-soft)"/><polygon points="42,46 68,46 64,78 46,78" fill="var(--olive-soft)"/><rect x="20" y="54" width="10" height="8" fill="var(--line)"/><rect x="16" y="86" width="22" height="11" rx="5" fill="var(--text-mute)"/><rect x="42" y="86" width="22" height="11" rx="5" fill="var(--text-mute)"/><rect x="16" y="94" width="22" height="3" fill="var(--accent)"/><rect x="42" y="94" width="22" height="3" fill="var(--accent)"/></svg>
-          <div><div class="style-row-title">Contemporâneo</div><div class="style-row-desc">Gosta de tendências e de um visual mais moderno. Mistura camisetas oversized, jaquetas, calças diferenciadas, tênis atuais e acessórios urbanos.</div></div>
+        <div class="style-row" data-v="Autêntico">
+          <img src="images/onboarding/estilo-autentico.jpg" alt="Estilo Autêntico" class="style-row-photo">
+          <div>
+            <div class="style-row-title">Autêntico</div>
+            <div class="style-row-desc">Para você que gosta de expressar personalidade extravagante e estilo em seu look.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -667,11 +690,11 @@ const LOOKS_BY_STYLE = {
     { title: 'Blazer sem gravata', ocasiao: 'networking', pieces: ['Blazer', 'Camisa lisa', 'Calça alfaiataria', 'Mocassim'] },
     { title: 'Terno descontraído', ocasiao: 'formaldia', pieces: ['Terno', 'Camisa branca', 'Sapato couro'] }
   ],
-  'Dinâmico': [
+  'Esportivo': [
     { title: 'Fim de semana ativo', ocasiao: 'diaadia', pieces: ['Polo', 'Bermuda ou jeans', 'Tênis', 'Boné'] },
     { title: 'Casual com conforto', ocasiao: 'treino', pieces: ['Camiseta premium', 'Calça sarja', 'Tênis branco'] }
   ],
-  'Delicado': [
+  'Old Money': [
     { title: 'Leveza de verão', ocasiao: 'verao', pieces: ['Camisa textura', 'Calça reta', 'Mocassim'] },
     { title: 'Tons suaves', ocasiao: 'diaadia', pieces: ['Camiseta', 'Calça chino', 'Tênis branco'] }
   ],
@@ -683,7 +706,7 @@ const LOOKS_BY_STYLE = {
     { title: 'Básico impecável', ocasiao: 'diaadia', pieces: ['Camiseta', 'Calça chino', 'Tênis'] },
     { title: 'Social do dia a dia', ocasiao: 'trabalho', pieces: ['Camisa lisa', 'Calça reta', 'Mocassim'] }
   ],
-  'Contemporâneo': [
+  'Streetwear': [
     { title: 'Oversized urbano', ocasiao: 'inverno', pieces: ['Camiseta', 'Jaqueta leve', 'Calça sarja', 'Tênis branco'] },
     { title: 'Street clean', ocasiao: 'diaadia', pieces: ['Polo', 'Calça reta', 'Tênis casual', 'Boné'] }
   ]
@@ -922,7 +945,7 @@ function outfitSVG(style){
       <rect x="51" y="112" width="15" height="55" fill="var(--card-hover)"/>
       <ellipse cx="41" cy="172" rx="14" ry="7" fill="var(--text-mute)"/>
       <ellipse cx="59" cy="172" rx="14" ry="7" fill="var(--text-mute)"/>`,
-    'Dinâmico': `
+    'Esportivo': `
       <polygon points="24,50 46,50 40,108 27,105" fill="var(--olive-soft)"/>
       <polygon points="76,50 54,50 60,108 73,105" fill="var(--olive-soft)"/>
       <rect x="42" y="54" width="16" height="52" rx="4" fill="var(--text-soft)"/>
@@ -932,7 +955,7 @@ function outfitSVG(style){
       <rect x="48" y="176" width="26" height="12" rx="6" fill="var(--text-mute)"/>
       <rect x="26" y="184" width="26" height="3" fill="var(--accent)"/>
       <rect x="48" y="184" width="26" height="3" fill="var(--accent)"/>`,
-    'Delicado': `
+    'Old Money': `
       <polygon points="38,50 62,50 58,108 42,108" fill="var(--text-soft)"/>
       <rect x="38" y="110" width="12" height="58" fill="var(--line-soft)"/>
       <rect x="50" y="110" width="12" height="58" fill="var(--line-soft)"/>
@@ -953,7 +976,7 @@ function outfitSVG(style){
       <rect x="51" y="112" width="13" height="56" fill="var(--line)"/>
       <ellipse cx="42" cy="176" rx="13" ry="6" fill="var(--text-mute)"/>
       <ellipse cx="58" cy="176" rx="13" ry="6" fill="var(--text-mute)"/>`,
-    'Contemporâneo': `
+    'Streetwear': `
       <polygon points="14,52 86,52 78,110 22,110" fill="var(--card-hover)"/>
       <rect x="38" y="80" width="24" height="14" rx="3" fill="var(--line)"/>
       <line x1="42" y1="54" x2="39" y2="76" stroke="var(--text-mute)" stroke-width="2"/>
@@ -1434,7 +1457,7 @@ document.getElementById('image-lightbox').addEventListener('click', (e) => {
 // ---------- comunidade ----------
 const MOCK_POSTS = [
   { id: 'mock1', name: 'Rafael M.', skin: SKIN_TONES[2], hairStyle: 'cacheado', hairColor: HAIR_COLORS[1], style: 'Sofisticado', occasion: 'networking', caption: 'Blazer sem gravata pra reunião de hoje. Simples e resolve.', likes: 24 },
-  { id: 'mock2', name: 'Lucas T.', skin: SKIN_TONES[0], hairStyle: 'undercut', hairColor: HAIR_COLORS[0], style: 'Contemporâneo', occasion: 'diaadia', caption: 'Testando o oversized com cargo. Virou meu favorito.', likes: 41 },
+  { id: 'mock2', name: 'Lucas T.', skin: SKIN_TONES[0], hairStyle: 'undercut', hairColor: HAIR_COLORS[0], style: 'Streetwear', occasion: 'diaadia', caption: 'Testando o oversized com cargo. Virou meu favorito.', likes: 41 },
   { id: 'mock3', name: 'Bruno S.', skin: SKIN_TONES[4], hairStyle: 'raspado', hairColor: HAIR_COLORS[0], style: 'Clássico', occasion: 'trabalho', caption: 'Básico bem feito nunca falha.', likes: 17 },
   { id: 'mock4', name: 'Diego A.', skin: SKIN_TONES[1], hairStyle: 'ondulado', hairColor: HAIR_COLORS[2], style: 'Sedutor', occasion: 'noite', caption: 'Camisa aberta pro jantar de sexta.', likes: 33 }
 ];
