@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CERNE — Estilo Masculino</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1A1815; --bg-elev:#221F19; --card:#2A261F; --card-hover:#332E25;
+    --line:#3A362D; --line-soft:#2E2B23;
+    --text:#F0E9DA; --text-soft:#B8AE9C; --text-mute:#8A8171;
+    --accent:#B8563A; --accent-soft:#3D2B22; --accent-text:#E8A186;
+    --olive:#7C8A5C; --olive-soft:#2C3024;
+    --radius:6px; --radius-lg:10px;
+    --serif:'Fraunces',serif; --sans:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:#0E0D0B; font-family:var(--sans); color:var(--text);}
+  .phone{
+    max-width:400px; margin:0 auto; background:var(--bg); min-height:100vh;
+    position:relative; overflow-x:hidden; border-left:1px solid var(--line); border-right:1px solid var(--line);
+  }
+  .screen{display:none; padding:0 0 98px 0; animation:fade .25s ease;}
+  .screen.active{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  /* ---- Top brand bar ---- */
+  .topbar{display:flex; align-items:center; justify-content:space-between; padding:20px 20px 14px;}
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-logo-img{height:22px; width:auto; display:block;}
+  .brand-mark{width:32px; height:32px; border-radius:50%; border:1px solid var(--accent); display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:15px; color:var(--accent-text);}
+  .brand-name{font-family:var(--serif); font-size:19px; letter-spacing:0.5px; font-weight:500;}
+  .icon-btn{width:34px; height:34px; border-radius:50%; background:var(--card); display:flex; align-items:center; justify-content:center; color:var(--text-soft); font-size:16px; border:1px solid var(--line);}
+
+  /* ---- Onboarding ---- */
+  .ob-wrap{padding:36px 24px 0;}
+  .ob-eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:1.5px; color:var(--accent-text); text-transform:uppercase;}
+  .ob-title{font-family:var(--serif); font-size:28px; font-weight:500; line-height:1.25; margin:10px 0 8px;}
+  .ob-sub{color:var(--text-soft); font-size:14px; line-height:1.5; margin-bottom:28px;}
+
+  .progress-dots{display:flex; gap:6px; padding:0 24px; margin-bottom:6px;}
+  .dot{height:2px; flex:1; background:var(--line);}
+  .dot.done{background:var(--accent);}
+
+  .body-row{display:flex; gap:8px; margin-top:8px;}
+  .chip{flex:1; padding:14px 6px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); text-align:center; font-size:13px; color:var(--text-soft); cursor:pointer;}
+  .chip.selected{border-color:var(--accent); color:var(--accent-text); background:var(--accent-soft);}
+
+  .primary-btn{
+    width:100%; padding:15px; background:var(--accent); color:var(--text); border:none;
+    border-radius:var(--radius); font-family:var(--sans); font-weight:600; font-size:14px;
+    margin-top:28px; cursor:pointer; letter-spacing:0.2px;
+  }
+  .primary-btn:active{transform:scale(0.98);}
+  .primary-btn[disabled]{opacity:0.5;}
+  .err-text{color:#D97757; font-size:12px; margin-top:8px; font-family:var(--sans);}
+  .style-list{display:flex; flex-direction:column; gap:10px;}
+  .ai-textarea{width:100%; min-height:96px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); color:var(--text); font-family:var(--sans); font-size:14px; padding:12px 14px; resize:vertical; outline:none; line-height:1.5;}
+  .compose-card{background:var(--card); border:1px dashed var(--line); border-radius:var(--radius-lg); padding:14px; margin-bottom:22px;}
+  .compose-row{display:flex; gap:12px; align-items:flex-start;}
+  .compose-row .avatar-ring{width:44px; height:44px; flex-shrink:0;}
+  .compose-controls{display:flex; gap:8px; margin-top:10px; align-items:center;}
+  .post-occasion-select{background:var(--card-hover); border:1px solid var(--line); border-radius:var(--radius); color:var(--text); font-family:var(--sans); font-size:12px; padding:9px 6px; flex-shrink:0;}
+  .post-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); margin-bottom:14px; overflow:hidden;}
+  .post-photo{background:var(--bg-elev); display:flex; justify-content:center; padding:18px 0 6px;}
+  .post-photo svg{width:110px; height:220px;}
+  .post-body{padding:12px 14px 14px;}
+  .post-body-head{display:flex; justify-content:space-between; align-items:center; gap:8px;}
+  .post-name{font-size:13px; font-weight:600;}
+  .post-caption{font-size:13px; color:var(--text-soft); margin:8px 0 12px; line-height:1.5;}
+  .like-btn{display:flex; align-items:center; gap:6px; font-size:13px; color:var(--text-mute); cursor:pointer; background:none; border:none; padding:2px 0; font-family:var(--sans);}
+  .like-btn i{font-size:18px;}
+  .like-btn.liked{color:var(--accent-text);}
+  .upload-btn{display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:14px; background:var(--card-hover); border:1px dashed var(--line); border-radius:var(--radius-lg); color:var(--text-soft); font-family:var(--sans); font-size:13px; cursor:pointer;}
+  .upload-btn i{font-size:18px;}
+  .upload-preview{margin-top:10px; border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--line);}
+  .upload-preview img{width:100%; display:block; max-height:220px; object-fit:cover;}
+  .post-photo.photo-real{padding:0; display:block;}
+  .post-photo.photo-real img{width:100%; display:block; max-height:260px; object-fit:cover;}
+  .status-badge{display:inline-flex; align-items:center; gap:4px; font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:0.3px; padding:3px 9px; border-radius:20px; background:var(--card-hover); color:var(--text-mute);}
+  .status-badge i{font-size:12px;}
+  .ai-textarea:focus{border-color:var(--accent);}
+  .ai-textarea::placeholder{color:var(--text-mute);}
+  .ai-loading{display:flex; align-items:center; gap:8px; color:var(--text-mute); font-size:13px; margin-top:16px;}
+  .ai-loading i{animation:spin 1s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .ai-result-style{display:flex; align-items:center; gap:12px; background:var(--accent-soft); border:1px solid var(--accent); border-radius:var(--radius-lg); padding:14px 16px; margin:20px 0 14px;}
+  .ai-result-style i{font-size:22px; color:var(--accent-text); flex-shrink:0;}
+  .ai-result-style .name{font-family:var(--serif); font-size:16px; font-weight:500;}
+  .ai-result-style .desc{font-size:12.5px; color:var(--text-soft); margin-top:3px; line-height:1.5;}
+  .num-input-row{display:flex; gap:14px; margin-bottom:4px;}
+  .num-input-box{flex:1;}
+  .num-input-box label{display:block; font-size:12px; color:var(--text-mute); margin-bottom:6px;}
+  .num-input-box input{
+    width:100%; aspect-ratio:1.3; background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg);
+    color:var(--text); font-family:var(--serif); font-size:22px; text-align:center; outline:none;
+  }
+  .num-input-box input:focus{border-color:var(--accent);}
+  .num-input-box .unit{display:block; text-align:center; font-size:11px; color:var(--text-mute); margin-top:6px; font-family:var(--mono);}
+  .chip-wrap{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip-wrap .chip{flex:none; padding:9px 14px;}
+  .sim-note{display:flex; gap:10px; align-items:flex-start; background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:12px 14px; margin-top:20px;}
+  .sim-note i{color:var(--accent-text); font-size:16px; margin-top:1px;}
+  .sim-note p{font-size:12px; color:var(--text-mute); line-height:1.5;}
+  .confirm-row{display:flex; gap:10px; margin-top:24px;}
+  .confirm-row button{flex:1;}
+  .style-row{
+    display:flex; align-items:center; gap:14px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius-lg); padding:12px 14px; cursor:pointer;
+  }
+  .style-row.selected{border-color:var(--accent); background:var(--accent-soft);}
+  .style-row svg{width:44px; height:60px; flex-shrink:0;}
+  .style-row-title{font-size:14px; font-weight:600; margin-bottom:3px;}
+  .style-row-desc{font-size:12px; color:var(--text-mute); line-height:1.45;}
+  .avatar-preview-wrap svg{width:132px; height:264px;}
+  .swatch-row{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:4px;}
+  .swatch{width:34px; height:34px; border-radius:50%; border:2px solid var(--line); cursor:pointer;}
+  .swatch.selected{border-color:var(--accent);}
+  .palette-card{background:var(--accent-soft); border:1px solid var(--accent); border-radius:var(--radius-lg); padding:16px; margin-top:22px; margin-bottom:20px;}
+  .palette-eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:1px; text-transform:uppercase; color:var(--accent-text); margin-bottom:4px;}
+  .palette-name{font-family:var(--serif); font-size:19px; font-weight:500; margin-bottom:6px;}
+  .palette-desc{font-size:12.5px; color:var(--text-soft); line-height:1.5; margin-bottom:12px;}
+  .palette-swatches{display:flex; gap:8px;}
+  .palette-swatches span{width:28px; height:28px; border-radius:50%; border:1px solid var(--line);}
+  .avatar-mini{width:100%; height:100%;}
+
+  /* ---- Home ---- */
+  .content{padding:0 20px;}
+  .profile-strip{
+    display:flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius-lg); padding:14px 16px; margin-bottom:22px;
+  }
+  .avatar-ring{width:46px; height:46px; border-radius:50%; border:1.5px solid var(--accent); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .avatar-ring i{font-size:20px; color:var(--accent-text);}
+  .profile-strip .pname{font-family:var(--serif); font-size:15px; font-weight:500;}
+  .profile-strip .ptag{font-family:var(--mono); font-size:11px; color:var(--text-mute); margin-top:2px;}
+
+  .section-label{font-family:var(--mono); font-size:11px; letter-spacing:1.2px; text-transform:uppercase; color:var(--text-mute); margin:26px 0 12px;}
+  .section-label:first-child{margin-top:0;}
+
+  .occasion-tabs{display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:16px;}
+  .occ-tab{flex-shrink:0; padding:8px 14px; border-radius:20px; border:1px solid var(--line); background:var(--card); font-size:12.5px; color:var(--text-soft); cursor:pointer; white-space:nowrap;}
+  .occ-tab.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+  .look-card{
+    border:1px dashed var(--line); border-radius:var(--radius-lg); padding:16px; margin-bottom:12px;
+    background:var(--card); position:relative;
+  }
+  .look-num{font-family:var(--mono); font-size:11px; color:var(--text-mute);}
+  .look-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;}
+  .look-occasion{font-family:var(--mono); font-size:10px; letter-spacing:0.3px; text-transform:uppercase; color:var(--accent-text); background:var(--accent-soft); padding:2px 9px; border-radius:20px;}
+  .look-title{font-family:var(--serif); font-size:17px; font-weight:500; margin-bottom:8px;}
+  .look-pieces{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;}
+  .piece-tag{font-family:var(--mono); font-size:10.5px; color:var(--text-soft); border:1px solid var(--line-soft); padding:3px 8px; border-radius:4px; display:inline-flex; align-items:center; gap:4px;}
+  .piece-tag i{font-size:11px;}
+  .piece-tag.owned{border-color:var(--olive); color:var(--olive);}
+  .piece-tag.to-buy{border-color:var(--border-strong,var(--line)); border-style:dashed; color:var(--accent-text); cursor:pointer;}
+  .piece-tag.in-list{border-color:var(--accent); border-style:solid; color:var(--accent-text); background:var(--accent-soft); cursor:pointer;}
+  .shop-item{display:flex; justify-content:space-between; align-items:center; gap:10px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:12px 14px; margin-bottom:10px;}
+  .shop-item-label{font-size:13px; font-weight:500;}
+  .shop-item-meta{font-size:11px; color:var(--text-mute); margin-top:2px; font-family:var(--mono);}
+  .mark-bought-btn{padding:9px 12px; background:var(--olive-soft); border:1px solid var(--olive); border-radius:var(--radius); color:var(--olive); font-family:var(--sans); font-size:12px; cursor:pointer; flex-shrink:0;}
+  .looks-legend{display:flex; gap:16px; margin-bottom:14px; font-size:11px; color:var(--text-mute);}
+  .looks-legend span{display:flex; align-items:center; gap:5px;}
+  .looks-legend i{font-size:12px;}
+  .looks-legend .olive-dot{color:var(--olive);}
+  .looks-legend .accent-dot{color:var(--accent-text);}
+  .look-cta{display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--accent-text); cursor:pointer;}
+  .photo-look-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:18px;}
+  .ver-mais-photo-btn{display:block; width:100%; padding:12px; background:var(--card-hover); border:1px solid var(--line); border-radius:var(--radius); color:var(--text-soft); font-family:var(--sans); font-size:12.5px; font-weight:600; cursor:pointer; margin-bottom:26px;}
+  .vitrine-tip{display:flex; gap:9px; align-items:flex-start; margin-bottom:12px;}
+  .vitrine-tip-avatar{width:28px; height:28px; border-radius:50%; background:var(--accent); color:#fff; font-family:var(--serif); font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .vitrine-tip-bubble{background:var(--card); border-radius:4px 14px 14px 14px; padding:10px 14px; flex:1;}
+  .vitrine-tip-bubble p{font-size:12.5px; color:var(--text-soft); line-height:1.55;}
+  .vitrine-tip-bubble b{color:var(--accent-text); font-weight:600;}
+  .photo-look-square{aspect-ratio:1; border-radius:var(--radius-lg); overflow:hidden; display:flex; gap:2px; cursor:pointer; border:1px solid var(--line); position:relative; background:var(--bg);}
+  .photo-look-square img{width:calc(50% - 1px); height:100%; object-fit:cover; display:block;}
+  .photo-look-label{position:absolute; left:0; right:0; bottom:0; padding:8px 10px; background:linear-gradient(transparent, rgba(0,0,0,0.75)); color:#fff; font-size:11.5px; font-weight:500;}
+  .look-modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; align-items:flex-end; justify-content:center; z-index:50;}
+  .look-modal-backdrop.open{display:flex;}
+  .look-modal{background:var(--bg); width:100%; max-width:400px; max-height:88vh; overflow-y:auto; border-radius:20px 20px 0 0; padding:18px;}
+  .look-modal-header{display:flex; justify-content:flex-end; margin-bottom:16px;}
+  .look-modal-imgs{display:flex; gap:8px; margin-bottom:14px;}
+  .look-modal-imgs img{width:50%; border-radius:var(--radius); object-fit:cover; cursor:pointer;}
+  .look-modal-close{width:34px; height:34px; border-radius:50%; background:var(--card); border:1px solid var(--line); color:var(--text-soft); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;}
+  .look-modal-close i{font-size:16px;}
+  .look-modal-hint{font-size:11.5px; color:var(--text-mute); margin-bottom:10px; display:flex; align-items:center; gap:5px;}
+  .look-modal-hint i{font-size:13px; color:var(--accent-text);}
+  .image-lightbox{position:fixed; inset:0; background:rgba(0,0,0,0.94); display:none; align-items:center; justify-content:center; z-index:60; padding:24px;}
+  .image-lightbox.open{display:flex;}
+  .image-lightbox img{max-width:100%; max-height:88vh; border-radius:8px; object-fit:contain;}
+  .image-lightbox-close{position:fixed; top:20px; right:20px; width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer; z-index:61;}
+  .image-lightbox-close i{font-size:18px;}
+
+  /* ---- Library ---- */
+  .module-card{
+    display:flex; align-items:center; gap:14px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius-lg); padding:14px 16px; margin-bottom:10px; cursor:pointer;
+  }
+  .module-num{font-family:var(--serif); font-size:20px; color:var(--text-mute); width:28px;}
+  .module-card.done .module-num{color:var(--olive);}
+  .module-body{flex:1;}
+  .module-title{font-size:14px; font-weight:500;}
+  .module-sub{font-size:12px; color:var(--text-mute); margin-top:2px;}
+  .module-check{width:20px; height:20px; border-radius:50%; border:1px solid var(--line); flex-shrink:0;}
+  .module-check.done{background:var(--olive); border-color:var(--olive); display:flex; align-items:center; justify-content:center; color:#161810; font-size:12px;}
+
+  /* ---- Profile ---- */
+  .level-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:20px; margin-bottom:20px; text-align:center;}
+  .level-num{font-family:var(--serif); font-size:36px; color:var(--accent-text);}
+  .level-label{font-family:var(--mono); font-size:11px; color:var(--text-mute); letter-spacing:1px; text-transform:uppercase; margin-top:2px;}
+  .bar-track{height:5px; background:var(--line-soft); border-radius:4px; margin-top:16px; overflow:hidden;}
+  .bar-fill{height:100%; background:var(--accent); width:38%;}
+  .badge-row{display:flex; gap:10px; margin-top:16px;}
+  .badge{flex:1; padding:12px 6px; border:1px solid var(--line); border-radius:var(--radius); text-align:center;}
+  .badge i{font-size:18px; color:var(--text-mute);}
+  .badge.unlocked i{color:var(--accent-text);}
+  .badge span{display:block; font-size:10px; color:var(--text-mute); margin-top:6px;}
+
+  /* ---- Bottom nav ---- */
+  .navbar{
+    position:fixed; bottom:14px; left:50%; transform:translateX(-50%);
+    width:calc(100% - 28px); max-width:372px; background:rgba(34,31,25,0.72);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,0.08); border-radius:20px; display:flex; align-items:center; justify-content:space-around;
+    padding:8px 3px; box-shadow:0 10px 28px rgba(0,0,0,0.4); z-index:20;
+  }
+  .nav-item{display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--text-mute); cursor:pointer; padding:2px;}
+  .nav-icon{width:32px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:10px; transition:background .15s ease;}
+  .nav-icon i{font-size:17px;}
+  .nav-icon svg{width:19px; height:19px;}
+  .nav-label{font-size:8.5px; letter-spacing:0.2px;}
+  .nav-item.active{color:var(--accent-text);}
+  .nav-item.active .nav-icon{background:var(--accent-soft);}
+</style>
+</head>
+<body>
+<div class="phone" id="app">
+
+  <!-- ONBOARDING: STYLE -->
+  <div class="screen active" id="ob-style">
+    <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
+    <div class="progress-dots"><div class="dot done"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="ob-wrap">
+      <p class="ob-eyebrow">Etapa 1 de 3</p>
+      <h1 class="ob-title">Qual estilo te representa hoje?</h1>
+      <p class="ob-sub">Isso molda tudo o que vamos te mostrar daqui pra frente.</p>
+      <div class="style-list" id="style-grid">
+        <div class="style-row" data-v="Autêntico">
+          <svg viewBox="0 0 80 100"><polygon points="16,8 64,8 60,42 20,42" fill="var(--card-hover)"/><circle cx="28" cy="16" r="3" fill="var(--accent)"/><circle cx="42" cy="22" r="3" fill="var(--accent)"/><circle cx="52" cy="14" r="3" fill="var(--accent)"/><circle cx="34" cy="32" r="3" fill="var(--accent)"/><circle cx="50" cy="34" r="3" fill="var(--accent)"/><polygon points="20,46 38,46 35,78 24,78" fill="var(--olive-soft)"/><polygon points="42,46 60,46 56,78 45,78" fill="var(--olive-soft)"/><rect x="18" y="86" width="22" height="10" rx="5" fill="var(--text-mute)"/><rect x="40" y="86" width="22" height="10" rx="5" fill="var(--text-mute)"/><rect x="18" y="94" width="22" height="3" fill="var(--accent)"/><rect x="40" y="94" width="22" height="3" fill="var(--accent)"/><line x1="14" y1="18" x2="20" y2="46" stroke="var(--text-mute)" stroke-width="2"/><rect x="8" y="44" width="10" height="12" rx="2" fill="var(--accent)"/></svg>
+          <div><div class="style-row-title">Autêntico</div><div class="style-row-desc">Gosta de sair do comum e mostrar personalidade. Costuma usar cores diferentes, estampas, acessórios e combinações criativas.</div></div>
+        </div>
+        <div class="style-row" data-v="Sofisticado">
+          <svg viewBox="0 0 80 100"><polygon points="14,8 66,8 62,42 18,42" fill="var(--line)"/><polygon points="34,8 40,22 28,14" fill="var(--card)"/><polygon points="46,8 40,22 52,14" fill="var(--card)"/><rect x="37" y="14" width="6" height="24" rx="1" fill="var(--accent)"/><rect x="20" y="46" width="16" height="32" fill="var(--card-hover)"/><rect x="44" y="46" width="16" height="32" fill="var(--card-hover)"/><ellipse cx="28" cy="90" rx="12" ry="6" fill="var(--text-mute)"/><ellipse cx="52" cy="90" rx="12" ry="6" fill="var(--text-mute)"/></svg>
+          <div><div class="style-row-title">Sofisticado</div><div class="style-row-desc">Gosta de estar sempre bem-arrumado. Prefere camisas, blazers, calças de alfaiataria, sapatos e peças de boa qualidade.</div></div>
+        </div>
+        <div class="style-row" data-v="Dinâmico">
+          <svg viewBox="0 0 80 100"><polygon points="12,8 36,8 32,42 14,40" fill="var(--olive-soft)"/><polygon points="68,8 44,8 48,42 66,40" fill="var(--olive-soft)"/><rect x="34" y="10" width="12" height="30" rx="3" fill="var(--text-soft)"/><polygon points="22,46 36,46 33,78 24,78" fill="var(--line)"/><polygon points="44,46 58,46 56,78 47,78" fill="var(--line)"/><rect x="18" y="86" width="20" height="9" rx="4" fill="var(--text-mute)"/><rect x="42" y="86" width="20" height="9" rx="4" fill="var(--text-mute)"/><rect x="18" y="93" width="20" height="2" fill="var(--accent)"/><rect x="42" y="93" width="20" height="2" fill="var(--accent)"/></svg>
+          <div><div class="style-row-title">Dinâmico</div><div class="style-row-desc">Prioriza conforto e praticidade. Usa bastante camiseta, polo, bermuda, tênis e roupas com influência esportiva.</div></div>
+        </div>
+        <div class="style-row" data-v="Delicado">
+          <svg viewBox="0 0 80 100"><rect x="36" y="4" width="8" height="6" fill="var(--text-soft)"/><polygon points="24,10 56,10 52,42 28,42" fill="var(--text-soft)"/><rect x="28" y="46" width="10" height="32" fill="var(--line-soft)"/><rect x="42" y="46" width="10" height="32" fill="var(--line-soft)"/><ellipse cx="33" cy="88" rx="9" ry="4" fill="var(--text-mute)"/><ellipse cx="47" cy="88" rx="9" ry="4" fill="var(--text-mute)"/></svg>
+          <div><div class="style-row-title">Delicado</div><div class="style-row-desc">Prefere um visual leve e agradável. Gosta de cores claras, tons pastéis, camisas leves, tecidos suaves e peças com caimento confortável.</div></div>
+        </div>
+        <div class="style-row" data-v="Sedutor">
+          <svg viewBox="0 0 80 100"><rect x="32" y="10" width="16" height="34" rx="4" fill="var(--text-soft)"/><polygon points="14,8 34,10 30,44 18,42" fill="var(--accent)"/><polygon points="66,8 46,10 50,44 62,42" fill="var(--accent)"/><polygon points="26,46 40,46 37,78 29,78" fill="var(--card-hover)"/><polygon points="42,46 56,46 51,78 43,78" fill="var(--card-hover)"/><ellipse cx="32" cy="90" rx="10" ry="5" fill="var(--text-mute)"/><ellipse cx="50" cy="90" rx="10" ry="5" fill="var(--text-mute)"/></svg>
+          <div><div class="style-row-title">Sedutor</div><div class="style-row-desc">Gosta de destacar o corpo e transmitir confiança. Prefere camisetas mais ajustadas, camisas abertas no peito, calças bem cortadas e cores marcantes.</div></div>
+        </div>
+        <div class="style-row" data-v="Clássico">
+          <svg viewBox="0 0 80 100"><polygon points="20,8 60,8 57,42 23,42" fill="var(--text-soft)"/><rect x="35" y="8" width="10" height="8" fill="var(--card)"/><rect x="22" y="46" width="16" height="32" fill="var(--line)"/><rect x="42" y="46" width="16" height="32" fill="var(--line)"/><ellipse cx="30" cy="90" rx="12" ry="6" fill="var(--text-mute)"/><ellipse cx="50" cy="90" rx="12" ry="6" fill="var(--text-mute)"/></svg>
+          <div><div class="style-row-title">Clássico</div><div class="style-row-desc">Não gosta de arriscar muito e prefere peças que nunca saem de moda. Usa camiseta básica, camisa social, calça jeans ou chino e sapatos tradicionais.</div></div>
+        </div>
+        <div class="style-row" data-v="Contemporâneo">
+          <svg viewBox="0 0 80 100"><ellipse cx="16" cy="6" rx="9" ry="5" fill="var(--accent)"/><polygon points="6,12 74,12 68,44 12,44" fill="var(--card-hover)"/><rect x="28" y="26" width="24" height="12" rx="3" fill="var(--line)"/><line x1="36" y1="14" x2="34" y2="24" stroke="var(--text-mute)" stroke-width="1.5"/><line x1="44" y1="14" x2="46" y2="24" stroke="var(--text-mute)" stroke-width="1.5"/><polygon points="14,46 40,46 36,78 18,78" fill="var(--olive-soft)"/><polygon points="42,46 68,46 64,78 46,78" fill="var(--olive-soft)"/><rect x="20" y="54" width="10" height="8" fill="var(--line)"/><rect x="16" y="86" width="22" height="11" rx="5" fill="var(--text-mute)"/><rect x="42" y="86" width="22" height="11" rx="5" fill="var(--text-mute)"/><rect x="16" y="94" width="22" height="3" fill="var(--accent)"/><rect x="42" y="94" width="22" height="3" fill="var(--accent)"/></svg>
+          <div><div class="style-row-title">Contemporâneo</div><div class="style-row-desc">Gosta de tendências e de um visual mais moderno. Mistura camisetas oversized, jaquetas, calças diferenciadas, tênis atuais e acessórios urbanos.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ONBOARDING: BODY PROFILE -->
+  <div class="screen" id="ob-body">
+    <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
+    <div class="progress-dots"><div class="dot done"></div><div class="dot done"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="ob-wrap">
+      <p class="ob-eyebrow">Etapa 2 de 4</p>
+      <h1 class="ob-title">Monte seu perfil físico</h1>
+      <p class="ob-sub">Ajusta cortes e proporções nas recomendações.</p>
+
+      <div class="num-input-row">
+        <div class="num-input-box">
+          <label for="input-age">Idade</label>
+          <input type="number" id="input-age" inputmode="numeric" placeholder="28">
+          <span class="unit">anos</span>
+        </div>
+        <div class="num-input-box">
+          <label for="input-height">Altura</label>
+          <input type="number" id="input-height" inputmode="numeric" placeholder="178">
+          <span class="unit">cm</span>
+        </div>
+        <div class="num-input-box">
+          <label for="input-weight">Peso</label>
+          <input type="number" id="input-weight" inputmode="numeric" placeholder="75">
+          <span class="unit">kg</span>
+        </div>
+      </div>
+
+      <p style="font-size:13px; color:var(--text-soft); margin:22px 0 8px;">Formato do rosto</p>
+      <div class="chip-wrap" id="face-grid">
+        <div class="chip" data-v="Oval">Oval</div>
+        <div class="chip" data-v="Redondo">Redondo</div>
+        <div class="chip" data-v="Quadrado">Quadrado</div>
+        <div class="chip" data-v="Triangular">Triangular</div>
+      </div>
+
+      <button class="primary-btn" id="to-simulation">Ver minha simulação</button>
+      <p class="err-text" id="body-err" style="display:none;">Preencha idade, altura, peso e formato do rosto antes de continuar</p>
+    </div>
+  </div>
+
+  <!-- ONBOARDING: BODY SIMULATION CONFIRM -->
+  <div class="screen" id="ob-simulation">
+    <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
+    <div class="progress-dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot"></div></div>
+    <div class="ob-wrap">
+      <p class="ob-eyebrow">Etapa 3 de 4</p>
+      <h1 class="ob-title">É mais ou menos assim?</h1>
+      <p class="ob-sub">Simulação baseada na altura e peso que você informou.</p>
+      <div class="avatar-preview-wrap"><svg id="sim-preview" viewBox="0 0 100 200"></svg></div>
+      <div class="sim-note"><i class="ti ti-info-circle"></i><p>É uma aproximação visual, não uma medida exata. Você pode ajustar a qualquer momento em "Editar perfil".</p></div>
+      <div class="confirm-row">
+        <button class="primary-btn" id="sim-adjust" style="margin-top:0; background:var(--card); border:1px solid var(--line); color:var(--text);">Ajustar</button>
+        <button class="primary-btn" id="sim-confirm" style="margin-top:0;">É isso aí</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ONBOARDING: AVATAR BUILDER -->
+  <div class="screen" id="ob-avatar">
+    <div class="topbar"><div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div></div>
+    <div class="progress-dots"><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div><div class="dot done"></div></div>
+    <div class="ob-wrap">
+      <p class="ob-eyebrow">Etapa 4 de 4</p>
+      <h1 class="ob-title">Monte seu avatar</h1>
+      <p class="ob-sub">Pele, cabelo e sua roupa do estilo escolhido — do seu jeito.</p>
+
+      <div class="avatar-preview-wrap"><svg id="avatar-preview" viewBox="0 0 100 200"></svg></div>
+
+      <p style="font-size:13px; color:var(--text-soft); margin-bottom:8px;">Tom de pele</p>
+      <div class="swatch-row" id="skin-row"></div>
+
+      <p style="font-size:13px; color:var(--text-soft); margin:20px 0 8px;">Estilo de cabelo</p>
+      <div class="chip-wrap" id="hair-style-grid"></div>
+
+      <p style="font-size:13px; color:var(--text-soft); margin:20px 0 8px;">Cor do cabelo</p>
+      <div class="swatch-row" id="hair-color-row"></div>
+
+      <div class="palette-card" id="palette-card">
+        <p class="palette-eyebrow">Sua paleta de cores</p>
+        <p class="palette-name" id="palette-name">—</p>
+        <p class="palette-desc" id="palette-desc"></p>
+        <div class="palette-swatches" id="palette-swatches"></div>
+      </div>
+
+      <button class="primary-btn" id="finish-avatar">Concluir</button>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div class="screen" id="home">
+    <div class="topbar">
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
+      <div class="icon-btn"><i class="ti ti-bell"></i></div>
+    </div>
+    <div class="content">
+      <div class="profile-strip">
+        <div class="avatar-ring" id="avatar-mini-home"></div>
+        <div>
+          <div class="pname">Seu perfil de estilo</div>
+          <div class="ptag" id="home-profile-tag">—</div>
+        </div>
+      </div>
+
+      <p class="section-label">Looks para você</p>
+      <div class="occasion-tabs" id="occ-tabs">
+        <div class="occ-tab active" data-v="trabalho">Trabalho</div>
+        <div class="occ-tab" data-v="encontro">Encontro</div>
+        <div class="occ-tab" data-v="evento">Evento</div>
+        <div class="occ-tab" data-v="diaadia">Dia a dia</div>
+        <div class="occ-tab" data-v="verao">Verão</div>
+        <div class="occ-tab" data-v="networking">Networking</div>
+        <div class="occ-tab" data-v="noite">Noite</div>
+        <div class="occ-tab" data-v="inverno">Inverno</div>
+        <div class="occ-tab" data-v="formaldia">Formal para dia</div>
+        <div class="occ-tab" data-v="formalnoite">Formal para noite</div>
+        <div class="occ-tab" data-v="treino">Treino</div>
+      </div>
+      <div id="home-photo-grid"></div>
+      <div id="looks-list"></div>
+      <div class="looks-legend">
+        <span class="accent-dot"><i class="ti ti-shopping-bag"></i> Toque numa peça pra adicionar à lista</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VITRINE -->
+  <div class="screen" id="vitrine">
+    <div class="topbar">
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
+    </div>
+    <div class="content">
+      <p class="section-label">Vitrine — <span id="vitrine-style-tag">seu estilo</span></p>
+      <p style="font-size:13px; color:var(--text-soft); margin:-6px 0 16px;">As melhores ideias de look pro seu estilo.</p>
+
+      <div class="vitrine-tip">
+        <div class="vitrine-tip-avatar">C</div>
+        <div class="vitrine-tip-bubble"><p><b>Psiu:</b> não precisa seguir o look à risca. A gente te dá a base, você tempera com a sua cara — troca uma peça, ajusta uma cor, faz do seu jeito.</p></div>
+      </div>
+      <div class="vitrine-tip" style="margin-bottom:18px;">
+        <div class="vitrine-tip-avatar">C</div>
+        <div class="vitrine-tip-bubble"><p><b>Outra coisa:</b> seu estilo não é definitivo. Muda quando quiser lá no seu perfil, e essa vitrine se refaz na hora com ideias mais parecidas com você.</p></div>
+      </div>
+
+      <div class="occasion-tabs" id="vitrine-occ-tabs">
+        <div class="occ-tab active" data-v="todas">Todas</div>
+        <div class="occ-tab" data-v="trabalho">Trabalho</div>
+        <div class="occ-tab" data-v="encontro">Encontro</div>
+        <div class="occ-tab" data-v="evento">Evento</div>
+        <div class="occ-tab" data-v="diaadia">Dia a dia</div>
+        <div class="occ-tab" data-v="verao">Verão</div>
+        <div class="occ-tab" data-v="networking">Networking</div>
+        <div class="occ-tab" data-v="noite">Noite</div>
+        <div class="occ-tab" data-v="inverno">Inverno</div>
+        <div class="occ-tab" data-v="formaldia">Formal para dia</div>
+        <div class="occ-tab" data-v="formalnoite">Formal para noite</div>
+        <div class="occ-tab" data-v="treino">Treino</div>
+      </div>
+      <div id="vitrine-photo-grid"></div>
+      <div id="vitrine-list"></div>
+      <div class="looks-legend">
+        <span class="accent-dot"><i class="ti ti-shopping-bag"></i> Toque numa peça pra adicionar à lista</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONSULTOR (AI) -->
+  <div class="screen" id="consultor">
+    <div class="topbar">
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
+    </div>
+    <div class="content">
+      <div id="consultor-locked" style="display:none; text-align:center; padding:36px 12px;">
+        <i class="ti ti-hourglass-low" style="font-size:36px; color:var(--accent-text);"></i>
+        <h2 style="font-family:var(--serif); font-size:19px; font-weight:500; margin:16px 0 8px;">Você usou suas consultas deste mês</h2>
+        <p style="font-size:13px; color:var(--text-soft); line-height:1.6; margin-bottom:24px;" id="consultor-limit-desc"></p>
+        <button class="primary-btn" id="consultor-locked-back" style="background:var(--card); border:1px solid var(--line); color:var(--text-soft);">Voltar</button>
+      </div>
+      <div id="consultor-content">
+        <p class="section-label">Consultor de estilo</p>
+        <p style="font-size:13px; color:var(--text-soft); margin:-6px 0 6px;">Descreva o que você quer expressar. A IA recomenda o estilo e os looks certos pra isso.</p>
+        <p style="font-size:11.5px; color:var(--text-mute); margin-bottom:16px; font-family:var(--mono);" id="ai-usage-counter"></p>
+        <textarea class="ai-textarea" id="ai-input" placeholder="Ex: quero parecer mais confiante numa entrevista de emprego"></textarea>
+        <button class="primary-btn" id="ai-submit">Perguntar à IA</button>
+        <p class="err-text" id="ai-err" style="display:none;">Escreva algo antes de perguntar</p>
+        <div class="ai-loading" id="ai-loading" style="display:none;"><i class="ti ti-loader-2"></i>Pensando no seu estilo...</div>
+        <div id="ai-result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMUNIDADE -->
+  <div class="screen" id="comunidade">
+    <div class="topbar">
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
+    </div>
+    <div class="content">
+      <p class="section-label">Comunidade</p>
+      <p style="font-size:13px; color:var(--text-soft); margin:-6px 0 16px;">Veja o que a comunidade está montando e envie o seu look pra aparecer aqui.</p>
+
+      <div class="compose-card">
+        <input type="file" id="post-photo-input" accept="image/*" style="display:none;">
+        <button type="button" class="upload-btn" id="post-photo-trigger"><i class="ti ti-camera-plus"></i> Escolher foto do look</button>
+        <div class="upload-preview" id="post-photo-preview" style="display:none;"><img id="post-photo-img" alt="Prévia da foto enviada"></div>
+
+        <textarea class="ai-textarea" id="post-caption" placeholder="Conte sobre esse look..." style="min-height:60px; margin-top:12px;"></textarea>
+        <div class="compose-controls">
+          <select class="post-occasion-select" id="post-occasion"></select>
+          <button class="primary-btn" id="post-submit" style="margin-top:0; flex:1;">Enviar pra análise</button>
+        </div>
+        <p class="err-text" id="post-err" style="display:none;">Escolha uma foto e escreva algo antes de enviar</p>
+        <div class="ai-loading" id="post-sent-msg" style="display:none;"><i class="ti ti-clock-hour-4"></i>Enviado! Nossa equipe revisa antes de aparecer na comunidade.</div>
+      </div>
+
+      <div id="my-submissions"></div>
+
+      <p class="section-label">Comunidade</p>
+      <div id="community-feed"></div>
+    </div>
+  </div>
+
+  <!-- LIBRARY -->
+  <div class="screen" id="library">
+    <div class="topbar">
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
+    </div>
+    <div class="content">
+      <p class="section-label">Guia Cerne</p>
+      <div id="modules-list"></div>
+    </div>
+  </div>
+
+  <!-- LISTA DE COMPRAS -->
+  <div class="screen" id="lista">
+    <div class="topbar">
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
+    </div>
+    <div class="content">
+      <p class="section-label">Lista de compras</p>
+      <p style="font-size:13px; color:var(--text-soft); margin-bottom:18px; margin-top:-6px;">Peças que você marcou como "quero essa" na Vitrine, na Home ou no Consultor.</p>
+      <div id="shopping-list"></div>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="screen" id="profile">
+    <div class="topbar">
+      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
+    </div>
+    <div class="content">
+      <div class="profile-strip">
+        <div class="avatar-ring" id="avatar-mini-profile"></div>
+        <div>
+          <div class="pname" id="profile-name-tag">Seu perfil de estilo</div>
+          <div class="ptag" id="profile-profile-tag">—</div>
+        </div>
+      </div>
+      <button class="primary-btn" id="edit-profile-btn" style="margin-top:0; margin-bottom:22px; background:var(--card); border:1px solid var(--line); color:var(--text);">Editar perfil</button>
+
+      <div class="palette-card">
+        <p class="palette-eyebrow">Seu acesso</p>
+        <p class="palette-name">Acesso vitalício</p>
+        <p class="palette-desc">Pagamento único, sem mensalidade. O Consultor de IA tem um limite de consultas por mês — veja quanto resta na aba Consultor.</p>
+      </div>
+
+      <div class="palette-card">
+        <p class="palette-eyebrow">Sua paleta de cores</p>
+        <p class="palette-name" id="profile-palette-name">—</p>
+        <p class="palette-desc" id="profile-palette-desc"></p>
+        <div class="palette-swatches" id="profile-palette-swatches"></div>
+      </div>
+
+      <div class="level-card">
+        <div class="level-num">2</div>
+        <div class="level-label">Nível de estilo</div>
+        <div class="bar-track"><div class="bar-fill"></div></div>
+        <p style="font-size:11px; color:var(--text-mute); margin-top:8px; font-family:var(--mono);">3 de 8 guias explorados</p>
+      </div>
+      <p class="section-label">Selos</p>
+      <div class="badge-row">
+        <div class="badge unlocked"><i class="ti ti-checklist"></i><span>Quiz feito</span></div>
+        <div class="badge unlocked"><i class="ti ti-palette"></i><span>Cores ok</span></div>
+        <div class="badge"><i class="ti ti-briefcase"></i><span>Cápsula completa</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="navbar">
+    <div class="nav-item active" data-screen="home"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5L12 4l8 7.5"/><path d="M6 10v9.5h5v-6h2v6h5V10"/></svg></span><span class="nav-label">Início</span></div>
+    <div class="nav-item" data-screen="vitrine"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span><span class="nav-label">Vitrine</span></div>
+    <div class="nav-item" data-screen="consultor"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="4"/><path d="M8 20l2.5-3"/><circle cx="8.5" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="15.5" cy="11" r="0.9" fill="currentColor" stroke="none"/></svg></span><span class="nav-label">Consultor</span></div>
+    <div class="nav-item" data-screen="comunidade"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="3"/><circle cx="16" cy="9.5" r="2.5"/><path d="M3 20c0-3.3 2.5-5.5 5.5-5.5S14 16.7 14 20"/><path d="M14.5 15c2.4.2 4 2 4 5"/></svg></span><span class="nav-label">Comunidade</span></div>
+    <div class="nav-item" data-screen="library"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5c-2-1.3-4.7-1.5-7.5-.8v12c2.8-.7 5.5-.5 7.5.8"/><path d="M12 6.5c2-1.3 4.7-1.5 7.5-.8v12c-2.8-.7-5.5-.5-7.5.8z"/></svg></span><span class="nav-label">Biblioteca</span></div>
+    <div class="nav-item" data-screen="lista"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="4" height="4" rx="1"/><path d="M4.8 7l0.8 0.8L7 6.2"/><line x1="11" y1="7" x2="20" y2="7"/><rect x="4" y="14" width="4" height="4" rx="1"/><line x1="11" y1="16" x2="20" y2="16"/></svg></span><span class="nav-label">Lista</span></div>
+    <div class="nav-item" data-screen="profile"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4.1 3.4-7 7.5-7s7.5 2.9 7.5 7"/></svg></span><span class="nav-label">Perfil</span></div>
+  </div>
+
+  <div class="look-modal-backdrop" id="look-modal-backdrop">
+    <div class="look-modal">
+      <div class="look-modal-header">
+        <div class="look-modal-close" id="look-modal-close"><i class="ti ti-x"></i></div>
+      </div>
+      <div class="look-modal-imgs" id="look-modal-imgs"></div>
+      <div class="look-occasion" id="look-modal-occasion" style="margin-bottom:8px; display:inline-block;"></div>
+      <p class="look-title" id="look-modal-title" style="font-size:19px; margin-bottom:8px;"></p>
+      <p style="font-size:13px; color:var(--text-soft); line-height:1.6; margin-bottom:10px;" id="look-modal-desc"></p>
+      <p class="look-modal-hint"><i class="ti ti-hand-click"></i>Toque nas peças que você quer — elas vão direto pra sua lista de compras</p>
+      <div class="look-pieces" id="look-modal-pieces"></div>
+    </div>
+  </div>
+
+  <div class="image-lightbox" id="image-lightbox">
+    <div class="image-lightbox-close" id="image-lightbox-close"><i class="ti ti-x"></i></div>
+    <img id="image-lightbox-img" src="" alt="Foto ampliada do look">
+  </div>
+</div>
+
+<script src="looks-data.js"></script>
+<script>
+// ---------- state ----------
+let chosenStyle = '', chosenAge = null, chosenHeight = null, chosenWeight = null, chosenFace = '';
+const AI_MONTHLY_LIMIT = 15;
+let aiUsageMonth = '';
+let aiUsageCount = 0;
+
+// ---------- data ----------
+const OCCASIONS = {
+  trabalho: 'Trabalho', encontro: 'Encontro', evento: 'Evento', diaadia: 'Dia a dia',
+  verao: 'Verão', networking: 'Networking', noite: 'Noite', inverno: 'Inverno',
+  formaldia: 'Formal para dia', formalnoite: 'Formal para noite', treino: 'Treino'
+};
+
+const LOOKS = {
+  trabalho: [
+    { title: 'Casual de escritório', pieces: ['Camisa lisa', 'Calça alfaiataria', 'Mocassim'] },
+    { title: 'Reunião importante', pieces: ['Blazer', 'Camisa', 'Calça reta', 'Sapato social'] }
+  ],
+  encontro: [
+    { title: 'Jantar descontraído', pieces: ['Camisa textura', 'Calça chino', 'Tênis casual'] },
+    { title: 'Primeiro encontro', pieces: ['Camiseta premium', 'Jaqueta leve', 'Calça reta'] }
+  ],
+  evento: [
+    { title: 'Festa formal', pieces: ['Terno', 'Camisa branca', 'Sapato couro'] }
+  ],
+  diaadia: [
+    { title: 'Fim de semana', pieces: ['Camiseta', 'Bermuda ou jeans', 'Tênis'] },
+    { title: 'Compromisso rápido', pieces: ['Polo', 'Calça sarja', 'Tênis branco'] }
+  ],
+  verao: [
+    { title: 'Praia ao fim de tarde', pieces: ['Camiseta', 'Bermuda', 'Chinelo ou sandália'] },
+    { title: 'Passeio de verão', pieces: ['Camisa textura', 'Bermuda ou jeans', 'Tênis branco'] }
+  ],
+  networking: [
+    { title: 'Evento de negócios', pieces: ['Blazer', 'Camisa lisa', 'Calça alfaiataria', 'Mocassim'] },
+    { title: 'Happy hour profissional', pieces: ['Camisa textura', 'Calça reta', 'Sapato couro'] }
+  ],
+  noite: [
+    { title: 'Bar com amigos', pieces: ['Camiseta premium', 'Jaqueta leve', 'Calça reta', 'Tênis casual'] },
+    { title: 'Balada', pieces: ['Camisa', 'Calça alfaiataria', 'Sapato social'] }
+  ],
+  inverno: [
+    { title: 'Frio no dia a dia', pieces: ['Camisa', 'Calça reta', 'Tênis'] },
+    { title: 'Camadas de inverno', pieces: ['Camisa', 'Jaqueta leve', 'Calça chino', 'Tênis'] }
+  ],
+  formaldia: [
+    { title: 'Reunião formal de dia', pieces: ['Blazer', 'Camisa branca', 'Calça alfaiataria', 'Sapato couro'] }
+  ],
+  formalnoite: [
+    { title: 'Jantar formal à noite', pieces: ['Terno', 'Camisa', 'Sapato social'] }
+  ],
+  treino: [
+    { title: 'Treino na academia', pieces: ['Camiseta', 'Bermuda ou jeans', 'Tênis'] }
+  ]
+};
+
+// ---------- looks com fotos reais (organizados por estilo > ocasião) ----------
+// PHOTO_LOOKS_REAL é carregado de looks-data.js (arquivo separado, ~1.000 looks reais)
+
+const LOOKS_BY_STYLE = {
+  'Autêntico': [
+    { title: 'Mix de estampas controlado', ocasiao: 'diaadia', pieces: ['Camisa estampada', 'Calça lisa', 'Tênis colorido', 'Bolsa transversal'] },
+    { title: 'Camada criativa', ocasiao: 'encontro', pieces: ['Camiseta gráfica', 'Jaqueta colorida', 'Calça wide leg'] }
+  ],
+  'Sofisticado': [
+    { title: 'Blazer sem gravata', ocasiao: 'networking', pieces: ['Blazer', 'Camisa lisa', 'Calça alfaiataria', 'Mocassim'] },
+    { title: 'Terno descontraído', ocasiao: 'formaldia', pieces: ['Terno', 'Camisa branca', 'Sapato couro'] }
+  ],
+  'Dinâmico': [
+    { title: 'Fim de semana ativo', ocasiao: 'diaadia', pieces: ['Polo', 'Bermuda ou jeans', 'Tênis', 'Boné'] },
+    { title: 'Casual com conforto', ocasiao: 'treino', pieces: ['Camiseta premium', 'Calça sarja', 'Tênis branco'] }
+  ],
+  'Delicado': [
+    { title: 'Leveza de verão', ocasiao: 'verao', pieces: ['Camisa textura', 'Calça reta', 'Mocassim'] },
+    { title: 'Tons suaves', ocasiao: 'diaadia', pieces: ['Camiseta', 'Calça chino', 'Tênis branco'] }
+  ],
+  'Sedutor': [
+    { title: 'Camisa aberta', ocasiao: 'noite', pieces: ['Camiseta premium', 'Camisa textura', 'Calça reta', 'Sapato couro'] },
+    { title: 'Preto ajustado', ocasiao: 'noite', pieces: ['Camiseta', 'Calça alfaiataria', 'Sapato social'] }
+  ],
+  'Clássico': [
+    { title: 'Básico impecável', ocasiao: 'diaadia', pieces: ['Camiseta', 'Calça chino', 'Tênis'] },
+    { title: 'Social do dia a dia', ocasiao: 'trabalho', pieces: ['Camisa lisa', 'Calça reta', 'Mocassim'] }
+  ],
+  'Contemporâneo': [
+    { title: 'Oversized urbano', ocasiao: 'inverno', pieces: ['Camiseta', 'Jaqueta leve', 'Calça sarja', 'Tênis branco'] },
+    { title: 'Street clean', ocasiao: 'diaadia', pieces: ['Polo', 'Calça reta', 'Tênis casual', 'Boné'] }
+  ]
+};
+
+const MODULES = [
+  { n: '01', t: 'Autoconhecimento de estilo', s: 'Arquétipos e quiz', done: true },
+  { n: '02', t: 'Seu tipo físico', s: 'Rosto, corpo e proporção', done: true },
+  { n: '03', t: 'Peças essenciais', s: 'O que é essencial x supérfluo', done: true },
+  { n: '04', t: 'Cores e combinações', s: 'Paleta base e como não errar', done: false },
+  { n: '05', t: 'Armário cápsula', s: 'Poucas peças, muitas combinações', done: false },
+  { n: '06', t: 'Vestindo por ocasião', s: 'Trabalho, encontro, evento', done: false },
+  { n: '07', t: 'Acessórios e detalhes', s: 'O que realmente faz diferença', done: false }
+];
+
+// Vocabulário interno usado só pra unificar peças parecidas na lista de compras (não é exibido como UI)
+const CLOSET = {
+  'Camisetas': ['Camiseta', 'Camiseta premium', 'Polo'],
+  'Camisas': ['Camisa lisa', 'Camisa textura', 'Camisa branca'],
+  'Calças': ['Calça alfaiataria', 'Calça chino', 'Calça reta', 'Calça sarja'],
+  'Calçados': ['Tênis', 'Tênis branco', 'Mocassim', 'Sapato social', 'Sapato couro'],
+  'Outros': ['Blazer', 'Jaqueta leve', 'Terno', 'Bermuda ou jeans']
+};
+
+// ---------- shopping list ----------
+let shoppingList = {}; // key ("cat:item" or "Outros:PieceName") -> { label }
+function loadShoppingList(){
+  try{ const raw = localStorage.getItem('cerne_shopping_list_v1'); return raw ? JSON.parse(raw) : {}; }
+  catch(e){ return {}; }
+}
+function saveShoppingList(){
+  try{ localStorage.setItem('cerne_shopping_list_v1', JSON.stringify(shoppingList)); }catch(e){}
+}
+shoppingList = loadShoppingList();
+
+function piecesMatch(a, b){
+  const A = a.toLowerCase(), B = b.toLowerCase();
+  return A === B || A.includes(B) || B.includes(A);
+}
+function pieceKey(piece){
+  for (const [cat, items] of Object.entries(CLOSET)){
+    for (const item of items){
+      if (piecesMatch(piece, item)) return cat + ':' + item;
+    }
+  }
+  return 'Outros:' + piece;
+}
+function pieceTagHtml(p){
+  const key = pieceKey(p);
+  if (shoppingList[key]){
+    return `<span class="piece-tag in-list" data-key="${escapeHtml(key)}" data-label="${escapeHtml(p)}"><i class="ti ti-shopping-cart"></i> ${escapeHtml(p)}</span>`;
+  }
+  return `<span class="piece-tag to-buy" data-key="${escapeHtml(key)}" data-label="${escapeHtml(p)}"><i class="ti ti-shopping-bag"></i> ${escapeHtml(p)}</span>`;
+}
+document.addEventListener('click', (e) => {
+  const tag = e.target.closest('.piece-tag.to-buy, .piece-tag.in-list');
+  if (!tag) return;
+  const key = tag.dataset.key;
+  const label = tag.dataset.label;
+  if (!key) return;
+  if (shoppingList[key]) delete shoppingList[key];
+  else shoppingList[key] = { label };
+  saveShoppingList();
+  refreshLookRenders();
+});
+function refreshLookRenders(){
+  const activeOccTab = document.querySelector('#occ-tabs .occ-tab.active');
+  if (activeOccTab) renderLooks(activeOccTab.dataset.v);
+  const activeVitTab = document.querySelector('#vitrine-occ-tabs .occ-tab.active');
+  if (activeVitTab) renderVitrine(activeVitTab.dataset.v);
+  if (typeof lastAIResult !== 'undefined' && lastAIResult) renderAIResult(lastAIResult);
+  renderShoppingList();
+}
+
+// ---------- persistence ----------
+const STORAGE_KEY = 'cerne_profile_v1';
+function saveProfile(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      chosenStyle, chosenAge, chosenHeight, chosenWeight, chosenFace,
+      chosenSkin, chosenHairStyle, chosenHairColor
+    }));
+  }catch(e){ /* localStorage indisponível neste ambiente — segue só em memória */ }
+}
+function loadProfile(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const d = JSON.parse(raw);
+    chosenStyle = d.chosenStyle || '';
+    chosenAge = d.chosenAge || null;
+    chosenHeight = d.chosenHeight || null;
+    chosenWeight = d.chosenWeight || null;
+    chosenFace = d.chosenFace || '';
+    chosenSkin = d.chosenSkin || SKIN_TONES[1];
+    chosenHairStyle = d.chosenHairStyle || 'curto';
+    chosenHairColor = d.chosenHairColor || HAIR_COLORS[0];
+    return !!chosenStyle;
+  }catch(e){ return false; }
+}
+
+// ---------- uso mensal do consultor de IA ----------
+function currentMonthKey(){
+  const now = new Date();
+  return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+}
+function loadAiUsage(){
+  try{
+    const raw = localStorage.getItem('cerne_ai_usage_v1');
+    const d = raw ? JSON.parse(raw) : null;
+    const nowKey = currentMonthKey();
+    if (!d || d.month !== nowKey){
+      aiUsageMonth = nowKey;
+      aiUsageCount = 0;
+      saveAiUsage();
+    } else {
+      aiUsageMonth = d.month;
+      aiUsageCount = d.count || 0;
+    }
+  }catch(e){
+    aiUsageMonth = currentMonthKey();
+    aiUsageCount = 0;
+  }
+}
+function saveAiUsage(){
+  try{ localStorage.setItem('cerne_ai_usage_v1', JSON.stringify({ month: aiUsageMonth, count: aiUsageCount })); }catch(e){}
+}
+function updateAiUsageCounter(){
+  const el = document.getElementById('ai-usage-counter');
+  if (el) el.textContent = `${Math.max(0, AI_MONTHLY_LIMIT - aiUsageCount)} de ${AI_MONTHLY_LIMIT} consultas restantes este mês`;
+}
+
+// ---------- nav ----------
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.screen === id));
+}
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    showScreen(item.dataset.screen);
+    if (item.dataset.screen === 'vitrine') {
+      document.querySelectorAll('#vitrine-occ-tabs .occ-tab').forEach(t => t.classList.toggle('active', t.dataset.v === 'todas'));
+      renderVitrine('todas');
+    }
+    if (item.dataset.screen === 'comunidade') { renderCommunityFeed(); renderMySubmissions(); }
+    if (item.dataset.screen === 'lista') renderShoppingList();
+    if (item.dataset.screen === 'profile') renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches');
+    if (item.dataset.screen === 'consultor') { showConsultorContent(); updateAiUsageCounter(); }
+  });
+});
+
+// ---------- onboarding: style ----------
+document.querySelectorAll('#style-grid .style-row').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('#style-grid .style-row').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    chosenStyle = card.dataset.v;
+    setTimeout(() => showScreen('ob-body'), 220);
+  });
+});
+
+// ---------- onboarding: body profile ----------
+document.querySelectorAll('#face-grid .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#face-grid .chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+    chosenFace = chip.dataset.v;
+  });
+});
+document.getElementById('to-simulation').addEventListener('click', () => {
+  const err = document.getElementById('body-err');
+  const a = parseInt(document.getElementById('input-age').value, 10);
+  const h = parseInt(document.getElementById('input-height').value, 10);
+  const w = parseInt(document.getElementById('input-weight').value, 10);
+  if (!a || a < 14 || a > 100 || !h || !w || h < 120 || h > 230 || w < 30 || w > 250 || !chosenFace) {
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+  chosenAge = a;
+  chosenHeight = h;
+  chosenWeight = w;
+  renderSimPreview();
+  showScreen('ob-simulation');
+});
+
+// ---------- onboarding: body simulation ----------
+function bodyBuildSVG(skinColor){
+  // Approximate build factor from height/weight ratio, purely for silhouette width
+  let widthFactor = 1;
+  if (chosenHeight && chosenWeight){
+    const ratio = chosenWeight / ((chosenHeight/100) * (chosenHeight/100));
+    widthFactor = Math.max(0.85, Math.min(1.22, ratio / 23));
+  }
+  const shoulderHalf = 20 * widthFactor;
+  const hipHalf = 14 * widthFactor;
+  return `
+    <circle cx="50" cy="26" r="16" fill="${skinColor}"/>
+    <rect x="44" y="40" width="12" height="10" fill="${skinColor}"/>
+    <polygon points="${50-shoulderHalf},52 ${50+shoulderHalf},52 ${50+hipHalf},130 ${50-hipHalf},130" fill="var(--line)"/>
+    <rect x="${50-hipHalf+2}" y="132" width="${hipHalf-2}" height="56" fill="var(--card-hover)"/>
+    <rect x="${50+2}" y="132" width="${hipHalf-2}" height="56" fill="var(--card-hover)"/>
+    <ellipse cx="${50-hipHalf/2}" cy="192" rx="12" ry="6" fill="var(--text-mute)"/>
+    <ellipse cx="${50+hipHalf/2}" cy="192" rx="12" ry="6" fill="var(--text-mute)"/>
+  `;
+}
+function renderSimPreview(){
+  const el = document.getElementById('sim-preview');
+  if (el) el.innerHTML = bodyBuildSVG('var(--text-soft)');
+}
+document.getElementById('sim-adjust').addEventListener('click', () => showScreen('ob-body'));
+document.getElementById('sim-confirm').addEventListener('click', () => showScreen('ob-avatar'));
+
+
+function outfitSVG(style){
+  const S = {
+    'Autêntico': `
+      <polygon points="20,50 80,50 74,110 26,110" fill="var(--card-hover)"/>
+      <circle cx="34" cy="60" r="4" fill="var(--accent)"/><circle cx="54" cy="70" r="4" fill="var(--accent)"/>
+      <circle cx="66" cy="58" r="4" fill="var(--accent)"/><circle cx="42" cy="90" r="4" fill="var(--accent)"/><circle cx="60" cy="95" r="4" fill="var(--accent)"/>
+      <polygon points="30,112 48,112 43,168 33,168" fill="var(--olive-soft)"/>
+      <polygon points="52,112 70,112 67,168 57,168" fill="var(--olive-soft)"/>
+      <rect x="24" y="176" width="26" height="12" rx="6" fill="var(--text-mute)"/>
+      <rect x="50" y="176" width="26" height="12" rx="6" fill="var(--text-mute)"/>
+      <rect x="24" y="184" width="26" height="3" fill="var(--accent)"/>
+      <rect x="50" y="184" width="26" height="3" fill="var(--accent)"/>
+      <line x1="16" y1="54" x2="26" y2="100" stroke="var(--text-mute)" stroke-width="2"/>
+      <rect x="10" y="96" width="14" height="16" rx="3" fill="var(--accent)"/>`,
+    'Sofisticado': `
+      <polygon points="30,50 70,50 65,110 35,110" fill="var(--line)"/>
+      <polygon points="46,50 50,70 40,58" fill="var(--card)"/>
+      <polygon points="54,50 50,70 60,58" fill="var(--card)"/>
+      <rect x="47" y="58" width="6" height="40" fill="var(--accent)"/>
+      <rect x="34" y="112" width="15" height="55" fill="var(--card-hover)"/>
+      <rect x="51" y="112" width="15" height="55" fill="var(--card-hover)"/>
+      <ellipse cx="41" cy="172" rx="14" ry="7" fill="var(--text-mute)"/>
+      <ellipse cx="59" cy="172" rx="14" ry="7" fill="var(--text-mute)"/>`,
+    'Dinâmico': `
+      <polygon points="24,50 46,50 40,108 27,105" fill="var(--olive-soft)"/>
+      <polygon points="76,50 54,50 60,108 73,105" fill="var(--olive-soft)"/>
+      <rect x="42" y="54" width="16" height="52" rx="4" fill="var(--text-soft)"/>
+      <polygon points="32,112 48,112 44,168 35,168" fill="var(--line)"/>
+      <polygon points="52,112 68,112 65,168 56,168" fill="var(--line)"/>
+      <rect x="26" y="176" width="26" height="12" rx="6" fill="var(--text-mute)"/>
+      <rect x="48" y="176" width="26" height="12" rx="6" fill="var(--text-mute)"/>
+      <rect x="26" y="184" width="26" height="3" fill="var(--accent)"/>
+      <rect x="48" y="184" width="26" height="3" fill="var(--accent)"/>`,
+    'Delicado': `
+      <polygon points="38,50 62,50 58,108 42,108" fill="var(--text-soft)"/>
+      <rect x="38" y="110" width="12" height="58" fill="var(--line-soft)"/>
+      <rect x="50" y="110" width="12" height="58" fill="var(--line-soft)"/>
+      <ellipse cx="44" cy="176" rx="11" ry="5" fill="var(--text-mute)"/>
+      <ellipse cx="56" cy="176" rx="11" ry="5" fill="var(--text-mute)"/>`,
+    'Sedutor': `
+      <rect x="40" y="50" width="20" height="58" rx="5" fill="var(--text-soft)"/>
+      <polygon points="18,48 42,52 36,108 22,104" fill="var(--accent)"/>
+      <polygon points="82,48 58,52 64,108 78,104" fill="var(--accent)"/>
+      <polygon points="34,112 48,112 44,168 37,168" fill="var(--card-hover)"/>
+      <polygon points="52,112 66,112 63,168 56,168" fill="var(--card-hover)"/>
+      <ellipse cx="40" cy="176" rx="11" ry="5" fill="var(--text-mute)"/>
+      <ellipse cx="60" cy="176" rx="11" ry="5" fill="var(--text-mute)"/>`,
+    'Clássico': `
+      <polygon points="30,50 70,50 66,110 34,110" fill="var(--text-soft)"/>
+      <rect x="44" y="48" width="12" height="8" fill="var(--card)"/>
+      <rect x="36" y="112" width="13" height="56" fill="var(--line)"/>
+      <rect x="51" y="112" width="13" height="56" fill="var(--line)"/>
+      <ellipse cx="42" cy="176" rx="13" ry="6" fill="var(--text-mute)"/>
+      <ellipse cx="58" cy="176" rx="13" ry="6" fill="var(--text-mute)"/>`,
+    'Contemporâneo': `
+      <polygon points="14,52 86,52 78,110 22,110" fill="var(--card-hover)"/>
+      <rect x="38" y="80" width="24" height="14" rx="3" fill="var(--line)"/>
+      <line x1="42" y1="54" x2="39" y2="76" stroke="var(--text-mute)" stroke-width="2"/>
+      <line x1="58" y1="54" x2="61" y2="76" stroke="var(--text-mute)" stroke-width="2"/>
+      <polygon points="26,112 50,112 44,168 30,168" fill="var(--olive-soft)"/>
+      <polygon points="50,112 74,112 70,168 56,168" fill="var(--olive-soft)"/>
+      <rect x="32" y="124" width="12" height="10" fill="var(--line)"/>
+      <rect x="22" y="176" width="28" height="14" rx="6" fill="var(--text-mute)"/>
+      <rect x="50" y="176" width="28" height="14" rx="6" fill="var(--text-mute)"/>
+      <rect x="22" y="186" width="28" height="4" fill="var(--accent)"/>
+      <rect x="50" y="186" width="28" height="4" fill="var(--accent)"/>`
+  };
+  return S[style] || S['Clássico'];
+}
+
+const SKIN_TONES = ['#F5D6C1', '#E8B48C', '#C68863', '#A56B47', '#7A4B2E', '#4A2E1D'];
+const HAIR_COLORS = ['#1C1712', '#3B2A1D', '#6B4A2E', '#8B3A1F', '#B89056', '#9B968D'];
+const HAIR_STYLES = [
+  { v: 'careca', label: 'Careca' },
+  { v: 'raspado', label: 'Raspado' },
+  { v: 'curto', label: 'Curto' },
+  { v: 'social', label: 'Social risca' },
+  { v: 'ondulado', label: 'Ondulado' },
+  { v: 'cacheado', label: 'Cacheado' },
+  { v: 'crespo', label: 'Crespo' },
+  { v: 'undercut', label: 'Undercut' },
+  { v: 'moicano', label: 'Moicano' },
+  { v: 'longo', label: 'Longo' },
+  { v: 'coque', label: 'Coque' }
+];
+let chosenSkin = SKIN_TONES[1];
+let chosenHairStyle = 'curto';
+let chosenHairColor = HAIR_COLORS[0];
+
+function hairSVG(style, color){
+  switch(style){
+    case 'careca':
+      return '';
+    case 'raspado':
+      return `<ellipse cx="50" cy="25" rx="17.5" ry="17" fill="${color}"/>`;
+    case 'social':
+      return `<path d="M30,22 C30,8 46,3 58,8 C68,12 68,22 66,26 L60,24 C62,14 50,8 40,12 C34,15 33,20 34,26 Z" fill="${color}"/>`;
+    case 'ondulado':
+      return `<path d="M33,24 Q33,6 50,5 Q67,6 67,24 Q63,18 60,22 Q56,14 52,20 Q48,12 44,20 Q40,14 37,22 Q34,18 33,24 Z" fill="${color}"/>`;
+    case 'cacheado':
+      return `<circle cx="28" cy="16" r="6" fill="${color}"/><circle cx="34" cy="8" r="6" fill="${color}"/>
+        <circle cx="44" cy="4" r="6" fill="${color}"/><circle cx="56" cy="4" r="6" fill="${color}"/>
+        <circle cx="66" cy="8" r="6" fill="${color}"/><circle cx="72" cy="16" r="6" fill="${color}"/>`;
+    case 'crespo':
+      return `<circle cx="50" cy="23" r="22" fill="${color}"/>`;
+    case 'undercut':
+      return `<ellipse cx="50" cy="25" rx="17.3" ry="16.6" fill="${color}"/><ellipse cx="50" cy="12" rx="13" ry="9" fill="${color}"/>`;
+    case 'moicano':
+      return `<ellipse cx="50" cy="25" rx="16.3" ry="15.7" fill="${color}"/><rect x="45" y="0" width="10" height="20" rx="3" fill="${color}"/>`;
+    case 'longo':
+      return `<ellipse cx="50" cy="13" rx="18" ry="15" fill="${color}"/>
+        <path d="M32,20 Q27,45 34,58 L41,58 Q35,35 39,20 Z" fill="${color}"/>
+        <path d="M68,20 Q73,45 66,58 L59,58 Q65,35 61,20 Z" fill="${color}"/>`;
+    case 'coque':
+      return `<ellipse cx="50" cy="14" rx="17" ry="14" fill="${color}"/><circle cx="50" cy="2" r="7" fill="${color}"/>`;
+    default: // curto
+      return `<ellipse cx="50" cy="14" rx="17" ry="14" fill="${color}"/>`;
+  }
+}
+
+function avatarBodySVG(skin, hairStyle, hairColor, style){
+  skin = skin || chosenSkin;
+  hairStyle = hairStyle || chosenHairStyle;
+  hairColor = hairColor || chosenHairColor;
+  style = style || chosenStyle;
+  return `
+    ${hairSVG(hairStyle, hairColor)}
+    <circle cx="50" cy="26" r="16" fill="${skin}"/>
+    <circle cx="44" cy="26" r="1.6" fill="var(--bg)"/>
+    <circle cx="56" cy="26" r="1.6" fill="var(--bg)"/>
+    <rect x="44" y="40" width="12" height="10" fill="${skin}"/>
+    ${outfitSVG(style)}
+  `;
+}
+
+// ---------- paleta de cores pessoal ----------
+const SKIN_DEPTH = ['claro', 'claro', 'médio', 'médio', 'profundo', 'profundo']; // segue o índice de SKIN_TONES
+const HAIR_WARMTH = {
+  '#1C1712': 'frio',   // preto
+  '#3B2A1D': 'quente', // castanho escuro
+  '#6B4A2E': 'quente', // castanho claro
+  '#8B3A1F': 'quente', // ruivo
+  '#B89056': 'quente', // loiro
+  '#9B968D': 'frio'    // grisalho
+};
+const SEASON_PALETTES = {
+  inverno: {
+    name: 'Inverno',
+    desc: 'Contraste alto e tons frios. Cores fortes e bem definidas valorizam mais que tons pastéis.',
+    colors: ['#0B0B0B', '#FFFFFF', '#0F2A4A', '#B5121B', '#4B2E83', '#C0C0C0']
+  },
+  verao: {
+    name: 'Verão',
+    desc: 'Tons frios e suaves. Cinza, azul acinzentado e rosa empoeirado tendem a favorecer mais que cores muito vivas.',
+    colors: ['#8AA7C4', '#D9A9A3', '#9B9B9B', '#B7D1E0', '#B7A6D6', '#F0F3F5']
+  },
+  outono: {
+    name: 'Outono',
+    desc: 'Tons terrosos e quentes. Marrom, verde-oliva e camel combinam naturalmente com sua coloração.',
+    colors: ['#6B4226', '#6B7A4F', '#B5541E', '#C89B3C', '#7A2E2E', '#C19A6B']
+  },
+  primavera: {
+    name: 'Primavera',
+    desc: 'Tons quentes e vivos. Cores claras e com um toque de brilho tendem a valorizar mais que tons apagados.',
+    colors: ['#E8846B', '#8FBF8F', '#E8C34A', '#4FB6B0', '#F2B8A0', '#E8DCC4']
+  }
+};
+function computePaletteKey(){
+  const idx = SKIN_TONES.indexOf(chosenSkin);
+  const depth = SKIN_DEPTH[idx] || 'médio';
+  const warmth = HAIR_WARMTH[chosenHairColor] || 'quente';
+  if (warmth === 'frio') return depth === 'profundo' ? 'inverno' : 'verao';
+  return depth === 'profundo' ? 'outono' : 'primavera';
+}
+function renderPaletteCard(nameId, descId, swatchesId){
+  const p = SEASON_PALETTES[computePaletteKey()];
+  const nameEl = document.getElementById(nameId);
+  const descEl = document.getElementById(descId);
+  const swEl = document.getElementById(swatchesId);
+  if (nameEl) nameEl.textContent = p.name;
+  if (descEl) descEl.textContent = p.desc;
+  if (swEl) swEl.innerHTML = p.colors.map(c => `<span style="background:${c};"></span>`).join('');
+}
+
+function showConsultorLocked(){
+  const el = document.getElementById('consultor-limit-desc');
+  const now = new Date();
+  const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+  const nextLabel = nextMonth.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' });
+  if (el) el.textContent = `Você usou suas ${AI_MONTHLY_LIMIT} consultas gratuitas deste mês. Elas renovam em ${nextLabel}.`;
+  document.getElementById('consultor-locked').style.display = 'block';
+  document.getElementById('consultor-content').style.display = 'none';
+}
+function showConsultorContent(){
+  document.getElementById('consultor-locked').style.display = 'none';
+  document.getElementById('consultor-content').style.display = 'block';
+}
+document.getElementById('consultor-locked-back').addEventListener('click', showConsultorContent);
+
+function renderAvatarPreview(){
+  const el = document.getElementById('avatar-preview');
+  if (el) el.innerHTML = avatarBodySVG();
+  renderPaletteCard('palette-name', 'palette-desc', 'palette-swatches');
+}
+
+function renderMiniAvatars(){
+  const markup = `<svg class="avatar-mini" viewBox="0 0 100 200">${avatarBodySVG()}</svg>`;
+  ['avatar-mini-home', 'avatar-mini-profile'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = markup;
+  });
+}
+
+function buildSwatchRow(containerId, colors, currentVal, onPick){
+  const row = document.getElementById(containerId);
+  row.innerHTML = '';
+  colors.forEach(c => {
+    const sw = document.createElement('div');
+    sw.className = 'swatch' + (c === currentVal ? ' selected' : '');
+    sw.style.background = c;
+    sw.dataset.v = c;
+    sw.addEventListener('click', () => {
+      row.querySelectorAll('.swatch').forEach(s => s.classList.remove('selected'));
+      sw.classList.add('selected');
+      onPick(c);
+      renderAvatarPreview();
+    });
+    row.appendChild(sw);
+  });
+}
+buildSwatchRow('skin-row', SKIN_TONES, chosenSkin, v => chosenSkin = v);
+buildSwatchRow('hair-color-row', HAIR_COLORS, chosenHairColor, v => chosenHairColor = v);
+
+function renderHairStyleGrid(){
+  const grid = document.getElementById('hair-style-grid');
+  grid.innerHTML = '';
+  HAIR_STYLES.forEach(h => {
+    const chip = document.createElement('div');
+    chip.className = 'chip' + (h.v === chosenHairStyle ? ' selected' : '');
+    chip.dataset.v = h.v;
+    chip.textContent = h.label;
+    chip.addEventListener('click', () => {
+      grid.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      chosenHairStyle = h.v;
+      renderAvatarPreview();
+    });
+    grid.appendChild(chip);
+  });
+}
+renderHairStyleGrid();
+
+renderAvatarPreview();
+
+document.getElementById('finish-avatar').addEventListener('click', () => {
+  const tag = chosenStyle + ' · ' + chosenHeight + 'cm';
+  document.getElementById('home-profile-tag').textContent = tag;
+  document.getElementById('profile-profile-tag').textContent = tag;
+  renderMiniAvatars();
+  renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches');
+  renderLooks('trabalho');
+  renderVitrine();
+  saveProfile();
+  showScreen('home');
+});
+
+// ---------- edit profile (reopen onboarding, keeping current choices visible) ----------
+function syncOnboardingSelections(){
+  document.querySelectorAll('#style-grid .style-row').forEach(c => c.classList.toggle('selected', c.dataset.v === chosenStyle));
+  document.querySelectorAll('#face-grid .chip').forEach(c => c.classList.toggle('selected', c.dataset.v === chosenFace));
+  if (chosenAge) document.getElementById('input-age').value = chosenAge;
+  if (chosenHeight) document.getElementById('input-height').value = chosenHeight;
+  if (chosenWeight) document.getElementById('input-weight').value = chosenWeight;
+}
+document.getElementById('edit-profile-btn').addEventListener('click', () => {
+  syncOnboardingSelections();
+  showScreen('ob-style');
+});
+
+// ---------- home: looks ----------
+function renderPhotoLookGrid(containerId, photoLooks, batchSize){
+  batchSize = batchSize || 9;
+  const grid = document.getElementById(containerId);
+  if (!grid) return;
+  grid.innerHTML = '';
+  const existingBtn = document.getElementById(containerId + '-vermais');
+  if (existingBtn) existingBtn.remove();
+
+  function renderBatch(list){
+    list.forEach(look => {
+      const sq = document.createElement('div');
+      sq.className = 'photo-look-square';
+      sq.innerHTML = `
+        <img src="${look.composicaoImg}" alt="Peças do look ${escapeHtml(look.title)}">
+        <img src="${look.pessoaImg}" alt="Look ${escapeHtml(look.title)} montado">
+        <div class="photo-look-label">${escapeHtml(look.title)}</div>
+      `;
+      sq.addEventListener('click', () => openLookModal(look));
+      grid.appendChild(sq);
+    });
+  }
+
+  if (photoLooks.length <= batchSize){
+    renderBatch(photoLooks);
+    return;
+  }
+  let shown = 0;
+  const btn = document.createElement('button');
+  btn.id = containerId + '-vermais';
+  btn.className = 'ver-mais-photo-btn';
+  function showNextBatch(){
+    const next = photoLooks.slice(shown, shown + batchSize);
+    renderBatch(next);
+    shown += next.length;
+    if (shown >= photoLooks.length){
+      btn.remove();
+    } else {
+      btn.textContent = `Ver mais looks (${photoLooks.length - shown} restantes)`;
+    }
+  }
+  btn.addEventListener('click', showNextBatch);
+  grid.insertAdjacentElement('afterend', btn);
+  showNextBatch();
+}
+
+function renderLooks(occ){
+  const list = document.getElementById('looks-list');
+  list.innerHTML = '';
+  const photoLooks = (PHOTO_LOOKS_REAL[chosenStyle] && PHOTO_LOOKS_REAL[chosenStyle][occ]) || [];
+  renderPhotoLookGrid('home-photo-grid', photoLooks);
+  LOOKS[occ].forEach((look, i) => {
+    const div = document.createElement('div');
+    div.className = 'look-card';
+    div.innerHTML = `
+      <div class="look-head">
+        <div class="look-num">LOOK ${String(i+1).padStart(2,'0')}</div>
+        <div class="look-occasion">${OCCASIONS[occ] || occ}</div>
+      </div>
+      <div class="look-title">${look.title}</div>
+      <div class="look-pieces">${look.pieces.map(p => pieceTagHtml(p)).join('')}</div>
+      <div class="look-cta"><i class="ti ti-eye"></i>Ver detalhes</div>
+    `;
+    list.appendChild(div);
+  });
+}
+document.querySelectorAll('#occ-tabs .occ-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('#occ-tabs .occ-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    renderLooks(tab.dataset.v);
+  });
+});
+
+// ---------- consultor: AI style recommendation ----------
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str == null ? '' : String(str);
+  return d.innerHTML;
+}
+
+let lastAIResult = null;
+async function askStyleAI(userText){
+  const styleNames = Object.keys(LOOKS_BY_STYLE).join(', ');
+  const occasionKeys = Object.keys(OCCASIONS).join(', ');
+  const paletteInfo = SEASON_PALETTES[computePaletteKey()];
+  const profileLine = `Perfil da pessoa: ${chosenAge || '?'} anos, ${chosenHeight || '?'}cm, ${chosenWeight || '?'}kg, estilo atual: ${chosenStyle || 'não definido'}, paleta de cores pessoal: ${paletteInfo.name} (${paletteInfo.desc}).`;
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1000,
+      system: `Você é o consultor de estilo do app CERNE. Existem exatamente 7 arquétipos de estilo: ${styleNames}. Existem exatamente estas ocasiões (use a chave exata): ${occasionKeys}. Baseado no perfil e no que a pessoa quer expressar, responda APENAS com um JSON válido, sem markdown, sem texto antes ou depois, exatamente neste formato:
+{"estilo":"<um dos 7 nomes exatos listados acima>","motivo":"<1-2 frases em português explicando por que esse estilo combina com o que a pessoa quer expressar, tom direto e caloroso>","looks":[{"titulo":"<nome curto do look>","ocasiao":"<uma das chaves de ocasião exatas>","pecas":["peça 1","peça 2","peça 3"]},{"titulo":"<nome curto>","ocasiao":"<chave>","pecas":["peça 1","peça 2"]}]}
+Sugira exatamente 2 looks, cada um com 3 a 4 peças, e escolha a ocasião mais coerente com o que a pessoa descreveu. Use vocabulário comum de moda masculina brasileira (ex: camisa lisa, calça alfaiataria, tênis branco, blazer, mocassim, camiseta premium, calça reta, sapato couro, sapato social).`,
+      messages: [{ role: 'user', content: profileLine + '\n\nO que a pessoa quer expressar: ' + userText }]
+    })
+  });
+  const data = await response.json();
+  const text = (data.content || []).map(b => b.text || '').join('');
+  const clean = text.replace(/```json|```/g, '').trim();
+  return JSON.parse(clean);
+}
+
+function renderAIResult(parsed){
+  lastAIResult = parsed;
+  const result = document.getElementById('ai-result');
+  const styleName = LOOKS_BY_STYLE[parsed.estilo] ? parsed.estilo : 'Clássico';
+  let html = `
+    <div class="ai-result-style">
+      <i class="ti ti-sparkles"></i>
+      <div>
+        <div class="name">${escapeHtml(styleName)}</div>
+        <div class="desc">${escapeHtml(parsed.motivo)}</div>
+      </div>
+    </div>
+  `;
+  (parsed.looks || []).forEach((look, i) => {
+    const occLabel = OCCASIONS[look.ocasiao] || '';
+    html += `
+      <div class="look-card">
+        <div class="look-head">
+          <div class="look-num">SUGESTÃO ${String(i+1).padStart(2,'0')}</div>
+          ${occLabel ? `<div class="look-occasion">${escapeHtml(occLabel)}</div>` : ''}
+        </div>
+        <div class="look-title">${escapeHtml(look.titulo)}</div>
+        <div class="look-pieces">${(look.pecas || []).map(p => pieceTagHtml(p)).join('')}</div>
+      </div>
+    `;
+  });
+  html += `<button class="primary-btn" id="ai-apply-style">Aplicar esse estilo ao meu perfil</button>`;
+  result.innerHTML = html;
+  document.getElementById('ai-apply-style').addEventListener('click', () => {
+    chosenStyle = styleName;
+    renderAvatarPreview();
+    renderMiniAvatars();
+    renderVitrine();
+    const tag = chosenStyle + ' · ' + chosenHeight + 'cm';
+    document.getElementById('home-profile-tag').textContent = tag;
+    document.getElementById('profile-profile-tag').textContent = tag;
+    saveProfile();
+    showScreen('home');
+  });
+}
+
+document.getElementById('ai-submit').addEventListener('click', async () => {
+  if (aiUsageCount >= AI_MONTHLY_LIMIT) { showConsultorLocked(); return; }
+  const input = document.getElementById('ai-input').value.trim();
+  const err = document.getElementById('ai-err');
+  const loading = document.getElementById('ai-loading');
+  const result = document.getElementById('ai-result');
+  if (!input) { err.style.display = 'block'; return; }
+  err.style.display = 'none';
+  result.innerHTML = '';
+  loading.style.display = 'flex';
+  aiUsageCount++;
+  saveAiUsage();
+  updateAiUsageCounter();
+  try {
+    const parsed = await askStyleAI(input);
+    renderAIResult(parsed);
+  } catch (e) {
+    result.innerHTML = `<p class="err-text" style="display:block;">Não consegui gerar a recomendação agora. Tenta de novo em instantes.</p>`;
+  } finally {
+    loading.style.display = 'none';
+  }
+});
+
+// ---------- vitrine: curated looks by style ----------
+function renderVitrine(occFilter){
+  occFilter = occFilter || 'todas';
+  const list = document.getElementById('vitrine-list');
+  const tagEl = document.getElementById('vitrine-style-tag');
+  if (!list) return;
+  tagEl.textContent = chosenStyle || 'seu estilo';
+
+  // looks com fotos reais
+  let photoLooks = (PHOTO_LOOKS_REAL[chosenStyle] && PHOTO_LOOKS_REAL[chosenStyle][occFilter]) || [];
+  if (occFilter === 'todas'){
+    const byOcc = PHOTO_LOOKS_REAL[chosenStyle] || {};
+    photoLooks = Object.values(byOcc).flat();
+  }
+  renderPhotoLookGrid('vitrine-photo-grid', photoLooks);
+
+  let looks = LOOKS_BY_STYLE[chosenStyle] || [];
+  if (occFilter !== 'todas') looks = looks.filter(l => l.ocasiao === occFilter);
+  list.innerHTML = '';
+  if (!looks.length && !photoLooks.length){
+    list.innerHTML = `<p style="font-size:13px; color:var(--text-mute); padding:18px 0;">Ainda não temos uma ideia específica pra "${escapeHtml(OCCASIONS[occFilter] || occFilter)}" nesse estilo. Tenta outra ocasião ou dá uma olhada em "Todas".</p>`;
+    return;
+  }
+  looks.forEach((look, i) => {
+    const div = document.createElement('div');
+    div.className = 'look-card';
+    div.innerHTML = `
+      <div class="look-head">
+        <div class="look-num">IDEIA ${String(i+1).padStart(2,'0')}</div>
+        <div class="look-occasion">${OCCASIONS[look.ocasiao] || ''}</div>
+      </div>
+      <div class="look-title">${look.title}</div>
+      <div class="look-pieces">${look.pieces.map(p => pieceTagHtml(p)).join('')}</div>
+      <div class="look-cta"><i class="ti ti-eye"></i>Ver detalhes</div>
+    `;
+    list.appendChild(div);
+  });
+}
+document.querySelectorAll('#vitrine-occ-tabs .occ-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('#vitrine-occ-tabs .occ-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    renderVitrine(tab.dataset.v);
+  });
+});
+
+// ---------- modal de detalhes do look com foto ----------
+function openLookModal(look){
+  document.getElementById('look-modal-imgs').innerHTML = `
+    <img src="${look.composicaoImg}" alt="Peças do look ${escapeHtml(look.title)}" data-full="${look.composicaoImg}">
+    <img src="${look.pessoaImg}" alt="Look ${escapeHtml(look.title)} montado" data-full="${look.pessoaImg}">
+  `;
+  document.getElementById('look-modal-imgs').querySelectorAll('img').forEach(img => {
+    img.addEventListener('click', () => openLightbox(img.dataset.full, img.alt));
+  });
+  document.getElementById('look-modal-occasion').textContent = OCCASIONS[look.ocasiao] || '';
+  document.getElementById('look-modal-title').textContent = look.title;
+  document.getElementById('look-modal-desc').textContent = look.description || '';
+  document.getElementById('look-modal-pieces').innerHTML = (look.pieces || []).map(p => pieceTagHtml(p)).join('');
+  document.getElementById('look-modal-backdrop').classList.add('open');
+}
+function closeLookModal(){
+  document.getElementById('look-modal-backdrop').classList.remove('open');
+}
+document.getElementById('look-modal-close').addEventListener('click', closeLookModal);
+document.getElementById('look-modal-backdrop').addEventListener('click', (e) => {
+  if (e.target.id === 'look-modal-backdrop') closeLookModal();
+});
+
+// ---------- lightbox (imagem em tela cheia) ----------
+function openLightbox(src, alt){
+  const img = document.getElementById('image-lightbox-img');
+  img.src = src;
+  img.alt = alt || '';
+  document.getElementById('image-lightbox').classList.add('open');
+}
+function closeLightbox(){
+  document.getElementById('image-lightbox').classList.remove('open');
+}
+document.getElementById('image-lightbox-close').addEventListener('click', closeLightbox);
+document.getElementById('image-lightbox').addEventListener('click', (e) => {
+  if (e.target.id === 'image-lightbox') closeLightbox();
+});
+
+// ---------- comunidade ----------
+const MOCK_POSTS = [
+  { id: 'mock1', name: 'Rafael M.', skin: SKIN_TONES[2], hairStyle: 'cacheado', hairColor: HAIR_COLORS[1], style: 'Sofisticado', occasion: 'networking', caption: 'Blazer sem gravata pra reunião de hoje. Simples e resolve.', likes: 24 },
+  { id: 'mock2', name: 'Lucas T.', skin: SKIN_TONES[0], hairStyle: 'undercut', hairColor: HAIR_COLORS[0], style: 'Contemporâneo', occasion: 'diaadia', caption: 'Testando o oversized com cargo. Virou meu favorito.', likes: 41 },
+  { id: 'mock3', name: 'Bruno S.', skin: SKIN_TONES[4], hairStyle: 'raspado', hairColor: HAIR_COLORS[0], style: 'Clássico', occasion: 'trabalho', caption: 'Básico bem feito nunca falha.', likes: 17 },
+  { id: 'mock4', name: 'Diego A.', skin: SKIN_TONES[1], hairStyle: 'ondulado', hairColor: HAIR_COLORS[2], style: 'Sedutor', occasion: 'noite', caption: 'Camisa aberta pro jantar de sexta.', likes: 33 }
+];
+
+function loadLikedPosts(){
+  try{ const raw = localStorage.getItem('cerne_liked_posts_v1'); return raw ? new Set(JSON.parse(raw)) : new Set(); }
+  catch(e){ return new Set(); }
+}
+function saveLikedPosts(){
+  try{ localStorage.setItem('cerne_liked_posts_v1', JSON.stringify(Array.from(likedPosts))); }catch(e){}
+}
+function loadSubmissions(){
+  try{ const raw = localStorage.getItem('cerne_submissions_v1'); return raw ? JSON.parse(raw) : []; }
+  catch(e){ return []; }
+}
+function saveSubmissions(){
+  try{ localStorage.setItem('cerne_submissions_v1', JSON.stringify(mySubmissions)); }catch(e){}
+}
+let likedPosts = loadLikedPosts();
+let mySubmissions = loadSubmissions();
+let pendingPhotoDataUrl = null;
+
+function populateOccasionSelect(){
+  const sel = document.getElementById('post-occasion');
+  if (!sel || sel.options.length) return;
+  Object.entries(OCCASIONS).forEach(([k, v]) => {
+    const opt = document.createElement('option');
+    opt.value = k; opt.textContent = v;
+    sel.appendChild(opt);
+  });
+}
+
+// public feed: only approved/example posts — user submissions do NOT appear here directly
+function renderCommunityFeed(){
+  populateOccasionSelect();
+  const feed = document.getElementById('community-feed');
+  if (!feed) return;
+  feed.innerHTML = '';
+  MOCK_POSTS.forEach(post => {
+    const liked = likedPosts.has(post.id);
+    const div = document.createElement('div');
+    div.className = 'post-card';
+    div.innerHTML = `
+      <div class="post-photo"><svg viewBox="0 0 100 200">${avatarBodySVG(post.skin, post.hairStyle, post.hairColor, post.style)}</svg></div>
+      <div class="post-body">
+        <div class="post-body-head">
+          <div class="post-name">${escapeHtml(post.name)}</div>
+          <div class="look-occasion">${OCCASIONS[post.occasion] || ''}</div>
+        </div>
+        <div class="post-caption">${escapeHtml(post.caption)}</div>
+        <button class="like-btn${liked ? ' liked' : ''}" data-id="${post.id}"><i class="ti ti-heart"></i>${post.likes + (liked ? 1 : 0)}</button>
+      </div>
+    `;
+    feed.appendChild(div);
+  });
+  feed.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      if (likedPosts.has(id)) likedPosts.delete(id); else likedPosts.add(id);
+      saveLikedPosts();
+      renderCommunityFeed();
+    });
+  });
+}
+
+// user's own submissions: visible only to them, shown with a review-status badge
+function renderMySubmissions(){
+  const wrap = document.getElementById('my-submissions');
+  if (!wrap) return;
+  if (!mySubmissions.length) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML = `<p class="section-label">Suas publicações</p>` + mySubmissions.map(sub => `
+    <div class="post-card">
+      <div class="post-photo photo-real"><img src="${sub.photo}" alt="Foto enviada por você"></div>
+      <div class="post-body">
+        <div class="post-body-head">
+          <div class="post-name">Você</div>
+          <div class="look-occasion">${OCCASIONS[sub.occasion] || ''}</div>
+        </div>
+        <div class="post-caption">${escapeHtml(sub.caption)}</div>
+        <span class="status-badge"><i class="ti ti-clock-hour-4"></i>Em análise</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('post-photo-trigger').addEventListener('click', () => {
+  document.getElementById('post-photo-input').click();
+});
+document.getElementById('post-photo-input').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    pendingPhotoDataUrl = ev.target.result;
+    document.getElementById('post-photo-img').src = pendingPhotoDataUrl;
+    document.getElementById('post-photo-preview').style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById('post-submit').addEventListener('click', () => {
+  const captionEl = document.getElementById('post-caption');
+  const caption = captionEl.value.trim();
+  const err = document.getElementById('post-err');
+  const sentMsg = document.getElementById('post-sent-msg');
+  if (!pendingPhotoDataUrl || !caption) {
+    err.style.display = 'block';
+    sentMsg.style.display = 'none';
+    return;
+  }
+  err.style.display = 'none';
+  const occ = document.getElementById('post-occasion').value;
+  mySubmissions.unshift({
+    id: 'sub-' + Date.now(),
+    photo: pendingPhotoDataUrl,
+    caption, occasion: occ,
+    status: 'pending'
+  });
+  saveSubmissions();
+  captionEl.value = '';
+  pendingPhotoDataUrl = null;
+  document.getElementById('post-photo-preview').style.display = 'none';
+  document.getElementById('post-photo-input').value = '';
+  sentMsg.style.display = 'flex';
+  renderMySubmissions();
+});
+
+// ---------- library ----------
+function renderModules(){
+  const list = document.getElementById('modules-list');
+  list.innerHTML = '';
+  MODULES.forEach(m => {
+    const div = document.createElement('div');
+    div.className = 'module-card' + (m.done ? ' done' : '');
+    div.innerHTML = `
+      <div class="module-num">${m.n}</div>
+      <div class="module-body">
+        <div class="module-title">${m.t}</div>
+        <div class="module-sub">${m.s}</div>
+      </div>
+      <div class="module-check${m.done ? ' done' : ''}">${m.done ? '<i class="ti ti-check"></i>' : ''}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+renderModules();
+
+// ---------- shopping list ----------
+function computeUnlockCount(label){
+  const pool = [...Object.values(LOOKS).flat(), ...Object.values(LOOKS_BY_STYLE).flat()];
+  return pool.filter(look => (look.pieces || []).some(p => piecesMatch(p, label))).length;
+}
+function renderShoppingList(){
+  const list = document.getElementById('shopping-list');
+  if (!list) return;
+  const entries = Object.entries(shoppingList).map(([key, val]) => ({
+    key, label: val.label, count: computeUnlockCount(val.label)
+  }));
+  entries.sort((a, b) => b.count - a.count);
+  if (!entries.length){
+    list.innerHTML = `<p style="font-size:13px; color:var(--text-mute); padding:14px 0;">Sua lista está vazia. Toque em qualquer peça na Vitrine, na Home ou no Consultor pra adicionar aqui.</p>`;
+    return;
+  }
+  list.innerHTML = entries.map(e => `
+    <div class="shop-item">
+      <div>
+        <div class="shop-item-label">${escapeHtml(e.label)}</div>
+        <div class="shop-item-meta">Completa ${e.count} look${e.count === 1 ? '' : 's'}</div>
+      </div>
+      <button class="mark-bought-btn" data-key="${escapeHtml(e.key)}">Comprei</button>
+    </div>
+  `).join('');
+  list.querySelectorAll('.mark-bought-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.key;
+      delete shoppingList[key];
+      saveShoppingList();
+      refreshLookRenders();
+    });
+  });
+}
+
+// ---------- bootstrap: restore saved profile or start onboarding ----------
+loadAiUsage();
+if (loadProfile()){
+  syncOnboardingSelections();
+  renderSimPreview();
+  renderAvatarPreview();
+  renderHairStyleGrid();
+  document.getElementById('skin-row').querySelectorAll('.swatch').forEach(s => s.classList.toggle('selected', s.dataset.v === chosenSkin));
+  document.getElementById('hair-color-row').querySelectorAll('.swatch').forEach(s => s.classList.toggle('selected', s.dataset.v === chosenHairColor));
+  const tag = chosenStyle + ' · ' + chosenHeight + 'cm';
+  document.getElementById('home-profile-tag').textContent = tag;
+  document.getElementById('profile-profile-tag').textContent = tag;
+  renderMiniAvatars();
+  renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches');
+  renderLooks('trabalho');
+  renderVitrine();
+  showScreen('home');
+}
+updateAiUsageCounter();
+</script>
+</body>
+</html>
