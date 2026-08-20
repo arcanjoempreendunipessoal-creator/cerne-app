@@ -299,6 +299,68 @@
   .nav-label{font-size:8.5px; letter-spacing:0.2px;}
   .nav-item.active{color:var(--accent-text);}
   .nav-item.active .nav-icon{background:var(--accent-soft);}
+/* ==================== HOME REDESENHADA (tokens só valem dentro de #home) ==================== */
+#home{
+  --bg:#151411; --card:#24211B; --card-hover:#2C2821;
+  --accent:#C45A3C; --accent-soft:#3D2A20; --accent-text:#E89678;
+  background:var(--bg); min-height:100vh;
+}
+#home .home-content{padding:0 20px;}
+
+.home-header{padding:20px 20px 4px;}
+.home-header-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;}
+.home-header-icons{display:flex; align-items:center; gap:10px;}
+.home-avatar-btn{width:34px; height:34px; border-radius:50%; overflow:hidden; border:1.5px solid var(--accent); cursor:pointer; background:var(--card);}
+.home-avatar-btn svg, .home-avatar-btn img{width:100%; height:100%; object-fit:cover;}
+.home-greeting{font-family:var(--serif); font-size:22px; font-weight:500; margin-bottom:3px;}
+.home-greeting-sub{font-family:var(--serif); font-size:15px; color:var(--text-soft); font-weight:400; margin-bottom:10px;}
+.home-context{font-size:12px; color:var(--text-mute); margin-bottom:20px; display:flex; align-items:center; gap:6px;}
+.home-context .placeholder-tag-mini{font-family:var(--mono); font-size:8.5px; text-transform:uppercase; background:var(--card-hover); color:var(--text-mute); padding:2px 6px; border-radius:4px;}
+
+.home-section-title{font-family:var(--serif); font-size:17px; font-weight:500; margin:22px 0 12px;}
+.home-section-title:first-child{margin-top:0;}
+
+.occasion-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-bottom:8px;}
+.occasion-grid-item{display:flex; flex-direction:column; align-items:center; gap:6px; padding:12px 4px; background:var(--card); border:1px solid var(--line-soft); border-radius:var(--radius-lg); cursor:pointer;}
+.occasion-grid-item i{font-size:19px; color:var(--accent-text);}
+.occasion-grid-item span{font-size:10px; color:var(--text-soft); text-align:center; line-height:1.2;}
+.occasion-grid-item.active{background:var(--accent-soft); border-color:var(--accent);}
+.occasion-grid-item.active span{color:var(--text); font-weight:600;}
+
+.cerne-profile-card{display:flex; gap:14px; background:var(--card); border:1px solid var(--line-soft); border-radius:var(--radius-lg); padding:16px; margin-top:8px;}
+.cerne-profile-avatar{width:30%; aspect-ratio:0.72; border-radius:8px; overflow:hidden; flex-shrink:0; background:var(--card-hover);}
+.cerne-profile-avatar img, .cerne-profile-avatar svg{width:100%; height:100%; object-fit:cover;}
+.cerne-profile-eyebrow{font-family:var(--mono); font-size:9.5px; letter-spacing:0.8px; text-transform:uppercase; color:var(--accent-text); margin-bottom:5px;}
+.cerne-profile-style{font-family:var(--serif); font-size:16px; font-weight:500; margin-bottom:6px; line-height:1.25;}
+.cerne-profile-desc{font-size:12px; color:var(--text-soft); line-height:1.5; margin-bottom:10px;}
+.cerne-profile-tags{display:flex; flex-wrap:wrap; gap:6px;}
+.cerne-profile-tags span{font-size:9.5px; background:var(--card-hover); color:var(--text-soft); padding:3px 8px; border-radius:12px;}
+.cerne-profile-btns{display:flex; gap:10px; margin-top:12px; margin-bottom:6px;}
+.cerne-btn-outline{flex:1; background:transparent; border:1px solid var(--line-soft); color:var(--text-soft); border-radius:20px; padding:10px 12px; font-size:11.5px; font-weight:600; cursor:pointer; font-family:var(--sans);}
+.cerne-btn-outline.primary-tone{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+.home-look-section{margin-bottom:10px;}
+.home-look-section-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px;}
+.home-look-section-head .see-all{font-size:11px; color:var(--accent-text); cursor:pointer; font-weight:600;}
+.home-look-row{display:flex; gap:12px; overflow-x:auto; padding-bottom:6px;}
+.home-look-row::-webkit-scrollbar{display:none;}
+.home-look-card{flex-shrink:0; width:168px; background:var(--card); border:1px solid var(--line-soft); border-radius:var(--radius-lg); overflow:hidden; cursor:pointer;}
+.home-look-card-photos{aspect-ratio:0.82; display:flex; position:relative;}
+.home-look-card-photos img{width:50%; height:100%; object-fit:cover;}
+.home-look-fav-btn{position:absolute; top:8px; right:8px; width:28px; height:28px; border-radius:50%; background:rgba(21,20,17,0.55); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; z-index:2;}
+.home-look-fav-btn.saved{color:var(--accent-text);}
+.home-look-match{position:absolute; bottom:8px; left:8px; background:rgba(21,20,17,0.7); color:var(--text); font-family:var(--mono); font-size:8.5px; padding:2px 6px; border-radius:8px; z-index:2;}
+.home-look-card-body{padding:10px 11px 12px;}
+.home-look-card-name{font-family:var(--serif); font-size:13px; font-weight:500; margin-bottom:6px; line-height:1.25;}
+.home-look-card-tags{display:flex; gap:5px; margin-bottom:7px; flex-wrap:wrap;}
+.home-look-card-tags span{font-size:8.5px; background:var(--card-hover); color:var(--text-soft); padding:2px 6px; border-radius:8px;}
+.home-look-card-pieces{font-size:10px; color:var(--text-mute); line-height:1.4;}
+.home-look-empty{font-size:12px; color:var(--text-mute); padding:20px 0;}
+
+.evolution-card{background:var(--card); border:1px solid var(--line-soft); border-radius:var(--radius-lg); padding:18px; margin:26px 0 20px;}
+.evolution-stats-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+.evolution-stat-num{font-family:var(--serif); font-size:22px; font-weight:600; color:var(--accent-text);}
+.evolution-stat-label{font-size:10.5px; color:var(--text-mute); margin-top:2px;}
 </style>
 </head>
 <body>
@@ -566,37 +628,46 @@
 
   <!-- HOME -->
   <div class="screen" id="home">
-    <div class="topbar">
-      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
-      <div class="icon-btn"><i class="ti ti-bell"></i></div>
-    </div>
-    <div class="content">
-      <div class="profile-strip">
-        <div class="avatar-ring" id="avatar-mini-home"></div>
-        <div>
-          <div class="pname">Seu perfil de estilo</div>
-          <div class="ptag" id="home-profile-tag">—</div>
+    <div class="home-header">
+      <div class="home-header-top">
+        <img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img">
+        <div class="home-header-icons">
+          <div class="icon-btn"><i class="ti ti-bell"></i></div>
+          <div class="home-avatar-btn" id="home-avatar-btn"><div id="avatar-mini-home"></div></div>
         </div>
       </div>
+      <p class="home-greeting" id="home-greeting">Olá!</p>
+      <p class="home-greeting-sub">Para onde você vai hoje?</p>
+      <p class="home-context"><i class="ti ti-map-pin" style="font-size:12px;"></i> Divinópolis, MG • 24°C • Dia quente <span class="placeholder-tag-mini">exemplo</span></p>
+    </div>
 
-      <p class="section-label">Looks para você</p>
-      <div class="occasion-tabs" id="occ-tabs">
-        <div class="occ-tab active" data-v="trabalho">Trabalho</div>
-        <div class="occ-tab" data-v="encontro">Encontro</div>
-        <div class="occ-tab" data-v="evento">Evento</div>
-        <div class="occ-tab" data-v="diaadia">Dia a dia</div>
-        <div class="occ-tab" data-v="verao">Verão</div>
-        <div class="occ-tab" data-v="networking">Networking</div>
-        <div class="occ-tab" data-v="noite">Noite</div>
-        <div class="occ-tab" data-v="inverno">Inverno</div>
-        <div class="occ-tab" data-v="formaldia">Formal para dia</div>
-        <div class="occ-tab" data-v="formalnoite">Formal para noite</div>
-        <div class="occ-tab" data-v="treino">Treino</div>
+    <div class="content home-content">
+      <p class="home-section-title">Qual é o seu compromisso?</p>
+      <div class="occasion-grid" id="home-occasion-grid"></div>
+
+      <div class="cerne-profile-card">
+        <div class="cerne-profile-avatar" id="cerne-profile-avatar"></div>
+        <div class="cerne-profile-body">
+          <p class="cerne-profile-eyebrow">Seu perfil Cerne</p>
+          <p class="cerne-profile-style" id="cerne-profile-style">—</p>
+          <p class="cerne-profile-desc" id="cerne-profile-desc"></p>
+          <div class="cerne-profile-tags" id="cerne-profile-tags"></div>
+        </div>
       </div>
-      <div id="home-photo-grid"></div>
-      <div id="looks-list"></div>
-      <div class="looks-legend">
-        <span class="accent-dot"><i class="ti ti-shopping-bag"></i> Toque numa peça pra adicionar à lista</span>
+      <div class="cerne-profile-btns">
+        <button class="cerne-btn-outline primary-tone" id="home-see-identity">Ver minha identidade</button>
+        <button class="cerne-btn-outline" id="home-change-style">Alterar estilo</button>
+      </div>
+
+      <div id="home-sections"></div>
+
+      <div class="evolution-card">
+        <p class="home-section-title" style="margin-top:0; margin-bottom:16px;">Sua evolução na Cerne</p>
+        <div class="evolution-stats-grid" id="evolution-stats"></div>
+        <div class="vitrine-tip" style="margin-top:18px; margin-bottom:0;">
+          <div class="vitrine-tip-avatar">C</div>
+          <div class="vitrine-tip-bubble"><p id="evolution-tip-text"></p></div>
+        </div>
       </div>
     </div>
   </div>
@@ -961,8 +1032,7 @@ document.addEventListener('click', (e) => {
   refreshLookRenders();
 });
 function refreshLookRenders(){
-  const activeOccTab = document.querySelector('#occ-tabs .occ-tab.active');
-  if (activeOccTab) renderLooks(activeOccTab.dataset.v);
+  if (typeof renderHomeFull === 'function') renderHomeFull();
   const activeVitTab = document.querySelector('#vitrine-occ-tabs .occ-tab.active');
   if (activeVitTab) renderVitrine(activeVitTab.dataset.v);
   if (typeof lastAIResult !== 'undefined' && lastAIResult) renderAIResult(lastAIResult);
@@ -1091,6 +1161,7 @@ document.getElementById('to-body').addEventListener('click', () => {
     document.getElementById('style-err').style.display = 'block';
     return;
   }
+  trackStyleExplored(chosenStyle);
   showScreen('ob-body');
 });
 
@@ -1675,7 +1746,7 @@ document.getElementById('see-first-looks').addEventListener('click', () => {
 
 document.getElementById('finish-avatar').addEventListener('click', () => {
   const tag = chosenStyle + ' · ' + chosenHeight + 'cm';
-  document.getElementById('home-profile-tag').textContent = tag;
+  if (document.getElementById('home-profile-tag')) document.getElementById('home-profile-tag').textContent = tag;
   document.getElementById('profile-profile-tag').textContent = tag;
   updateProfileStylePhoto();
   renderMiniAvatars();
@@ -1754,33 +1825,272 @@ function renderPhotoLookGrid(containerId, photoLooks, batchSize){
   showNextBatch();
 }
 
-function renderLooks(occ){
-  const list = document.getElementById('looks-list');
-  list.innerHTML = '';
-  const photoLooks = (PHOTO_LOOKS_REAL[chosenStyle] && PHOTO_LOOKS_REAL[chosenStyle][occ]) || [];
-  renderPhotoLookGrid('home-photo-grid', photoLooks);
-  LOOKS[occ].forEach((look, i) => {
-    const div = document.createElement('div');
-    div.className = 'look-card';
-    div.innerHTML = `
-      <div class="look-head">
-        <div class="look-num">LOOK ${String(i+1).padStart(2,'0')}</div>
-        <div class="look-occasion">${OCCASIONS[occ] || occ}</div>
-      </div>
-      <div class="look-title">${look.title}</div>
-      <div class="look-pieces">${look.pieces.map(p => pieceTagHtml(p)).join('')}</div>
-      <div class="look-cta"><i class="ti ti-eye"></i>Ver detalhes</div>
-    `;
-    list.appendChild(div);
+// ==================== HOME REDESENHADA ====================
+const OCCASION_ICONS = {
+  trabalho: 'ti-briefcase', encontro: 'ti-heart', diaadia: 'ti-coffee', evento: 'ti-star',
+  verao: 'ti-sun', networking: 'ti-users', noite: 'ti-moon-stars', inverno: 'ti-snowflake',
+  formaldia: 'ti-shirt', formalnoite: 'ti-crown', treino: 'ti-barbell'
+};
+let homeCurrentOccasion = 'diaadia';
+
+function getGreeting(){
+  const h = new Date().getHours();
+  if (h < 12) return 'Bom dia';
+  if (h < 18) return 'Boa tarde';
+  return 'Boa noite';
+}
+function renderHomeHeader(){
+  const name = firstName();
+  document.getElementById('home-greeting').textContent = name ? `${getGreeting()}, ${name}` : `${getGreeting()}!`;
+}
+
+function renderOccasionGrid(){
+  const grid = document.getElementById('home-occasion-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  Object.keys(OCCASIONS).forEach(key => {
+    const item = document.createElement('div');
+    item.className = 'occasion-grid-item' + (key === homeCurrentOccasion ? ' active' : '');
+    item.innerHTML = `<i class="ti ${OCCASION_ICONS[key] || 'ti-tag'}"></i><span>${OCCASIONS[key]}</span>`;
+    item.addEventListener('click', () => {
+      homeCurrentOccasion = key;
+      renderOccasionGrid();
+      renderHomeSections();
+    });
+    grid.appendChild(item);
   });
 }
-document.querySelectorAll('#occ-tabs .occ-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('#occ-tabs .occ-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    renderLooks(tab.dataset.v);
+
+// ---------- looks salvos (favoritos) ----------
+const SAVED_LOOKS_KEY = 'cerne_saved_looks_v1';
+function getSavedLooks(){
+  try{ return JSON.parse(localStorage.getItem(SAVED_LOOKS_KEY) || '[]'); }catch(e){ return []; }
+}
+function isLookSaved(look){
+  return getSavedLooks().some(l => l.composicaoImg === look.composicaoImg);
+}
+function toggleLookSaved(look){
+  let saved = getSavedLooks();
+  if (isLookSaved(look)){
+    saved = saved.filter(l => l.composicaoImg !== look.composicaoImg);
+  } else {
+    saved.unshift({ ...look, style: chosenStyle });
+  }
+  try{ localStorage.setItem(SAVED_LOOKS_KEY, JSON.stringify(saved.slice(0, 40))); }catch(e){}
+}
+
+// ---------- rastreio leve de uso (pra "sua evolução") ----------
+function trackLookViewed(look){
+  try{
+    const key = 'cerne_viewed_looks_v1';
+    const arr = JSON.parse(localStorage.getItem(key) || '[]');
+    if (!arr.includes(look.composicaoImg)){
+      arr.push(look.composicaoImg);
+      localStorage.setItem(key, JSON.stringify(arr));
+    }
+  }catch(e){}
+}
+function trackStyleExplored(style){
+  try{
+    const key = 'cerne_styles_explored_v1';
+    const arr = JSON.parse(localStorage.getItem(key) || '[]');
+    if (!arr.includes(style)){
+      arr.push(style);
+      localStorage.setItem(key, JSON.stringify(arr));
+    }
+  }catch(e){}
+}
+
+function hashStr(s){
+  let h = 0;
+  for (let i = 0; i < s.length; i++){ h = (h * 31 + s.charCodeAt(i)) | 0; }
+  return Math.abs(h);
+}
+function computeCompat(look){
+  return 92 + (hashStr(look.title + look.ocasiao) % 8);
+}
+function climaFromOcasiao(occ){
+  if (occ === 'verao' || occ === 'treino') return 'Quente';
+  if (occ === 'inverno') return 'Frio';
+  return 'Ameno';
+}
+
+function homeLookCardHtml(look){
+  const saved = isLookSaved(look);
+  const pieces = (look.pieces || []).slice(0, 3).join(' • ');
+  return `
+    <div class="home-look-card" data-img="${look.composicaoImg}">
+      <div class="home-look-card-photos">
+        <div class="home-look-fav-btn${saved ? ' saved' : ''}"><i class="ti ${saved ? 'ti-heart-filled' : 'ti-heart'}"></i></div>
+        <span class="home-look-match">${computeCompat(look)}% combina</span>
+        <img src="${look.composicaoImg}" alt="">
+        <img src="${look.pessoaImg}" alt="">
+      </div>
+      <div class="home-look-card-body">
+        <div class="home-look-card-name">${escapeHtml(look.title)}</div>
+        <div class="home-look-card-tags"><span>${OCCASIONS[look.ocasiao] || look.ocasiao}</span><span>${chosenStyle}</span><span>${climaFromOcasiao(look.ocasiao)}</span></div>
+        <div class="home-look-card-pieces">${escapeHtml(pieces)}</div>
+      </div>
+    </div>`;
+}
+function wireHomeLookCards(container){
+  container.querySelectorAll('.home-look-card').forEach(card => {
+    const img = card.dataset.img;
+    if (!img) return; // ex: card de teaser (Calendário) não é um look de verdade
+    const favBtn = card.querySelector('.home-look-fav-btn');
+    if (favBtn){
+      favBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const allLooks = Object.values(PHOTO_LOOKS_REAL[chosenStyle] || {}).flat().concat(getSavedLooks());
+        const look = allLooks.find(l => l.composicaoImg === img);
+        if (look){
+          toggleLookSaved(look);
+          renderHomeSections();
+        }
+      });
+    }
+    card.addEventListener('click', () => {
+      const allLooks = Object.values(PHOTO_LOOKS_REAL[chosenStyle] || {}).flat().concat(getSavedLooks());
+      const look = allLooks.find(l => l.composicaoImg === img);
+      if (look){ trackLookViewed(look); openLookModal(look); }
+    });
   });
+}
+function homeSectionHtml(title, looks, emptyMsg){
+  const cardsHtml = looks.length
+    ? looks.map(homeLookCardHtml).join('')
+    : `<p class="home-look-empty">${emptyMsg}</p>`;
+  return `
+    <div class="home-look-section">
+      <div class="home-look-section-head"><p class="home-section-title" style="margin:0;">${title}</p>${looks.length ? '<span class="see-all">Ver todos</span>' : ''}</div>
+      <div class="home-look-row">${cardsHtml}</div>
+    </div>`;
+}
+
+function renderHomeSections(){
+  const wrap = document.getElementById('home-sections');
+  if (!wrap) return;
+  const byOcc = PHOTO_LOOKS_REAL[chosenStyle] || {};
+  const allLooksThisStyle = Object.values(byOcc).flat();
+
+  // 1. Para o seu dia (ocasião selecionada na grade)
+  const paraSeuDia = (byOcc[homeCurrentOccasion] || []).slice(0, 6);
+
+  // 2. Você já consegue montar (proxy: combinações mais simples, com menos peças)
+  const jaTem = allLooksThisStyle.slice().sort((a,b) => (a.pieces||[]).length - (b.pieces||[]).length).slice(0, 6);
+
+  // 3. Para trabalhar
+  const trabalho = (byOcc['trabalho'] || []).slice(0, 6);
+
+  // 4. Salvos recentemente
+  const salvos = getSavedLooks().slice(0, 6);
+
+  // 5. Experimente algo novo (outro estilo compatível)
+  const otherStyles = Object.keys(PHOTO_LOOKS_REAL).filter(s => s !== chosenStyle);
+  const novoStyle = otherStyles[hashStr(chosenStyle) % otherStyles.length];
+  const novo = novoStyle ? Object.values(PHOTO_LOOKS_REAL[novoStyle] || {}).flat().slice(0, 6) : [];
+
+  wrap.innerHTML =
+    homeSectionHtml('Para o seu dia', paraSeuDia, 'Ainda não temos looks pra essa ocasião nesse estilo.') +
+    homeSectionHtml('Você já consegue montar', jaTem, 'Sem sugestões simples por aqui ainda.') +
+    homeSectionHtml('Para trabalhar', trabalho, 'Sem looks de trabalho nesse estilo ainda.') +
+    homeSectionHtml('Salvos recentemente', salvos, 'Você ainda não salvou nenhum look. Toque no ♡ de um look pra guardar aqui.') +
+    (novo.length ? homeSectionHtml(`Experimente algo novo — ${novoStyle}`, novo, '') : '') +
+    `<div class="home-look-section">
+      <div class="home-look-section-head"><p class="home-section-title" style="margin:0;">Calendário Cerne</p></div>
+      <div class="home-look-row">
+        <div class="home-look-card" id="home-calendar-teaser" style="cursor:pointer;">
+          <div class="home-look-card-photos" style="background:linear-gradient(160deg, var(--card-hover), var(--card)); align-items:center; justify-content:center; display:flex;">
+            <i class="ti ti-calendar-event" style="font-size:30px; color:var(--accent-text);"></i>
+          </div>
+          <div class="home-look-card-body">
+            <div class="home-look-card-name">Looks pra datas especiais</div>
+            <div class="home-look-card-pieces">Em breve por aqui</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  wireHomeLookCards(wrap);
+  const teaser = document.getElementById('home-calendar-teaser');
+  if (teaser) teaser.addEventListener('click', () => showScreen('calendario'));
+}
+
+function renderCerneProfileCard(){
+  document.getElementById('cerne-profile-style').textContent = chosenStyle || '—';
+  document.getElementById('cerne-profile-desc').textContent = STYLE_IDENTITY_COPY[chosenStyle] || '';
+
+  const tags = [];
+  if (chosenFit) tags.push(`Caimento ${chosenFit.toLowerCase()}`);
+  const season = computePaletteKey();
+  const contrastTag = (season === 'inverno') ? 'Contraste alto' : (season === 'verao') ? 'Contraste suave' : 'Contraste médio';
+  tags.push(contrastTag);
+  const toneTag = (season === 'outono' || season === 'primavera') ? 'Tons quentes' : 'Tons sóbrios';
+  tags.push(toneTag);
+  document.getElementById('cerne-profile-tags').innerHTML = tags.map(t => `<span>${escapeHtml(t)}</span>`).join('');
+
+  const avatarEl = document.getElementById('cerne-profile-avatar');
+  if (typeof userPhotoDataUrl !== 'undefined' && userPhotoDataUrl){
+    avatarEl.innerHTML = `<img src="${userPhotoDataUrl}" alt="">`;
+  } else {
+    const byOcc = PHOTO_LOOKS_REAL[chosenStyle] || {};
+    const anyOcc = Object.keys(byOcc)[0];
+    const anyLook = anyOcc ? byOcc[anyOcc][0] : null;
+    avatarEl.innerHTML = anyLook ? `<img src="${anyLook.pessoaImg}" alt="">` : `<svg viewBox="0 0 100 200">${avatarBodySVG()}</svg>`;
+  }
+}
+document.getElementById('home-see-identity').addEventListener('click', () => showScreen('profile'));
+document.getElementById('home-change-style').addEventListener('click', () => {
+  syncOnboardingSelections();
+  showScreen('ob-style');
 });
+document.getElementById('home-avatar-btn').addEventListener('click', () => showScreen('profile'));
+
+function renderEvolutionStats(){
+  const savedCount = getSavedLooks().length;
+  let viewedCount = 0, stylesCount = 1;
+  try{ viewedCount = JSON.parse(localStorage.getItem('cerne_viewed_looks_v1') || '[]').length; }catch(e){}
+  try{ stylesCount = JSON.parse(localStorage.getItem('cerne_styles_explored_v1') || '[]').length || 1; }catch(e){}
+  let pecasCount = 0;
+  try{ pecasCount = Object.keys(JSON.parse(localStorage.getItem('cerne_shopping_list_v1') || '{}')).length; }catch(e){}
+
+  const stats = [
+    { num: savedCount, label: 'looks salvos' },
+    { num: viewedCount, label: 'combinações vistas' },
+    { num: pecasCount, label: 'peças na lista' },
+    { num: stylesCount, label: stylesCount === 1 ? 'estilo explorado' : 'estilos explorados' }
+  ];
+  document.getElementById('evolution-stats').innerHTML = stats.map(s =>
+    `<div><div class="evolution-stat-num">${s.num}</div><div class="evolution-stat-label">${s.label}</div></div>`
+  ).join('');
+
+  let tip = 'Continue explorando looks pra gente entender melhor o seu gosto.';
+  try{
+    const exploredStyles = JSON.parse(localStorage.getItem('cerne_styles_explored_v1') || '[]');
+    const otherExplored = exploredStyles.find(s => s !== chosenStyle);
+    if (savedCount >= 3 && otherExplored){
+      tip = `Você tem salvado bastante coisa de ${otherExplored}. Quer adicionar esse toque ao seu perfil ${chosenStyle}?`;
+    } else if (savedCount >= 1){
+      tip = `Você já salvou ${savedCount} look${savedCount > 1 ? 's' : ''}. Bom sinal — assim a gente afina cada vez mais as recomendações.`;
+    } else if (viewedCount >= 3){
+      tip = 'Você já deu uma olhada em vários looks. Achou algum que combinou? Salva com o ♡ pra não perder.';
+    }
+  }catch(e){}
+  document.getElementById('evolution-tip-text').textContent = tip;
+}
+
+function renderHomeFull(){
+  renderHomeHeader();
+  renderOccasionGrid();
+  renderCerneProfileCard();
+  renderHomeSections();
+  renderEvolutionStats();
+}
+
+// mantém compatibilidade com o resto do código, que ainda chama renderLooks(occ)
+function renderLooks(occ){
+  if (occ) homeCurrentOccasion = occ;
+  renderHomeFull();
+}
 
 // ---------- consultor: AI style recommendation ----------
 function escapeHtml(str){
@@ -1843,14 +2153,16 @@ function renderAIResult(parsed){
   result.innerHTML = html;
   document.getElementById('ai-apply-style').addEventListener('click', () => {
     chosenStyle = styleName;
+    trackStyleExplored(chosenStyle);
     renderAvatarPreview();
     renderMiniAvatars();
     renderVitrine();
     const tag = chosenStyle + ' · ' + chosenHeight + 'cm';
-    document.getElementById('home-profile-tag').textContent = tag;
+    if (document.getElementById('home-profile-tag')) document.getElementById('home-profile-tag').textContent = tag;
     document.getElementById('profile-profile-tag').textContent = tag;
-  updateProfileStylePhoto();
+    updateProfileStylePhoto();
     saveProfile();
+    renderHomeFull();
     showScreen('home');
   });
 }
@@ -2200,7 +2512,7 @@ if (loadProfile()){
   document.getElementById('skin-row').querySelectorAll('.swatch').forEach(s => s.classList.toggle('selected', s.dataset.v === chosenSkin));
   document.getElementById('hair-color-row').querySelectorAll('.swatch').forEach(s => s.classList.toggle('selected', s.dataset.v === chosenHairColor));
   const tag = chosenStyle + ' · ' + chosenHeight + 'cm';
-  document.getElementById('home-profile-tag').textContent = tag;
+  if (document.getElementById('home-profile-tag')) document.getElementById('home-profile-tag').textContent = tag;
   document.getElementById('profile-profile-tag').textContent = tag;
   updateProfileStylePhoto();
   renderMiniAvatars();
