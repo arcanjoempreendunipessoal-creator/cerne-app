@@ -192,6 +192,26 @@
   .section-label:first-child{margin-top:0;}
 
   .occasion-tabs{display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:16px;}
+
+  .view-selector{display:inline-flex; background:var(--card); border:1px solid var(--line); border-radius:24px; padding:4px; margin-bottom:18px;}
+  .view-selector-item{padding:9px 16px; border-radius:20px; font-size:12.5px; font-weight:600; color:var(--text-mute); cursor:pointer;}
+  .view-selector-item.active{background:var(--accent); color:#fff;}
+
+  .vitrine-look-card{display:flex; gap:12px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:12px; margin-bottom:14px; cursor:pointer;}
+  .vitrine-look-card-photos{width:38%; aspect-ratio:0.68; border-radius:8px; overflow:hidden; display:flex; flex-shrink:0; position:relative;}
+  .vitrine-look-card-photos img{width:50%; height:100%; object-fit:cover;}
+  .vitrine-look-card-body{flex:1; min-width:0; display:flex; flex-direction:column;}
+  .vitrine-look-card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
+  .vitrine-look-card-name{font-family:var(--serif); font-size:15px; font-weight:500; line-height:1.25; margin-bottom:6px;}
+  .vitrine-look-fav-btn{flex-shrink:0; color:var(--text-mute); cursor:pointer;}
+  .vitrine-look-fav-btn.saved{color:var(--accent-text);}
+  .vitrine-look-card-tags{display:flex; flex-wrap:wrap; gap:5px; margin-bottom:8px;}
+  .vitrine-look-card-tags span{font-size:9px; background:var(--card-hover); color:var(--text-soft); padding:2px 7px; border-radius:8px;}
+  .vitrine-look-card-desc{font-size:11.5px; color:var(--text-mute); line-height:1.45; margin-bottom:8px;}
+  .vitrine-look-compat{font-size:10px; font-weight:600; margin-top:auto;}
+  .vitrine-look-compat.tier-alta{color:var(--olive);}
+  .vitrine-look-compat.tier-media{color:var(--accent-text);}
+  .vitrine-look-compat.tier-explorar{color:var(--text-mute);}
   .occ-tab{flex-shrink:0; padding:8px 14px; border-radius:20px; border:1px solid var(--line); background:var(--card); font-size:12.5px; color:var(--text-soft); cursor:pointer; white-space:nowrap;}
   .occ-tab.active{background:var(--accent); border-color:var(--accent); color:#fff;}
 
@@ -692,8 +712,23 @@
       </div>
 
       <div id="looks-panel-looks">
-        <p class="section-label">Vitrine — <span id="vitrine-style-tag">seu estilo</span></p>
-        <p style="font-size:13px; color:var(--text-soft); margin:-6px 0 16px;">As melhores ideias de look pro seu estilo.</p>
+        <p class="home-section-title" style="margin-top:0;">Explore os looks</p>
+        <p style="font-size:13px; color:var(--text-soft); margin:-8px 0 16px;">Combinações escolhidas para o seu estilo, sua rotina e suas ocasiões.</p>
+
+        <p style="font-size:11px; color:var(--text-mute); font-family:var(--mono); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">Seu perfil:</p>
+        <div class="cerne-profile-card" id="looks-profile-card" style="margin-bottom:16px;">
+          <div class="cerne-profile-avatar" id="looks-profile-avatar"></div>
+          <div class="cerne-profile-body">
+            <p class="cerne-profile-eyebrow">Seu perfil Cerne</p>
+            <p class="cerne-profile-style" id="looks-profile-style">—</p>
+            <p class="cerne-profile-desc" id="looks-profile-desc"></p>
+          </div>
+        </div>
+
+        <div class="view-selector" id="looks-view-selector">
+          <div class="view-selector-item active" data-v="paravoce">Para você</div>
+          <div class="view-selector-item" data-v="tudo">Explorar tudo</div>
+        </div>
 
         <div class="vitrine-tip">
           <div class="vitrine-tip-avatar">C</div>
@@ -2207,41 +2242,104 @@ document.getElementById('ai-submit').addEventListener('click', async () => {
 });
 
 // ---------- vitrine: curated looks by style ----------
+let vitrineViewMode = 'paravoce';
+
+function compatTier(look, isOwnStyle){
+  if (!isOwnStyle) return { cls: 'tier-explorar', label: 'Explore algo diferente' };
+  const score = computeCompat(look);
+  return score >= 96
+    ? { cls: 'tier-alta', label: 'Altamente compatível' }
+    : { cls: 'tier-media', label: 'Combina com seu perfil' };
+}
+
+function vitrineLookCardHtml(look, style){
+  const saved = isLookSaved(look);
+  const isOwnStyle = style === chosenStyle;
+  const tier = compatTier(look, isOwnStyle);
+  const descText = (look.pieces || []).join(' • ');
+  return `
+    <div class="vitrine-look-card" data-img="${look.composicaoImg}" data-style="${escapeHtml(style)}">
+      <div class="vitrine-look-card-photos">
+        <img src="${look.composicaoImg}" alt="">
+        <img src="${look.pessoaImg}" alt="">
+      </div>
+      <div class="vitrine-look-card-body">
+        <div class="vitrine-look-card-top">
+          <div class="vitrine-look-card-name">${escapeHtml(look.title)}</div>
+          <div class="vitrine-look-fav-btn${saved ? ' saved' : ''}"><svg viewBox="0 0 24 24" width="17" height="17" fill="${saved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 3.5h12a1 1 0 0 1 1 1V21l-7-4.2L5 21V4.5a1 1 0 0 1 1-1z"/></svg></div>
+        </div>
+        <div class="vitrine-look-card-tags"><span>${OCCASIONS[look.ocasiao] || look.ocasiao}</span><span>${escapeHtml(style)}</span><span>${climaFromOcasiao(look.ocasiao)}</span></div>
+        <div class="vitrine-look-card-desc">${escapeHtml(descText)}</div>
+        <div class="vitrine-look-compat ${tier.cls}">${tier.label}</div>
+      </div>
+    </div>`;
+}
+
+function renderLooksProfileCard(){
+  const styleEl = document.getElementById('looks-profile-style');
+  if (!styleEl) return;
+  styleEl.textContent = chosenStyle || '—';
+  document.getElementById('looks-profile-desc').textContent = STYLE_IDENTITY_COPY[chosenStyle] || '';
+  const avatarEl = document.getElementById('looks-profile-avatar');
+  if (typeof userPhotoDataUrl !== 'undefined' && userPhotoDataUrl){
+    avatarEl.innerHTML = `<img src="${userPhotoDataUrl}" alt="">`;
+  } else {
+    const byOcc = PHOTO_LOOKS_REAL[chosenStyle] || {};
+    const anyOcc = Object.keys(byOcc)[0];
+    const anyLook = anyOcc ? byOcc[anyOcc][0] : null;
+    avatarEl.innerHTML = anyLook ? `<img src="${anyLook.pessoaImg}" alt="">` : `<svg viewBox="0 0 100 200">${avatarBodySVG()}</svg>`;
+  }
+}
+document.querySelectorAll('#looks-view-selector .view-selector-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('#looks-view-selector .view-selector-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    vitrineViewMode = item.dataset.v;
+    const activeOcc = document.querySelector('#vitrine-occ-tabs .occ-tab.active');
+    renderVitrine(activeOcc ? activeOcc.dataset.v : 'todas');
+  });
+});
+
 function renderVitrine(occFilter){
   occFilter = occFilter || 'todas';
   const list = document.getElementById('vitrine-list');
-  const tagEl = document.getElementById('vitrine-style-tag');
-  if (!list) return;
-  tagEl.textContent = chosenStyle || 'seu estilo';
+  const grid = document.getElementById('vitrine-photo-grid');
+  if (!list || !grid) return;
+  renderLooksProfileCard();
 
-  // looks com fotos reais
-  let photoLooks = (PHOTO_LOOKS_REAL[chosenStyle] && PHOTO_LOOKS_REAL[chosenStyle][occFilter]) || [];
-  if (occFilter === 'todas'){
-    const byOcc = PHOTO_LOOKS_REAL[chosenStyle] || {};
-    photoLooks = Object.values(byOcc).flat();
-  }
-  renderPhotoLookGrid('vitrine-photo-grid', photoLooks);
+  let entries = []; // [{look, style}]
+  const stylesToShow = vitrineViewMode === 'tudo' ? Object.keys(PHOTO_LOOKS_REAL) : [chosenStyle];
+  stylesToShow.forEach(style => {
+    const byOcc = PHOTO_LOOKS_REAL[style] || {};
+    const looksForStyle = occFilter === 'todas' ? Object.values(byOcc).flat() : (byOcc[occFilter] || []);
+    looksForStyle.forEach(look => entries.push({ look, style }));
+  });
 
-  let looks = LOOKS_BY_STYLE[chosenStyle] || [];
-  if (occFilter !== 'todas') looks = looks.filter(l => l.ocasiao === occFilter);
-  list.innerHTML = '';
-  if (!looks.length && !photoLooks.length){
-    list.innerHTML = `<p style="font-size:13px; color:var(--text-mute); padding:18px 0;">Ainda não temos uma ideia específica pra "${escapeHtml(OCCASIONS[occFilter] || occFilter)}" nesse estilo. Tenta outra ocasião ou dá uma olhada em "Todas".</p>`;
+  grid.innerHTML = '';
+  if (!entries.length){
+    list.innerHTML = `<p style="font-size:13px; color:var(--text-mute); padding:18px 0;">Ainda não temos looks pra "${escapeHtml(OCCASIONS[occFilter] || occFilter)}" ${vitrineViewMode === 'tudo' ? 'em nenhum estilo' : 'nesse estilo'} ainda. Tenta outra ocasião${vitrineViewMode !== 'tudo' ? ' ou dá uma olhada em "Explorar tudo"' : ''}.</p>`;
     return;
   }
-  looks.forEach((look, i) => {
-    const div = document.createElement('div');
-    div.className = 'look-card';
-    div.innerHTML = `
-      <div class="look-head">
-        <div class="look-num">IDEIA ${String(i+1).padStart(2,'0')}</div>
-        <div class="look-occasion">${OCCASIONS[look.ocasiao] || ''}</div>
-      </div>
-      <div class="look-title">${look.title}</div>
-      <div class="look-pieces">${look.pieces.map(p => pieceTagHtml(p)).join('')}</div>
-      <div class="look-cta"><i class="ti ti-eye"></i>Ver detalhes</div>
-    `;
-    list.appendChild(div);
+  list.innerHTML = entries.map(e => vitrineLookCardHtml(e.look, e.style)).join('');
+  list.querySelectorAll('.vitrine-look-card').forEach(card => {
+    const img = card.dataset.img;
+    const style = card.dataset.style;
+    const favBtn = card.querySelector('.vitrine-look-fav-btn');
+    favBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const allLooks = Object.values(PHOTO_LOOKS_REAL[style] || {}).flat();
+      const look = allLooks.find(l => l.composicaoImg === img);
+      if (look){
+        toggleLookSaved({ ...look, style });
+        const activeOcc = document.querySelector('#vitrine-occ-tabs .occ-tab.active');
+        renderVitrine(activeOcc ? activeOcc.dataset.v : 'todas');
+      }
+    });
+    card.addEventListener('click', () => {
+      const allLooks = Object.values(PHOTO_LOOKS_REAL[style] || {}).flat();
+      const look = allLooks.find(l => l.composicaoImg === img);
+      if (look){ trackLookViewed(look); openLookModal(look); }
+    });
   });
 }
 document.querySelectorAll('#vitrine-occ-tabs .occ-tab').forEach(tab => {
