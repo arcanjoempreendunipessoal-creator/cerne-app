@@ -301,10 +301,12 @@
   .summary-card-label{font-size:9.5px; color:var(--text-mute); line-height:1.3; margin-top:4px;}
 
   .palette-card-detailed{padding-bottom:18px;}
+  .palette-section-title{font-family:var(--mono); font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--accent-text); margin-bottom:10px;}
   .palette-group{margin-top:14px;}
   .palette-group-title{font-size:11.5px; font-weight:600; color:var(--text-soft); margin-bottom:8px;}
   .palette-group-tags{display:flex; flex-wrap:wrap; gap:6px;}
-  .palette-group-tags span{font-size:10.5px; background:var(--card-hover); color:var(--text-soft); padding:4px 10px; border-radius:12px;}
+  .palette-group-tags span{display:inline-flex; align-items:center; gap:6px; font-size:10.5px; background:var(--card-hover); color:var(--text-soft); padding:4px 10px 4px 6px; border-radius:12px;}
+  .palette-color-dot{width:12px; height:12px; border-radius:50%; display:inline-block; flex-shrink:0; border:1px solid rgba(255,255,255,0.18);}
   .palette-combo-row{font-size:12px; color:var(--text-soft); padding:8px 0; border-bottom:1px solid var(--line-soft);}
   .palette-combo-row:last-child{border-bottom:none;}
   .palette-disclaimer{font-size:10.5px; color:var(--text-mute); font-style:italic; line-height:1.5; margin-top:12px;}
@@ -890,6 +892,7 @@
       </div>
 
       <div class="palette-card palette-card-detailed">
+        <p class="palette-section-title">Sua paleta de cores</p>
         <p class="palette-eyebrow">Suas cores</p>
         <p class="palette-name" id="profile-palette-name">—</p>
         <p class="palette-desc" id="profile-palette-desc"></p>
@@ -1636,15 +1639,28 @@ const SEASON_PALETTES_DETAILED = {
     combos: ['Creme + coral + camel', 'Bege dourado + turquesa + marrom claro']
   }
 };
+const COLOR_HEX_MAP = {
+  'Creme': '#F0E6D2', 'Bege': '#D9C7A8', 'Marrom': '#6B4226', 'Azul-marinho quente': '#2B3A55',
+  'Terracota': '#C1552D', 'Verde-oliva': '#6B7A4F', 'Mostarda': '#C9A227', 'Vinho': '#6B1F2A',
+  'Branco óptico': '#FAFAFA', 'Cinza azulado': '#8B96A5', 'Rosa frio': '#D8A8B0',
+  'Branco puro': '#FFFFFF', 'Cinza grafite': '#3A3B3C', 'Preto': '#0D0D0D', 'Azul-marinho frio': '#1B2A4A',
+  'Vermelho': '#C21F26', 'Azul royal': '#1E3F9E', 'Roxo': '#5B2C7A', 'Prata': '#C0C0C0',
+  'Bege dourado': '#D4B483', 'Laranja': '#E0682D', 'Marrom claro': '#A9764B',
+  'Cinza claro': '#C7C7C7', 'Azul acinzentado': '#7C93A8', 'Off-white': '#F5F1E8', 'Bege rosado': '#E3C9BE',
+  'Rosa empoeirado': '#C99AA0', 'Azul lavanda': '#A6A0C9', 'Verde-água': '#7FBCB4', 'Preto puro': '#0D0D0D',
+  'Amarelo dourado': '#D9A93B', 'Camel': '#C19A6B', 'Coral': '#E8846B', 'Verde-claro': '#8FBF8F',
+  'Amarelo': '#E8C34A', 'Turquesa': '#4FB6B0', 'Cinza frio': '#A9AFB8', 'Roxo escuro': '#3E2350'
+};
 function renderDetailedPaletteCard(){
   const nameEl = document.getElementById('profile-palette-name');
   if (!nameEl) return;
   const p = SEASON_PALETTES_DETAILED[computePaletteKey()];
   nameEl.textContent = p.name;
   document.getElementById('profile-palette-desc').textContent = p.desc;
-  document.getElementById('palette-group-neutros').innerHTML = p.neutros.map(c => `<span>${c}</span>`).join('');
-  document.getElementById('palette-group-destaque').innerHTML = p.destaque.map(c => `<span>${c}</span>`).join('');
-  document.getElementById('palette-group-cuidado').innerHTML = p.cuidado.map(c => `<span>${c}</span>`).join('');
+  const colorTag = c => `<span><span class="palette-color-dot" style="background:${COLOR_HEX_MAP[c] || '#999'};"></span>${c}</span>`;
+  document.getElementById('palette-group-neutros').innerHTML = p.neutros.map(colorTag).join('');
+  document.getElementById('palette-group-destaque').innerHTML = p.destaque.map(colorTag).join('');
+  document.getElementById('palette-group-cuidado').innerHTML = p.cuidado.map(colorTag).join('');
   document.getElementById('palette-combos').innerHTML = p.combos.map(c => `<div class="palette-combo-row">${c}</div>`).join('');
 }
 const seeLooksBtn = document.getElementById('see-looks-in-colors');
