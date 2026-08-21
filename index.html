@@ -293,16 +293,38 @@
   .module-check.done{background:var(--olive); border-color:var(--olive); display:flex; align-items:center; justify-content:center; color:#161810; font-size:12px;}
 
   /* ---- Profile ---- */
-  .level-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:20px; margin-bottom:20px; text-align:center;}
-  .level-num{font-family:var(--serif); font-size:36px; color:var(--accent-text);}
-  .level-label{font-family:var(--mono); font-size:11px; color:var(--text-mute); letter-spacing:1px; text-transform:uppercase; margin-top:2px;}
-  .bar-track{height:5px; background:var(--line-soft); border-radius:4px; margin-top:16px; overflow:hidden;}
-  .bar-fill{height:100%; background:var(--accent); width:38%;}
-  .badge-row{display:flex; gap:10px; margin-top:16px;}
-  .badge{flex:1; padding:12px 6px; border:1px solid var(--line); border-radius:var(--radius); text-align:center;}
-  .badge i{font-size:18px; color:var(--text-mute);}
-  .badge.unlocked i{color:var(--accent-text);}
-  .badge span{display:block; font-size:10px; color:var(--text-mute); margin-top:6px;}
+  .profile-header-sub{font-size:12.5px; color:var(--text-soft); margin:-10px 0 20px;}
+
+  .summary-cards-row{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:22px;}
+  .summary-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:14px 8px; text-align:center; cursor:pointer;}
+  .summary-card-num{font-family:var(--serif); font-size:22px; font-weight:600; color:var(--accent-text);}
+  .summary-card-label{font-size:9.5px; color:var(--text-mute); line-height:1.3; margin-top:4px;}
+
+  .palette-card-detailed{padding-bottom:18px;}
+  .palette-group{margin-top:14px;}
+  .palette-group-title{font-size:11.5px; font-weight:600; color:var(--text-soft); margin-bottom:8px;}
+  .palette-group-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .palette-group-tags span{font-size:10.5px; background:var(--card-hover); color:var(--text-soft); padding:4px 10px; border-radius:12px;}
+  .palette-combo-row{font-size:12px; color:var(--text-soft); padding:8px 0; border-bottom:1px solid var(--line-soft);}
+  .palette-combo-row:last-child{border-bottom:none;}
+  .palette-disclaimer{font-size:10.5px; color:var(--text-mute); font-style:italic; line-height:1.5; margin-top:12px;}
+
+  .evolution-status-label{font-family:var(--serif); font-size:15px; font-weight:500; color:var(--accent-text);}
+  .evolution-status-sub{font-size:12px; color:var(--text-soft); margin-top:3px;}
+  .bar-track{height:5px; background:var(--line-soft); border-radius:4px; overflow:hidden;}
+  .bar-fill{height:100%; background:var(--accent); width:0%; transition:width .3s ease;}
+  .fundamento-row{display:flex; align-items:center; gap:10px; padding:8px 0;}
+  .fundamento-check{width:20px; height:20px; border-radius:50%; border:1.5px solid var(--line); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:transparent; font-size:11px;}
+  .fundamento-row.done .fundamento-check{background:var(--olive); border-color:var(--olive); color:#fff;}
+  .fundamento-row span{font-size:12.5px; color:var(--text-soft);}
+  .fundamento-row.done span{color:var(--text);}
+
+  .badge-card{display:flex; gap:12px; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:14px; margin-bottom:10px;}
+  .badge-card.unlocked{border-color:var(--accent-soft); background:var(--accent-soft);}
+  .badge-icon{width:40px; height:40px; border-radius:50%; background:var(--card-hover); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--text-mute); font-size:18px;}
+  .badge-card.unlocked .badge-icon{background:var(--accent); color:#fff;}
+  .badge-card-name{font-family:var(--serif); font-size:14px; font-weight:500;}
+  .badge-card-desc{font-size:11px; color:var(--text-mute); margin-top:2px;}
 
   /* ---- Bottom nav ---- */
   .navbar{
@@ -847,6 +869,7 @@
           </div>
         </div>
       </div>
+      <p class="profile-header-sub">Sua identidade está ficando cada vez mais clara.</p>
 
       <div class="style-photo-card">
         <img src="" id="profile-style-photo" alt="Foto do seu estilo" class="style-photo-card-img">
@@ -856,7 +879,9 @@
           <button class="change-style-btn" id="change-style-btn">Trocar estilo</button>
         </div>
       </div>
-      <button class="primary-btn" id="edit-profile-btn" style="margin-top:0; margin-bottom:22px; background:var(--card); border:1px solid var(--line); color:var(--text);">Editar perfil completo</button>
+      <button class="primary-btn" id="edit-profile-btn" style="margin-top:0; margin-bottom:20px; background:var(--card); border:1px solid var(--line); color:var(--text);">Editar perfil completo</button>
+
+      <div class="summary-cards-row" id="summary-cards-row"></div>
 
       <div class="palette-card">
         <p class="palette-eyebrow">Seu acesso</p>
@@ -864,29 +889,50 @@
         <p class="palette-desc">Pagamento único, sem mensalidade. A Cerne IA tem um limite de consultas por mês — veja quanto resta na aba Cerne IA.</p>
       </div>
 
-      <div class="palette-card">
-        <p class="palette-eyebrow">Sua paleta de cores</p>
+      <div class="palette-card palette-card-detailed">
+        <p class="palette-eyebrow">Suas cores</p>
         <p class="palette-name" id="profile-palette-name">—</p>
         <p class="palette-desc" id="profile-palette-desc"></p>
-        <div class="palette-swatches" id="profile-palette-swatches"></div>
+
+        <div class="palette-group">
+          <p class="palette-group-title">Seus melhores neutros</p>
+          <div class="palette-group-tags" id="palette-group-neutros"></div>
+        </div>
+        <div class="palette-group">
+          <p class="palette-group-title">Cores de destaque</p>
+          <div class="palette-group-tags" id="palette-group-destaque"></div>
+        </div>
+        <div class="palette-group">
+          <p class="palette-group-title">Use com mais atenção</p>
+          <div class="palette-group-tags" id="palette-group-cuidado"></div>
+        </div>
+
+        <p class="palette-group-title" style="margin-top:16px;">Combinações prontas</p>
+        <div id="palette-combos"></div>
+
+        <button class="primary-btn" id="see-looks-in-colors" style="margin-top:14px;">Ver looks nas minhas cores</button>
+        <p class="palette-disclaimer">Esta é uma recomendação inicial baseada nas informações fornecidas, não uma análise cromática presencial.</p>
       </div>
 
       <p class="section-label">Sua lista de compras</p>
-      <p style="font-size:12.5px; color:var(--text-soft); margin:-6px 0 14px;">Peças que você marcou como "quero essa" nos looks.</p>
+      <p style="font-size:12.5px; color:var(--text-soft); margin:-6px 0 14px;" id="shopping-list-anchor">Peças que você marcou como "quero essa" nos looks.</p>
       <div id="shopping-list"></div>
 
-      <div class="level-card">
-        <div class="level-num">2</div>
-        <div class="level-label">Nível de estilo</div>
-        <div class="bar-track"><div class="bar-fill"></div></div>
-        <p style="font-size:11px; color:var(--text-mute); margin-top:8px; font-family:var(--mono);">3 de 8 guias explorados</p>
+      <div class="evolution-card" style="margin-top:8px;">
+        <p class="home-section-title" style="margin-top:0; margin-bottom:4px;">Sua evolução na Cerne</p>
+        <p class="evolution-status-label" id="evolution-status-label">Identidade em construção</p>
+        <p class="evolution-status-sub" id="evolution-status-sub">Você já concluiu 0 de 8 fundamentos.</p>
+        <div class="bar-track" style="margin:12px 0 16px;"><div class="bar-fill" id="evolution-bar-fill"></div></div>
+        <div id="fundamentos-list"></div>
+        <div class="vitrine-tip" style="margin-top:16px; margin-bottom:12px;">
+          <div class="evolution-tip-logo"><img src="images/logo-cerne.png" alt="Cerne"></div>
+          <div class="vitrine-tip-bubble"><p id="fundamentos-next-msg"></p></div>
+        </div>
+        <button class="primary-btn" id="continue-evolution-btn" style="margin-top:0;">Continuar minha evolução</button>
       </div>
-      <p class="section-label">Selos</p>
-      <div class="badge-row">
-        <div class="badge unlocked"><i class="ti ti-checklist"></i><span>Quiz feito</span></div>
-        <div class="badge unlocked"><i class="ti ti-palette"></i><span>Cores ok</span></div>
-        <div class="badge"><i class="ti ti-briefcase"></i><span>Cápsula completa</span></div>
-      </div>
+
+      <p class="section-label">Conquistas</p>
+      <div id="badges-list"></div>
     </div>
   </div>
 
@@ -909,6 +955,16 @@
       <p style="font-size:13px; color:var(--text-soft); line-height:1.6; margin-bottom:10px;" id="look-modal-desc"></p>
       <p class="look-modal-hint"><i class="ti ti-hand-click"></i>Toque nas peças que você quer — elas vão direto pra sua lista de compras</p>
       <div class="look-pieces" id="look-modal-pieces"></div>
+    </div>
+  </div>
+
+  <div class="look-modal-backdrop" id="policy-modal-backdrop">
+    <div class="look-modal">
+      <div class="look-modal-header" style="justify-content:space-between; align-items:center;">
+        <p class="look-title" id="policy-modal-title" style="font-size:17px; margin:0;"></p>
+        <div class="look-modal-close" id="policy-modal-close"><i class="ti ti-x"></i></div>
+      </div>
+      <div id="policy-modal-body"></div>
     </div>
   </div>
 
@@ -1079,6 +1135,7 @@ function refreshLookRenders(){
   if (activeVitTab) renderVitrine(activeVitTab.dataset.v);
   if (typeof lastAIResult !== 'undefined' && lastAIResult) renderAIResult(lastAIResult);
   renderShoppingList();
+  if (typeof renderProfileExtras === 'function') renderProfileExtras();
 }
 
 // ---------- persistence ----------
@@ -1168,7 +1225,7 @@ document.querySelectorAll('.nav-item').forEach(item => {
       renderMySubmissions();
     }
     if (item.dataset.screen === 'profile') {
-      renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches');
+      renderProfileExtras();
       renderShoppingList();
     }
     if (item.dataset.screen === 'consultor') { showConsultorContent(); updateAiUsageCounter(); }
@@ -1544,6 +1601,242 @@ function renderPaletteCard(nameId, descId, swatchesId){
   if (swEl) swEl.innerHTML = p.colors.map(c => `<span style="background:${c};"></span>`).join('');
 }
 
+// ==================== PERFIL REDESENHADO ====================
+const SEASON_PALETTES_DETAILED = {
+  outono: {
+    name: 'Outono',
+    desc: 'Tons terrosos, quentes e moderadamente profundos tendem a harmonizar melhor com suas características.',
+    neutros: ['Creme', 'Bege', 'Marrom', 'Azul-marinho quente'],
+    destaque: ['Terracota', 'Verde-oliva', 'Mostarda', 'Vinho'],
+    cuidado: ['Branco óptico', 'Cinza azulado', 'Rosa frio'],
+    combos: ['Creme + oliva + marrom', 'Azul-marinho + terracota + bege']
+  },
+  inverno: {
+    name: 'Inverno',
+    desc: 'Contraste alto e tons frios tendem a harmonizar melhor com suas características.',
+    neutros: ['Branco puro', 'Cinza grafite', 'Preto', 'Azul-marinho frio'],
+    destaque: ['Vermelho', 'Azul royal', 'Roxo', 'Prata'],
+    cuidado: ['Bege dourado', 'Laranja', 'Marrom claro'],
+    combos: ['Branco + grafite + preto', 'Azul-marinho + prata + branco']
+  },
+  verao: {
+    name: 'Verão',
+    desc: 'Tons frios e suaves tendem a harmonizar melhor com suas características.',
+    neutros: ['Cinza claro', 'Azul acinzentado', 'Off-white', 'Bege rosado'],
+    destaque: ['Rosa empoeirado', 'Azul lavanda', 'Verde-água', 'Prata'],
+    cuidado: ['Preto puro', 'Laranja', 'Amarelo dourado'],
+    combos: ['Cinza + azul acinzentado + off-white', 'Bege rosado + lavanda + prata']
+  },
+  primavera: {
+    name: 'Primavera',
+    desc: 'Tons quentes e vivos tendem a harmonizar melhor com suas características.',
+    neutros: ['Creme', 'Camel', 'Bege dourado', 'Marrom claro'],
+    destaque: ['Coral', 'Verde-claro', 'Amarelo', 'Turquesa'],
+    cuidado: ['Preto puro', 'Cinza frio', 'Roxo escuro'],
+    combos: ['Creme + coral + camel', 'Bege dourado + turquesa + marrom claro']
+  }
+};
+function renderDetailedPaletteCard(){
+  const nameEl = document.getElementById('profile-palette-name');
+  if (!nameEl) return;
+  const p = SEASON_PALETTES_DETAILED[computePaletteKey()];
+  nameEl.textContent = p.name;
+  document.getElementById('profile-palette-desc').textContent = p.desc;
+  document.getElementById('palette-group-neutros').innerHTML = p.neutros.map(c => `<span>${c}</span>`).join('');
+  document.getElementById('palette-group-destaque').innerHTML = p.destaque.map(c => `<span>${c}</span>`).join('');
+  document.getElementById('palette-group-cuidado').innerHTML = p.cuidado.map(c => `<span>${c}</span>`).join('');
+  document.getElementById('palette-combos').innerHTML = p.combos.map(c => `<div class="palette-combo-row">${c}</div>`).join('');
+}
+const seeLooksBtn = document.getElementById('see-looks-in-colors');
+if (seeLooksBtn) seeLooksBtn.addEventListener('click', () => {
+  const navVitrine = document.querySelector('.nav-item[data-screen="vitrine"]');
+  if (navVitrine) navVitrine.click();
+});
+
+// ---------- resumo inteligente (cards tocáveis) ----------
+function shoppingCount(){
+  try{ return Object.keys(JSON.parse(localStorage.getItem('cerne_shopping_list_v1') || '{}')).length; }catch(e){ return 0; }
+}
+function viewedCount(){
+  try{ return JSON.parse(localStorage.getItem('cerne_viewed_looks_v1') || '[]').length; }catch(e){ return 0; }
+}
+// heurística honesta: um look "já dá pra montar" quando os tipos de peça dele
+// (camisa, jeans, blazer...) já aparecem, pelo menos em parte, na lista de compras
+function countMatchingPieces(look, shoppingLabels){
+  return (look.pieces || []).filter(piece => {
+    const firstWord = piece.toLowerCase().split(' ')[0];
+    return shoppingLabels.some(label => label.includes(firstWord));
+  }).length;
+}
+function countAlreadyAssemblable(){
+  let shopping = {};
+  try{ shopping = JSON.parse(localStorage.getItem('cerne_shopping_list_v1') || '{}'); }catch(e){}
+  const shoppingLabels = Object.values(shopping).map(v => (v.label || '').toLowerCase());
+  if (!shoppingLabels.length) return 0;
+  const byOcc = PHOTO_LOOKS_REAL[chosenStyle] || {};
+  const allLooks = Object.values(byOcc).flat();
+  let count = 0;
+  allLooks.forEach(look => {
+    const total = (look.pieces || []).length;
+    const matched = countMatchingPieces(look, shoppingLabels);
+    const threshold = Math.min(2, total);
+    if (matched >= threshold && matched > 0) count++;
+  });
+  return count;
+}
+function renderSummaryCards(){
+  const row = document.getElementById('summary-cards-row');
+  if (!row) return;
+  const cards = [
+    { num: getSavedLooks().length, label: 'Looks salvos', action: 'salvos' },
+    { num: shoppingCount(), label: 'Peças cadastradas', action: 'lista' },
+    { num: countAlreadyAssemblable(), label: 'Looks que você já consegue montar', action: 'montar' }
+  ];
+  row.innerHTML = cards.map(c => `<div class="summary-card" data-action="${c.action}"><div class="summary-card-num">${c.num}</div><div class="summary-card-label">${c.label}</div></div>`).join('');
+  row.querySelectorAll('.summary-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const action = card.dataset.action;
+      if (action === 'lista'){
+        document.getElementById('shopping-list-anchor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (action === 'salvos'){
+        openSavedLooksModal(false);
+      } else if (action === 'montar'){
+        openSavedLooksModal(true);
+      }
+    });
+  });
+}
+function openSavedLooksModal(onlyAssemblable){
+  const backdrop = document.getElementById('policy-modal-backdrop');
+  if (!backdrop) return;
+  document.getElementById('policy-modal-title').textContent = onlyAssemblable ? 'Looks que você já consegue montar' : 'Seus looks salvos';
+  let looks = getSavedLooks();
+  if (onlyAssemblable){
+    let shopping = {};
+    try{ shopping = JSON.parse(localStorage.getItem('cerne_shopping_list_v1') || '{}'); }catch(e){}
+    const shoppingLabels = Object.values(shopping).map(v => (v.label || '').toLowerCase());
+    const byOcc = PHOTO_LOOKS_REAL[chosenStyle] || {};
+    looks = Object.values(byOcc).flat().filter(look => {
+      const total = (look.pieces || []).length;
+      const matched = countMatchingPieces(look, shoppingLabels);
+      const threshold = Math.min(2, total);
+      return matched >= threshold && matched > 0;
+    });
+  }
+  const body = document.getElementById('policy-modal-body');
+  if (!looks.length){
+    body.innerHTML = `<p style="font-size:13px; color:var(--text-mute); padding:20px 0;">${onlyAssemblable ? 'Cadastre peças na sua lista de compras pra gente calcular quais looks você já consegue montar.' : 'Você ainda não salvou nenhum look. Toque no marcador de um look pra guardar aqui.'}</p>`;
+  } else {
+    body.innerHTML = looks.map(l => vitrineLookCardHtml(l, l.style || chosenStyle)).join('');
+    body.querySelectorAll('.vitrine-look-card').forEach(card => {
+      const img = card.dataset.img;
+      const style = card.dataset.style;
+      const favBtn = card.querySelector('.vitrine-look-fav-btn');
+      if (favBtn) favBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const look = looks.find(l => l.composicaoImg === img);
+        if (look){ toggleLookSaved({ ...look, style }); openSavedLooksModal(onlyAssemblable); renderSummaryCards(); }
+      });
+      card.addEventListener('click', () => {
+        const look = looks.find(l => l.composicaoImg === img);
+        if (look) openLookModal(look);
+      });
+    });
+  }
+  backdrop.classList.add('open');
+}
+function closeSavedLooksModal(){
+  const backdrop = document.getElementById('policy-modal-backdrop');
+  if (backdrop) backdrop.classList.remove('open');
+}
+const policyModalClose = document.getElementById('policy-modal-close');
+if (policyModalClose) policyModalClose.addEventListener('click', closeSavedLooksModal);
+const policyModalBackdropEl = document.getElementById('policy-modal-backdrop');
+if (policyModalBackdropEl) policyModalBackdropEl.addEventListener('click', (e) => {
+  if (e.target.id === 'policy-modal-backdrop') closeSavedLooksModal();
+});
+
+// ---------- fundamentos (evolução) ----------
+function getFundamentosStatus(){
+  const saved = getSavedLooks();
+  const occasionsExplored = new Set(saved.map(l => l.ocasiao));
+  return [
+    { key: 'perfil', label: 'Perfil de identidade concluído', done: !!chosenStyle, hint: 'Escolha seu estilo pra começar.' },
+    { key: 'paleta', label: 'Paleta conhecida', done: !!(chosenEyes && chosenSun && chosenMetal), hint: 'Complete as perguntas de cor no seu avatar, em "Editar perfil completo".' },
+    { key: 'primeirosalvo', label: 'Primeiro look salvo', done: saved.length >= 1, hint: 'Salve um look que você curtiu na aba Looks.' },
+    { key: 'primeirapeca', label: 'Primeira peça cadastrada', done: shoppingCount() >= 1, hint: 'Toque numa peça de um look pra adicionar à sua lista.' },
+    { key: 'primeiromontado', label: 'Primeiro look montado', done: viewedCount() >= 1, hint: 'Abra os detalhes de um look pra ver como ele é montado.' },
+    { key: 'guardaroupa', label: 'Guarda-roupa essencial', done: shoppingCount() >= 5, hint: `Cadastre mais ${Math.max(0, 5 - shoppingCount())} peças na sua lista.` },
+    { key: 'tresocasioes', label: 'Três ocasiões exploradas', done: occasionsExplored.size >= 3, hint: 'Salve looks de pelo menos 3 ocasiões diferentes.' },
+    { key: 'consolidada', label: 'Identidade consolidada', done: saved.length >= 10 && shoppingCount() >= 10, hint: 'Continue salvando looks e cadastrando peças pra chegar aqui.' }
+  ];
+}
+function renderFundamentos(){
+  const list = document.getElementById('fundamentos-list');
+  if (!list) return;
+  const items = getFundamentosStatus();
+  const doneCount = items.filter(i => i.done).length;
+  list.innerHTML = items.map(i => `
+    <div class="fundamento-row${i.done ? ' done' : ''}">
+      <div class="fundamento-check">${i.done ? '✓' : ''}</div>
+      <span>${i.label}</span>
+    </div>`).join('');
+  document.getElementById('evolution-status-sub').textContent = `Você já concluiu ${doneCount} de ${items.length} fundamentos.`;
+  document.getElementById('evolution-bar-fill').style.width = `${Math.round((doneCount / items.length) * 100)}%`;
+  document.getElementById('evolution-status-label').textContent = doneCount >= items.length ? 'Identidade consolidada' : 'Identidade em construção';
+  const next = items.find(i => !i.done);
+  document.getElementById('fundamentos-next-msg').textContent = next
+    ? `Próximo passo: ${next.hint}`
+    : 'Você concluiu todos os fundamentos — sua identidade Cerne está consolidada.';
+}
+const continueEvolutionBtn = document.getElementById('continue-evolution-btn');
+if (continueEvolutionBtn) continueEvolutionBtn.addEventListener('click', () => {
+  const next = getFundamentosStatus().find(i => !i.done);
+  if (!next) return;
+  if (next.key === 'paleta' || next.key === 'perfil'){
+    syncOnboardingSelections();
+    showScreen('ob-style');
+  } else if (next.key === 'guardaroupa' || next.key === 'primeirapeca'){
+    document.getElementById('shopping-list-anchor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    const navVitrine = document.querySelector('.nav-item[data-screen="vitrine"]');
+    if (navVitrine) navVitrine.click();
+  }
+});
+
+// ---------- selos (conquistas) ----------
+function getBadgesStatus(){
+  const saved = getSavedLooks();
+  const occasionsExplored = new Set(saved.map(l => l.ocasiao));
+  const prontoOcasiao = ['trabalho', 'encontro', 'evento'].every(o => occasionsExplored.has(o));
+  return [
+    { name: 'Identidade definida', desc: 'Concluiu o teste Cerne.', done: !!chosenStyle, hint: 'Escolha seu estilo pra conquistar.', icon: 'ti-user-check' },
+    { name: 'Primeira combinação', desc: 'Salvou seu primeiro look.', done: saved.length >= 1, hint: 'Salve um look pra conquistar.', icon: 'ti-heart' },
+    { name: 'Guarda-roupa inteligente', desc: 'Cadastrou dez peças.', done: shoppingCount() >= 10, hint: `Cadastre mais ${Math.max(0, 10 - shoppingCount())} peças pra conquistar.`, icon: 'ti-shirt' },
+    { name: 'Versatilidade', desc: 'Montou cinco looks.', done: viewedCount() >= 5, hint: `Monte mais ${Math.max(0, 5 - viewedCount())} looks pra conquistar.`, icon: 'ti-recycle' },
+    { name: 'Pronto para a ocasião', desc: 'Explorou trabalho, encontro e evento.', done: prontoOcasiao, hint: 'Salve looks de trabalho, encontro e evento pra conquistar.', icon: 'ti-calendar-check' }
+  ];
+}
+function renderBadges(){
+  const list = document.getElementById('badges-list');
+  if (!list) return;
+  const badges = getBadgesStatus();
+  list.innerHTML = badges.map(b => `
+    <div class="badge-card${b.done ? ' unlocked' : ''}">
+      <div class="badge-icon"><i class="ti ${b.icon}"></i></div>
+      <div>
+        <div class="badge-card-name">${b.name}</div>
+        <div class="badge-card-desc">${b.done ? b.desc : b.hint}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderProfileExtras(){
+  renderDetailedPaletteCard();
+  renderSummaryCards();
+  renderFundamentos();
+  renderBadges();
+}
 function showConsultorLocked(){
   const el = document.getElementById('consultor-limit-desc');
   const now = new Date();
@@ -1707,7 +2000,7 @@ function saveName(name){
 }
 function refreshProfileNameDisplay(){
   const name = firstName();
-  document.getElementById('profile-name-display').textContent = name ? `Olá, ${name}!` : 'Olá!';
+  document.getElementById('profile-name-display').textContent = name ? `Olá, ${name}.` : 'Olá!';
 }
 
 // ---------- onboarding: nome (primeira visita) ----------
@@ -1792,7 +2085,7 @@ document.getElementById('finish-avatar').addEventListener('click', () => {
   document.getElementById('profile-profile-tag').textContent = tag;
   updateProfileStylePhoto();
   renderMiniAvatars();
-  renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches');
+  renderProfileExtras();
   saveProfile();
   populateResultScreen();
   showScreen('ob-result');
@@ -2630,7 +2923,7 @@ if (loadProfile()){
   document.getElementById('profile-profile-tag').textContent = tag;
   updateProfileStylePhoto();
   renderMiniAvatars();
-  renderPaletteCard('profile-palette-name', 'profile-palette-desc', 'profile-palette-swatches');
+  renderProfileExtras();
   renderLooks('trabalho');
   renderVitrine();
   showScreen('home');
