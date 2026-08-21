@@ -313,9 +313,9 @@
 .home-avatar-btn{width:34px; height:34px; border-radius:50%; overflow:hidden; border:1.5px solid var(--accent); cursor:pointer; background:var(--card);}
 .home-avatar-btn svg, .home-avatar-btn img{width:100%; height:100%; object-fit:cover;}
 .home-greeting{font-family:var(--serif); font-size:22px; font-weight:500; margin-bottom:3px;}
-.home-greeting-sub{font-family:var(--serif); font-size:15px; color:var(--text-soft); font-weight:400; margin-bottom:10px;}
-.home-context{font-size:12px; color:var(--text-mute); margin-bottom:20px; display:flex; align-items:center; gap:6px;}
-.home-context .placeholder-tag-mini{font-family:var(--mono); font-size:8.5px; text-transform:uppercase; background:var(--card-hover); color:var(--text-mute); padding:2px 6px; border-radius:4px;}
+.home-greeting-sub{font-family:var(--serif); font-size:15px; color:var(--text-soft); font-weight:400; margin-bottom:14px;}
+.home-ambient-video{width:100%; aspect-ratio:16/7; border-radius:var(--radius-lg); overflow:hidden; margin-bottom:20px; background:var(--card);}
+.home-ambient-video video{width:100%; height:100%; object-fit:cover; pointer-events:none; display:block;}
 
 .home-section-title{font-family:var(--serif); font-size:17px; font-weight:500; margin:22px 0 12px;}
 .home-section-title:first-child{margin-top:0;}
@@ -323,6 +323,7 @@
 .occasion-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-bottom:8px;}
 .occasion-grid-item{display:flex; flex-direction:column; align-items:center; gap:6px; padding:12px 4px; background:var(--card); border:1px solid var(--line-soft); border-radius:var(--radius-lg); cursor:pointer;}
 .occasion-grid-item i{font-size:19px; color:var(--accent-text);}
+.occasion-grid-item svg{width:20px; height:20px; color:var(--accent-text);}
 .occasion-grid-item span{font-size:10px; color:var(--text-soft); text-align:center; line-height:1.2;}
 .occasion-grid-item.active{background:var(--accent-soft); border-color:var(--accent);}
 .occasion-grid-item.active span{color:var(--text); font-weight:600;}
@@ -361,6 +362,8 @@
 .evolution-stats-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
 .evolution-stat-num{font-family:var(--serif); font-size:22px; font-weight:600; color:var(--accent-text);}
 .evolution-stat-label{font-size:10.5px; color:var(--text-mute); margin-top:2px;}
+.evolution-tip-logo{width:38px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.evolution-tip-logo img{width:100%; height:auto; display:block;}
 </style>
 </head>
 <body>
@@ -638,7 +641,11 @@
       </div>
       <p class="home-greeting" id="home-greeting">Olá!</p>
       <p class="home-greeting-sub">Para onde você vai hoje?</p>
-      <p class="home-context"><i class="ti ti-map-pin" style="font-size:12px;"></i> Divinópolis, MG • 24°C • Dia quente <span class="placeholder-tag-mini">exemplo</span></p>
+      <div class="home-ambient-video">
+        <video autoplay muted loop playsinline disablepictureinpicture controlsList="nodownload noplaybackrate nofullscreen">
+          <source src="videos/detalhe-produto.mp4" type="video/mp4">
+        </video>
+      </div>
     </div>
 
     <div class="content home-content">
@@ -665,7 +672,7 @@
         <p class="home-section-title" style="margin-top:0; margin-bottom:16px;">Sua evolução na Cerne</p>
         <div class="evolution-stats-grid" id="evolution-stats"></div>
         <div class="vitrine-tip" style="margin-top:18px; margin-bottom:0;">
-          <div class="vitrine-tip-avatar">C</div>
+          <div class="evolution-tip-logo"><img src="images/logo-cerne.png" alt="Cerne"></div>
           <div class="vitrine-tip-bubble"><p id="evolution-tip-text"></p></div>
         </div>
       </div>
@@ -1826,10 +1833,18 @@ function renderPhotoLookGrid(containerId, photoLooks, batchSize){
 }
 
 // ==================== HOME REDESENHADA ====================
-const OCCASION_ICONS = {
-  trabalho: 'ti-briefcase', encontro: 'ti-heart', diaadia: 'ti-coffee', evento: 'ti-star',
-  verao: 'ti-sun', networking: 'ti-users', noite: 'ti-moon-stars', inverno: 'ti-snowflake',
-  formaldia: 'ti-shirt', formalnoite: 'ti-crown', treino: 'ti-barbell'
+const OCCASION_ICON_SVGS = {
+  trabalho: `<rect x="3" y="7" width="18" height="12" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="3" y1="12" x2="21" y2="12"/>`,
+  encontro: `<path d="M12 20s-7-4.5-9.5-9C1 8 2 4 6 4c2 0 4 1.5 6 4 2-2.5 4-4 6-4 4 0 5 4 3.5 7-2.5 4.5-9.5 9-9.5 9z"/>`,
+  diaadia: `<path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8z"/><path d="M17 9h2a2.5 2.5 0 0 1 0 5h-2"/><line x1="7" y1="3" x2="7" y2="5"/><line x1="11" y1="3" x2="11" y2="5"/>`,
+  evento: `<path d="M12 3l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.2-5.4 3.2 1.3-6-4.6-4.1 6.1-.6z"/>`,
+  verao: `<circle cx="12" cy="12" r="4.3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.5" y1="4.5" x2="6.5" y2="6.5"/><line x1="17.5" y1="17.5" x2="19.5" y2="19.5"/><line x1="4.5" y1="19.5" x2="6.5" y2="17.5"/><line x1="17.5" y1="6.5" x2="19.5" y2="4.5"/>`,
+  networking: `<circle cx="8.5" cy="8.5" r="3"/><circle cx="16" cy="9.5" r="2.5"/><path d="M3 20c0-3.3 2.5-5.5 5.5-5.5S14 16.7 14 20"/><path d="M14.5 15c2.4.2 4 2 4 5"/>`,
+  noite: `<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/>`,
+  inverno: `<line x1="12" y1="2" x2="12" y2="22"/><line x1="4" y1="7" x2="20" y2="17"/><line x1="20" y1="7" x2="4" y2="17"/>`,
+  formaldia: `<path d="M8 4L4 7l2 3 2-1v11h8V9l2 1 2-3-4-3-2 2h-4z"/><path d="M11 9l1 3 1-3"/>`,
+  formalnoite: `<path d="M4 8l7 4-7 4V8z"/><path d="M20 8l-7 4 7 4V8z"/><rect x="10.5" y="10.5" width="3" height="3" rx="1"/>`,
+  treino: `<rect x="2" y="9" width="3" height="6" rx="1"/><rect x="19" y="9" width="3" height="6" rx="1"/><line x1="5" y1="12" x2="19" y2="12"/><rect x="6" y="7" width="2" height="10" rx="1"/><rect x="16" y="7" width="2" height="10" rx="1"/>`
 };
 let homeCurrentOccasion = 'diaadia';
 
@@ -1851,7 +1866,8 @@ function renderOccasionGrid(){
   Object.keys(OCCASIONS).forEach(key => {
     const item = document.createElement('div');
     item.className = 'occasion-grid-item' + (key === homeCurrentOccasion ? ' active' : '');
-    item.innerHTML = `<i class="ti ${OCCASION_ICONS[key] || 'ti-tag'}"></i><span>${OCCASIONS[key]}</span>`;
+    const svgPaths = OCCASION_ICON_SVGS[key] || '<circle cx="12" cy="12" r="8"/>';
+    item.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${svgPaths}</svg><span>${OCCASIONS[key]}</span>`;
     item.addEventListener('click', () => {
       homeCurrentOccasion = key;
       renderOccasionGrid();
@@ -1921,7 +1937,7 @@ function homeLookCardHtml(look){
   return `
     <div class="home-look-card" data-img="${look.composicaoImg}">
       <div class="home-look-card-photos">
-        <div class="home-look-fav-btn${saved ? ' saved' : ''}"><i class="ti ${saved ? 'ti-heart-filled' : 'ti-heart'}"></i></div>
+        <div class="home-look-fav-btn${saved ? ' saved' : ''}"><svg viewBox="0 0 24 24" width="15" height="15" fill="${saved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 3.5h12a1 1 0 0 1 1 1V21l-7-4.2L5 21V4.5a1 1 0 0 1 1-1z"/></svg></div>
         <span class="home-look-match">${computeCompat(look)}% combina</span>
         <img src="${look.composicaoImg}" alt="">
         <img src="${look.pessoaImg}" alt="">
@@ -1956,13 +1972,17 @@ function wireHomeLookCards(container){
     });
   });
 }
+function goToLooksTab(){
+  const navVitrine = document.querySelector('.nav-item[data-screen="vitrine"]');
+  if (navVitrine) navVitrine.click();
+}
 function homeSectionHtml(title, looks, emptyMsg){
   const cardsHtml = looks.length
     ? looks.map(homeLookCardHtml).join('')
     : `<p class="home-look-empty">${emptyMsg}</p>`;
   return `
     <div class="home-look-section">
-      <div class="home-look-section-head"><p class="home-section-title" style="margin:0;">${title}</p>${looks.length ? '<span class="see-all">Ver todos</span>' : ''}</div>
+      <div class="home-look-section-head"><p class="home-section-title" style="margin:0;">${title}</p>${looks.length ? '<span class="see-all" data-seeall="1">Ver todos</span>' : ''}</div>
       <div class="home-look-row">${cardsHtml}</div>
     </div>`;
 }
@@ -1971,30 +1991,25 @@ function renderHomeSections(){
   const wrap = document.getElementById('home-sections');
   if (!wrap) return;
   const byOcc = PHOTO_LOOKS_REAL[chosenStyle] || {};
-  const allLooksThisStyle = Object.values(byOcc).flat();
 
   // 1. Para o seu dia (ocasião selecionada na grade)
   const paraSeuDia = (byOcc[homeCurrentOccasion] || []).slice(0, 6);
 
-  // 2. Você já consegue montar (proxy: combinações mais simples, com menos peças)
-  const jaTem = allLooksThisStyle.slice().sort((a,b) => (a.pieces||[]).length - (b.pieces||[]).length).slice(0, 6);
-
-  // 3. Para trabalhar
+  // 2. Para trabalhar
   const trabalho = (byOcc['trabalho'] || []).slice(0, 6);
 
-  // 4. Salvos recentemente
+  // 3. Salvos recentemente
   const salvos = getSavedLooks().slice(0, 6);
 
-  // 5. Experimente algo novo (outro estilo compatível)
+  // 4. Experimente algo novo (outro estilo compatível)
   const otherStyles = Object.keys(PHOTO_LOOKS_REAL).filter(s => s !== chosenStyle);
   const novoStyle = otherStyles[hashStr(chosenStyle) % otherStyles.length];
   const novo = novoStyle ? Object.values(PHOTO_LOOKS_REAL[novoStyle] || {}).flat().slice(0, 6) : [];
 
   wrap.innerHTML =
     homeSectionHtml('Para o seu dia', paraSeuDia, 'Ainda não temos looks pra essa ocasião nesse estilo.') +
-    homeSectionHtml('Você já consegue montar', jaTem, 'Sem sugestões simples por aqui ainda.') +
     homeSectionHtml('Para trabalhar', trabalho, 'Sem looks de trabalho nesse estilo ainda.') +
-    homeSectionHtml('Salvos recentemente', salvos, 'Você ainda não salvou nenhum look. Toque no ♡ de um look pra guardar aqui.') +
+    homeSectionHtml('Salvos recentemente', salvos, 'Você ainda não salvou nenhum look. Toque no marcador de um look pra guardar aqui.') +
     (novo.length ? homeSectionHtml(`Experimente algo novo — ${novoStyle}`, novo, '') : '') +
     `<div class="home-look-section">
       <div class="home-look-section-head"><p class="home-section-title" style="margin:0;">Calendário Cerne</p></div>
@@ -2011,6 +2026,7 @@ function renderHomeSections(){
       </div>
     </div>`;
   wireHomeLookCards(wrap);
+  wrap.querySelectorAll('[data-seeall]').forEach(btn => btn.addEventListener('click', goToLooksTab));
   const teaser = document.getElementById('home-calendar-teaser');
   if (teaser) teaser.addEventListener('click', () => showScreen('calendario'));
 }
