@@ -87,10 +87,6 @@
   .ai-loading{display:flex; align-items:center; gap:8px; color:var(--text-mute); font-size:13px; margin-top:16px;}
   .ai-loading i{animation:spin 1s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
-  .ai-result-style{display:flex; align-items:center; gap:12px; background:var(--accent-soft); border:1px solid var(--accent); border-radius:var(--radius-lg); padding:14px 16px; margin:20px 0 14px;}
-  .ai-result-style i{font-size:22px; color:var(--accent-text); flex-shrink:0;}
-  .ai-result-style .name{font-family:var(--serif); font-size:16px; font-weight:500;}
-  .ai-result-style .desc{font-size:12.5px; color:var(--text-soft); margin-top:3px; line-height:1.5;}
   .num-input-row{display:flex; gap:14px; margin-bottom:4px;}
   .num-input-box{flex:1;}
   .num-input-box label{display:block; font-size:12px; color:var(--text-mute); margin-bottom:6px;}
@@ -118,6 +114,8 @@
   .style-tag-badge{display:inline-block; background:var(--olive-soft); color:var(--olive); font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.3px; padding:2.5px 7px; border-radius:20px;}
   .style-row-desc{display:inline-flex; align-items:flex-start; gap:5px; background:var(--accent-soft); border-radius:7px; padding:5px 9px; font-size:11px; color:var(--accent-text); line-height:1.4; font-weight:500;}
   .avatar-preview-wrap svg{width:132px; height:264px;}
+  .avatar-preview-wrap{display:flex; justify-content:center;}
+  .avatar-preview-wrap img{width:132px; height:264px; object-fit:cover; border-radius:var(--radius-lg);}
   .swatch-row{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:4px;}
   .swatch{width:34px; height:34px; border-radius:50%; border:2px solid var(--line); cursor:pointer; position:relative;}
   .swatch.selected{border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft);}
@@ -815,31 +813,6 @@
     </div>
   </div>
 
-  <!-- CERNE IA (antigo Consultor) -->
-  <div class="screen" id="consultor">
-    <div class="topbar">
-      <div class="brand"><img src="images/logo-cerne.png" alt="Cerne" class="brand-logo-img"></div>
-    </div>
-    <div class="content">
-      <div id="consultor-locked" style="display:none; text-align:center; padding:36px 12px;">
-        <i class="ti ti-hourglass-low" style="font-size:36px; color:var(--accent-text);"></i>
-        <h2 style="font-family:var(--serif); font-size:19px; font-weight:500; margin:16px 0 8px;">Você usou suas consultas deste mês</h2>
-        <p style="font-size:13px; color:var(--text-soft); line-height:1.6; margin-bottom:24px;" id="consultor-limit-desc"></p>
-        <button class="primary-btn" id="consultor-locked-back" style="background:var(--card); border:1px solid var(--line); color:var(--text-soft);">Voltar</button>
-      </div>
-      <div id="consultor-content">
-        <p class="section-label">Cerne IA</p>
-        <p style="font-size:13px; color:var(--text-soft); margin:-6px 0 6px;">Descreva o que você quer expressar. A IA recomenda o estilo e os looks certos pra isso.</p>
-        <p style="font-size:11.5px; color:var(--text-mute); margin-bottom:16px; font-family:var(--mono);" id="ai-usage-counter"></p>
-        <textarea class="ai-textarea" id="ai-input" placeholder="Ex: quero parecer mais confiante numa entrevista de emprego"></textarea>
-        <button class="primary-btn" id="ai-submit">Perguntar à IA</button>
-        <p class="err-text" id="ai-err" style="display:none;">Escreva algo antes de perguntar</p>
-        <div class="ai-loading" id="ai-loading" style="display:none;"><i class="ti ti-loader-2"></i>Pensando no seu estilo...</div>
-        <div id="ai-result"></div>
-      </div>
-    </div>
-  </div>
-
   <!-- CALENDÁRIO (em branco por hora) -->
   <div class="screen" id="calendario">
     <div class="topbar">
@@ -888,7 +861,7 @@
       <div class="palette-card">
         <p class="palette-eyebrow">Seu acesso</p>
         <p class="palette-name">Acesso vitalício</p>
-        <p class="palette-desc">Pagamento único, sem mensalidade. A Cerne IA tem um limite de consultas por mês — veja quanto resta na aba Cerne IA.</p>
+        <p class="palette-desc">Pagamento único, sem mensalidade. Acesso completo e vitalício à plataforma.</p>
       </div>
 
       <div class="palette-card palette-card-detailed">
@@ -942,7 +915,6 @@
   <div class="navbar">
     <div class="nav-item active" data-screen="home"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5L12 4l8 7.5"/><path d="M6 10v9.5h5v-6h2v6h5V10"/></svg></span><span class="nav-label">Início</span></div>
     <div class="nav-item" data-screen="vitrine"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span><span class="nav-label">Looks</span></div>
-    <div class="nav-item" data-screen="consultor"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="4"/><path d="M8 20l2.5-3"/><circle cx="8.5" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="11" r="0.9" fill="currentColor" stroke="none"/><circle cx="15.5" cy="11" r="0.9" fill="currentColor" stroke="none"/></svg></span><span class="nav-label">Cerne IA</span></div>
     <div class="nav-item" data-screen="calendario"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><line x1="4" y1="9" x2="20" y2="9"/><line x1="8" y1="3" x2="8" y2="6"/><line x1="16" y1="3" x2="16" y2="6"/></svg></span><span class="nav-label">Calendário</span></div>
     <div class="nav-item" data-screen="profile"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4.1 3.4-7 7.5-7s7.5 2.9 7.5 7"/></svg></span><span class="nav-label">Perfil</span></div>
   </div>
@@ -984,9 +956,6 @@ let chosenStyle = '', chosenAge = null, chosenHeight = null, chosenWeight = null
 let chosenFit = '', chosenSize = '', weightSkipped = false;
 let chosenHairTexture = '', chosenHairLength = '', chosenHairCut = '';
 let chosenBeard = 'sem-barba', chosenEyes = '', chosenSun = '', chosenMetal = '';
-const AI_MONTHLY_LIMIT = 15;
-let aiUsageMonth = '';
-let aiUsageCount = 0;
 
 // ---------- data ----------
 const OCCASIONS = {
@@ -1136,7 +1105,6 @@ function refreshLookRenders(){
   if (typeof renderHomeFull === 'function') renderHomeFull();
   const activeVitTab = document.querySelector('#vitrine-occ-tabs .occ-tab.active');
   if (activeVitTab) renderVitrine(activeVitTab.dataset.v);
-  if (typeof lastAIResult !== 'undefined' && lastAIResult) renderAIResult(lastAIResult);
   renderShoppingList();
   if (typeof renderProfileExtras === 'function') renderProfileExtras();
 }
@@ -1181,36 +1149,6 @@ function loadProfile(){
   }catch(e){ return false; }
 }
 
-// ---------- uso mensal do consultor de IA ----------
-function currentMonthKey(){
-  const now = new Date();
-  return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
-}
-function loadAiUsage(){
-  try{
-    const raw = localStorage.getItem('cerne_ai_usage_v1');
-    const d = raw ? JSON.parse(raw) : null;
-    const nowKey = currentMonthKey();
-    if (!d || d.month !== nowKey){
-      aiUsageMonth = nowKey;
-      aiUsageCount = 0;
-      saveAiUsage();
-    } else {
-      aiUsageMonth = d.month;
-      aiUsageCount = d.count || 0;
-    }
-  }catch(e){
-    aiUsageMonth = currentMonthKey();
-    aiUsageCount = 0;
-  }
-}
-function saveAiUsage(){
-  try{ localStorage.setItem('cerne_ai_usage_v1', JSON.stringify({ month: aiUsageMonth, count: aiUsageCount })); }catch(e){}
-}
-function updateAiUsageCounter(){
-  const el = document.getElementById('ai-usage-counter');
-  if (el) el.textContent = `${Math.max(0, AI_MONTHLY_LIMIT - aiUsageCount)} de ${AI_MONTHLY_LIMIT} consultas restantes este mês`;
-}
 
 // ---------- nav ----------
 function showScreen(id){
@@ -1231,7 +1169,6 @@ document.querySelectorAll('.nav-item').forEach(item => {
       renderProfileExtras();
       renderShoppingList();
     }
-    if (item.dataset.screen === 'consultor') { showConsultorContent(); updateAiUsageCounter(); }
   });
 });
 
@@ -1438,6 +1375,39 @@ function mapHairToStyleKey(texture, length, cut){
   if (length === 'longo') return 'longo';
   if (cut === 'social' || cut === 'side-part') return 'social';
   return 'curto';
+}
+
+// ---------- avatar real: escolhe a imagem mais parecida (estilo Sizebay) ----------
+// 45 fotos: 3 corpos × 3 peles × 5 cabelos. Convertemos as escolhas detalhadas
+// da pessoa pra essas categorias mais simples, e pegamos a foto correspondente.
+function getAvatarBodyCategory(){
+  if (chosenHeight && chosenWeight && !weightSkipped){
+    const bmi = chosenWeight / ((chosenHeight / 100) ** 2);
+    if (bmi < 22) return 'magro';
+    if (bmi > 27) return 'robusto';
+  }
+  return 'medio';
+}
+function getAvatarSkinCategory(){
+  const idx = SKIN_TONES.indexOf(chosenSkin);
+  if (idx < 0) return 'medio';
+  if (idx <= 3) return 'claro';
+  if (idx <= 6) return 'medio';
+  return 'escuro';
+}
+const HAIR_STYLE_TO_AVATAR_CATEGORY = {
+  careca: 'careca', raspado: 'careca', crespo: 'crespo', cacheado: 'ondulado',
+  ondulado: 'ondulado', undercut: 'curto', coque: 'longo', longo: 'longo',
+  social: 'curto', curto: 'curto'
+};
+function getAvatarHairCategory(){
+  return HAIR_STYLE_TO_AVATAR_CATEGORY[chosenHairStyle] || 'curto';
+}
+function getAvatarImagePath(){
+  const corpo = getAvatarBodyCategory();
+  const pele = getAvatarSkinCategory();
+  const cabelo = getAvatarHairCategory();
+  return `images/avatares/${corpo}-${pele}-${cabelo}.jpg`;
 }
 function renderHairCutGrid(){
   const wrap = document.getElementById('hair-cut-wrap');
@@ -1853,24 +1823,10 @@ function renderProfileExtras(){
   renderFundamentos();
   renderBadges();
 }
-function showConsultorLocked(){
-  const el = document.getElementById('consultor-limit-desc');
-  const now = new Date();
-  const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-  const nextLabel = nextMonth.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' });
-  if (el) el.textContent = `Você usou suas ${AI_MONTHLY_LIMIT} consultas gratuitas deste mês. Elas renovam em ${nextLabel}.`;
-  document.getElementById('consultor-locked').style.display = 'block';
-  document.getElementById('consultor-content').style.display = 'none';
-}
-function showConsultorContent(){
-  document.getElementById('consultor-locked').style.display = 'none';
-  document.getElementById('consultor-content').style.display = 'block';
-}
-document.getElementById('consultor-locked-back').addEventListener('click', showConsultorContent);
 
 function renderAvatarPreview(){
   const el = document.getElementById('avatar-preview');
-  if (el) el.innerHTML = avatarBodySVG();
+  if (el) el.outerHTML = `<img id="avatar-preview" src="${getAvatarImagePath()}" alt="Seu avatar" style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-lg);">`;
   renderPaletteCard('palette-name', 'palette-desc', 'palette-swatches');
 }
 
@@ -1878,7 +1834,7 @@ function renderMiniAvatars(){
   const hasPhoto = typeof userPhotoDataUrl !== 'undefined' && userPhotoDataUrl;
   const markup = hasPhoto
     ? `<img src="${userPhotoDataUrl}" alt="Sua foto" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`
-    : `<svg class="avatar-mini" viewBox="0 0 100 200">${avatarBodySVG()}</svg>`;
+    : `<img src="${getAvatarImagePath()}" alt="Seu avatar" style="width:100%; height:100%; object-fit:cover; object-position:top center; border-radius:50%;">`;
   ['avatar-mini-home', 'avatar-mini-profile'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.innerHTML = markup;
@@ -2395,7 +2351,7 @@ function renderCerneProfileCard(){
     const byOcc = PHOTO_LOOKS_REAL[chosenStyle] || {};
     const anyOcc = Object.keys(byOcc)[0];
     const anyLook = anyOcc ? byOcc[anyOcc][0] : null;
-    avatarEl.innerHTML = anyLook ? `<img src="${anyLook.pessoaImg}" alt="">` : `<svg viewBox="0 0 100 200">${avatarBodySVG()}</svg>`;
+    avatarEl.innerHTML = anyLook ? `<img src="${anyLook.pessoaImg}" alt="">` : `<img src="${getAvatarImagePath()}" alt="" style="object-position:top center;">`;
   }
 }
 document.getElementById('home-see-identity').addEventListener('click', () => showScreen('profile'));
@@ -2452,103 +2408,11 @@ function renderLooks(occ){
   renderHomeFull();
 }
 
-// ---------- consultor: AI style recommendation ----------
 function escapeHtml(str){
   const d = document.createElement('div');
   d.textContent = str == null ? '' : String(str);
   return d.innerHTML;
 }
-
-let lastAIResult = null;
-async function askStyleAI(userText){
-  const styleNames = Object.keys(LOOKS_BY_STYLE).join(', ');
-  const occasionKeys = Object.keys(OCCASIONS).join(', ');
-  const paletteInfo = SEASON_PALETTES[computePaletteKey()];
-  const profileLine = `Perfil da pessoa: ${chosenAge || '?'} anos, ${chosenHeight || '?'}cm, ${chosenWeight || '?'}kg, estilo atual: ${chosenStyle || 'não definido'}, paleta de cores pessoal: ${paletteInfo.name} (${paletteInfo.desc}).`;
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 1000,
-      system: `Você é o consultor de estilo do app CERNE. Existem exatamente 7 arquétipos de estilo: ${styleNames}. Existem exatamente estas ocasiões (use a chave exata): ${occasionKeys}. Baseado no perfil e no que a pessoa quer expressar, responda APENAS com um JSON válido, sem markdown, sem texto antes ou depois, exatamente neste formato:
-{"estilo":"<um dos 7 nomes exatos listados acima>","motivo":"<1-2 frases em português explicando por que esse estilo combina com o que a pessoa quer expressar, tom direto e caloroso>","looks":[{"titulo":"<nome curto do look>","ocasiao":"<uma das chaves de ocasião exatas>","pecas":["peça 1","peça 2","peça 3"]},{"titulo":"<nome curto>","ocasiao":"<chave>","pecas":["peça 1","peça 2"]}]}
-Sugira exatamente 2 looks, cada um com 3 a 4 peças, e escolha a ocasião mais coerente com o que a pessoa descreveu. Use vocabulário comum de moda masculina brasileira (ex: camisa lisa, calça alfaiataria, tênis branco, blazer, mocassim, camiseta premium, calça reta, sapato couro, sapato social).`,
-      messages: [{ role: 'user', content: profileLine + '\n\nO que a pessoa quer expressar: ' + userText }]
-    })
-  });
-  const data = await response.json();
-  const text = (data.content || []).map(b => b.text || '').join('');
-  const clean = text.replace(/```json|```/g, '').trim();
-  return JSON.parse(clean);
-}
-
-function renderAIResult(parsed){
-  lastAIResult = parsed;
-  const result = document.getElementById('ai-result');
-  const styleName = LOOKS_BY_STYLE[parsed.estilo] ? parsed.estilo : 'Clássico';
-  let html = `
-    <div class="ai-result-style">
-      <i class="ti ti-sparkles"></i>
-      <div>
-        <div class="name">${escapeHtml(styleName)}</div>
-        <div class="desc">${escapeHtml(parsed.motivo)}</div>
-      </div>
-    </div>
-  `;
-  (parsed.looks || []).forEach((look, i) => {
-    const occLabel = OCCASIONS[look.ocasiao] || '';
-    html += `
-      <div class="look-card">
-        <div class="look-head">
-          <div class="look-num">SUGESTÃO ${String(i+1).padStart(2,'0')}</div>
-          ${occLabel ? `<div class="look-occasion">${escapeHtml(occLabel)}</div>` : ''}
-        </div>
-        <div class="look-title">${escapeHtml(look.titulo)}</div>
-        <div class="look-pieces">${(look.pecas || []).map(p => pieceTagHtml(p)).join('')}</div>
-      </div>
-    `;
-  });
-  html += `<button class="primary-btn" id="ai-apply-style">Aplicar esse estilo ao meu perfil</button>`;
-  result.innerHTML = html;
-  document.getElementById('ai-apply-style').addEventListener('click', () => {
-    chosenStyle = styleName;
-    trackStyleExplored(chosenStyle);
-    renderAvatarPreview();
-    renderMiniAvatars();
-    renderVitrine();
-    const tag = chosenStyle + ' · ' + chosenHeight + 'cm';
-    if (document.getElementById('home-profile-tag')) document.getElementById('home-profile-tag').textContent = tag;
-    document.getElementById('profile-profile-tag').textContent = tag;
-    updateProfileStylePhoto();
-    saveProfile();
-    renderHomeFull();
-    showScreen('home');
-  });
-}
-
-document.getElementById('ai-submit').addEventListener('click', async () => {
-  if (aiUsageCount >= AI_MONTHLY_LIMIT) { showConsultorLocked(); return; }
-  const input = document.getElementById('ai-input').value.trim();
-  const err = document.getElementById('ai-err');
-  const loading = document.getElementById('ai-loading');
-  const result = document.getElementById('ai-result');
-  if (!input) { err.style.display = 'block'; return; }
-  err.style.display = 'none';
-  result.innerHTML = '';
-  loading.style.display = 'flex';
-  aiUsageCount++;
-  saveAiUsage();
-  updateAiUsageCounter();
-  try {
-    const parsed = await askStyleAI(input);
-    renderAIResult(parsed);
-  } catch (e) {
-    result.innerHTML = `<p class="err-text" style="display:block;">Não consegui gerar a recomendação agora. Tenta de novo em instantes.</p>`;
-  } finally {
-    loading.style.display = 'none';
-  }
-});
 
 // ---------- vitrine: curated looks by style ----------
 let vitrineViewMode = 'paravoce';
@@ -2596,7 +2460,7 @@ function renderLooksProfileCard(){
     const byOcc = PHOTO_LOOKS_REAL[chosenStyle] || {};
     const anyOcc = Object.keys(byOcc)[0];
     const anyLook = anyOcc ? byOcc[anyOcc][0] : null;
-    avatarEl.innerHTML = anyLook ? `<img src="${anyLook.pessoaImg}" alt="">` : `<svg viewBox="0 0 100 200">${avatarBodySVG()}</svg>`;
+    avatarEl.innerHTML = anyLook ? `<img src="${anyLook.pessoaImg}" alt="">` : `<img src="${getAvatarImagePath()}" alt="" style="object-position:top center;">`;
   }
 }
 document.querySelectorAll('#looks-view-selector .view-selector-item').forEach(item => {
@@ -2927,7 +2791,6 @@ function renderShoppingList(){
 }
 
 // ---------- bootstrap: restore saved profile or start onboarding ----------
-loadAiUsage();
 refreshProfileNameDisplay();
 if (loadProfile()){
   syncOnboardingSelections();
@@ -2948,7 +2811,6 @@ if (loadProfile()){
   showScreen('ob-style');
 }
 // se não tem nome nem perfil salvo, fica na tela "ob-name" (já ativa por padrão no HTML)
-updateAiUsageCounter();
 </script>
 </body>
 </html>
